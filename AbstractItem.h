@@ -23,16 +23,6 @@ public:
 	void setGenre(const std::vector<std::string> g);
 	const std::string getCountry() const;
 	void setCountry(const std::string c);
-
-	void setTitle(std::string& s);
-	const unsigned int getYear() const;
-	void setYear(unsigned int& y);
-	const std::string getDescription() const;
-	void setDescription(std::string s);
-	const std::vector<std::string> getGenre() const;
-	void setGenre(std::vector<std::string> g);
-	const std::string getCountry() const;
-	void setCountry(std::string);
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
 
