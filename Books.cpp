@@ -1,8 +1,7 @@
 #include <Books.h>
 
-Books::Books(std::string _author, vector<std::string> _pages, unsigned int _publ_house) : author(_author), pages(_pages), publ_house(_publ_house) {};
+Books::Books(std::string _author, unsigned int _pages, std::string _publ_house) : author(_author), pages(_pages), publ_house(_publ_house) {};
 
-Books::~Books() {};
 
 const std::string Books::getAuthor() const {
 	return author;
@@ -16,9 +15,9 @@ const unsigned int Books::getPages() const {
 void Books::setPages(unsigned int& pag) {
 	this->pages = pag;
 }
-const unsigned int Books::getPub() const {
+const std::string Books::getPub() const {
 	return publ_house;
 }
-void Books::setPub(unsigned int& pub) {
-	this->publ_house = pub;
+void Books::setPub(const std::string& b) {
+	this->publ_house = b;
 }

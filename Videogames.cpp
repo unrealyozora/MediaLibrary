@@ -1,8 +1,7 @@
 #include <Videogames.h>
 
-Videogames::Videogames(std::string _author, vector<std::string> _pages, unsigned int _publ_house) : author(_author), pages(_pages), publ_house(_publ_house) {};
+Videogames::Videogames(std::string _developer, bool _multiplayer) : developer(_developer), multiplayer(_multiplayer){};
 
-Videogames::~Videogames() {};
 
 const std::string Videogames::getDeveloper() const {
 	return developer;

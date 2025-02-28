@@ -4,20 +4,16 @@
 #include <string>
 #include <vector>
 
-namespace std::string {
-	class Videogames {
+class Videogames {
 	private:
-		string developer;
+		std::string developer;
 		bool multiplayer;
 	protected:
-		Videogames(string developer, bool multiplayer);
+		Videogames(std::string _developer, bool _multiplayer);
 	public:
-		virtual ~Videogames();
-
-		const string getDeveloper() const;
-		void setDeveloper(string& dev);
+		const std::string getDeveloper() const;
+		void setDeveloper(const std::string& dev);
 		const unsigned int getMultiplayer() const;
-		void setMultiplayer(bool mult);
-	};
-}
+		void setMultiplayer(const bool mult);
+};
 #endif

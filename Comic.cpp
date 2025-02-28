@@ -1,8 +1,7 @@
 #include <Comic.h>
 
-Comic::Comic(std::string _author, vector<std::string> _genre, unsigned int _chapters): author(_author), chapters(_chapters){};
+Comic::Comic(std::string _author, std::vector<std::string> _genre, unsigned int _chapters): author(_author), chapters(_chapters){};
 
-Comic::~Comic() {};
 
 const std::string Comic::getAuthor() const{
 	return author;

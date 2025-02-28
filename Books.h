@@ -4,22 +4,20 @@
 #include <string>
 #include <vector>
 
-namespace std::string {
-	class Books {
+class Books {
 	private:
-		string author;
+		std::string author;
 		unsigned int pages;
-		string publ_house;
+		std::string publ_house;
 	protected:
-		Books(string author, unsigned int pages, string publ_house);
+		Books(std::string _author, unsigned int _pages, std::string _publ_house);
 	public:
-		virtual ~Books();
-		const string getAuthor() const;
-		void setAuthor(string& auth);
+		const std::string getAuthor() const;
+		void setAuthor(const std::string& auth);
 		const unsigned int getPages() const;
 		void setPages(unsigned int& pag);
-		const string getPub() const;
-		void setPub(string pub);
-	};
-}
+		const std::string getPub() const;
+		void setPub(const std::string& pub);
+};
+
 #endif

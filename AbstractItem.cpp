@@ -20,18 +20,18 @@ void AbstractItem::setYear(unsigned int& y) {
 const std::string AbstractItem::getDescription() const {
 	return description;
 }
-void AbstractItem::setDescription(const std::string s){
+void AbstractItem::setDescription(const std::string& s){
 	this->description = s;
 }
 const std::vector<std::string> AbstractItem::getGenre() const{
 	return genre;
 }
-void AbstractItem::setGenre(const std::vector<std::string> g){
+void AbstractItem::setGenre(const std::vector<std::string>& g){
 	this->genre = g;
 }
 const std::string AbstractItem::getCountry() const{
 	return country;
 }
-void AbstractItem::setCountry(const std::string c){
+void AbstractItem::setCountry(const std::string& c){
 	this->country = c;
 }

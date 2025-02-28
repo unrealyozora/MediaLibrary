@@ -18,11 +18,11 @@ public:
 	const unsigned int getYear() const;
 	void setYear(unsigned int& y);
 	const std::string getDescription() const;
-	void setDescription(const std::string s);
+	void setDescription(const std::string& s);
 	const std::vector<std::string> getGenre() const;
-	void setGenre(const std::vector<std::string> g);
+	void setGenre(const std::vector<std::string>& g);
 	const std::string getCountry() const;
-	void setCountry(const std::string c);
+	void setCountry(const std::string& c);
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
 
