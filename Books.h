@@ -1,10 +1,7 @@
 #ifndef BOOKS_H
 #define BOOKS_H
-
-#include <string>
-#include <vector>
-
-class Books {
+#include <AbstractItem.h>
+class Books: public AbstractItem{
 	private:
 		std::string author;
 		unsigned int pages;

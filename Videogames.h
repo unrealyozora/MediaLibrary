@@ -1,10 +1,9 @@
 #ifndef VIDEOGAMES_H
 #define VIDEOGAMES_H
+#include <AbstractItem.h>
 
-#include <string>
-#include <vector>
 
-class Videogames {
+class Videogames:public AbstractItem {
 	private:
 		std::string developer;
 		bool multiplayer;

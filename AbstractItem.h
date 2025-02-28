@@ -10,7 +10,8 @@ private:
 	std::vector<std::string> genre;
 	std::string country;
 protected:
-	AbstractItem(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country);
+	//Added default parameters, maybe change later
+	AbstractItem(std::string _title = "Default Title", unsigned int _year = 1950, std::string _description = "Default Description", std::vector<std::string> _genre = {}, std::string _country="Italy");
 public:
 	virtual ~AbstractItem();
 	const std::string getTitle() const;

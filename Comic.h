@@ -1,10 +1,8 @@
 #ifndef COMIC_H
 #define COMIC_H
+#include <AbstractItem.h>
 
-#include <string>
-#include <vector>
-
-class Comic {
+class Comic:public AbstractItem {
     private:
         std::string author;
         unsigned int chapters;
