@@ -4,25 +4,25 @@
 #include <vector>
 class AbstractItem {
 private:
-	std::string Title;
-	unsigned int Year;
-	std::string Description;
-	std::vector<std::string> Genre;
-	std::string Country;
+	std::string title;
+	unsigned int year;
+	std::string description;
+	std::vector<std::string> genre;
+	std::string country;
 protected:
-	AbstractItem(std::string Title, unsigned int Year, std::string Description, std::vector<std::string> Genre, std::string Country);
+	AbstractItem(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country);
 public:
 	virtual ~AbstractItem();
-	std::string getTitle();
-	void setTitle(std::string& s);
-	unsigned int getYear();
+	const std::string getTitle() const;
+	void setTitle(const std::string& s);
+	const unsigned int getYear() const;
 	void setYear(unsigned int& y);
-	std::string getDescription();
-	void setDescription(std::string s);
-	std::vector<std::string> getGenre();
-	void setGenre(std::vector<std::string> g);
-	std::string getCountry();
-	void setCountry(std::string);
+	const std::string getDescription() const;
+	void setDescription(const std::string s);
+	const std::vector<std::string> getGenre() const;
+	void setGenre(const std::vector<std::string> g);
+	const std::string getCountry() const;
+	void setCountry(const std::string c);
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
 
