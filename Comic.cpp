@@ -7,12 +7,12 @@ Comic::~Comic() {};
 const std::string Comic::getAuthor() const{
 	return author;
 }
-void Comic::setAuthor(const std::string& s) {
-	this->author = s;
+void Comic::setAuthor(const std::string& dir) {
+	this->author = dir;
 }
 const unsigned int Comic::getChapters() const {
 	return chapters;
 }
-void Comic::setChapters(unsigned int& y) {
-	this->chapters = y;
+void Comic::setChapters(unsigned int& len) {
+	this->chapters = len;
 }

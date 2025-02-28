@@ -13,15 +13,15 @@ protected:
 	AbstractItem(std::string Title, unsigned int Year, std::string Description, std::vector<std::string> Genre, std::string Country);
 public:
 	virtual ~AbstractItem();
-	std::string getTitle();
+	const std::string getTitle() const;
 	void setTitle(std::string& s);
-	unsigned int getYear();
+	const unsigned int getYear() const;
 	void setYear(unsigned int& y);
-	std::string getDescription();
+	const std::string getDescription() const;
 	void setDescription(std::string s);
-	std::vector<std::string> getGenre();
+	const std::vector<std::string> getGenre() const;
 	void setGenre(std::vector<std::string> g);
-	std::string getCountry();
+	const std::string getCountry() const;
 	void setCountry(std::string);
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
