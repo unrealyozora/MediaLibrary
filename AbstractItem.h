@@ -14,7 +14,6 @@ protected:
 public:
 	virtual ~AbstractItem();
 	const std::string getTitle() const;
-<<<<<<< HEAD
 	void setTitle(const std::string& s);
 	const unsigned int getYear() const;
 	void setYear(unsigned int& y);
@@ -24,7 +23,7 @@ public:
 	void setGenre(const std::vector<std::string> g);
 	const std::string getCountry() const;
 	void setCountry(const std::string c);
-=======
+
 	void setTitle(std::string& s);
 	const unsigned int getYear() const;
 	void setYear(unsigned int& y);
@@ -34,7 +33,6 @@ public:
 	void setGenre(std::vector<std::string> g);
 	const std::string getCountry() const;
 	void setCountry(std::string);
->>>>>>> 8ec95786043334a1df7a4ca5b091ba10cf9784ef
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
 
