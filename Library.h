@@ -13,12 +13,12 @@ public:
 
 	//Metodi per aggiungere e rimuovere un oggetto alla libreria
 	void addItem(std::shared_ptr<AbstractItem> item);
-	void removeItem(std::string title, unsigned int year); //il metodo removeItem richiede il titolo e l'anno, in modo da non creare eventuali casi di omonimia
+	void removeItem(const std::string& title, unsigned int year); //il metodo removeItem richiede il titolo e l'anno, in modo da non creare eventuali casi di omonimia
 	
-
+	void fromJson(const QString& path);
 	//sezione gestione json/xml
 	/*void toJson();
-	void fromJson();
+	
 	void toXml();
 	void fromXml();*/
 };

@@ -1,4 +1,8 @@
 #include "Library.h"
+#include <qfile.h>
+#include <qjsondocument.h>
+#include <qjsonarray.h>
+#include <qjsonobject.h>
 
 const unsigned int Library::getSize() const {
 	return media.size();
@@ -16,10 +20,44 @@ void Library::addItem(std::shared_ptr<AbstractItem> item) {
 	media.push_back(item);
 }
 
-void Library::removeItem(std::string title, unsigned int year) {
+void Library::removeItem(const std::string& title, unsigned int year) {
 	for (int x = 0; x < media.size(); x++) {
 		if (media[x]->getTitle() == title && media[x]->getYear() == year) {
 			media.removeAt(x);
 		}
 	}
 }
+
+void Library::fromJson(const QString& path) {
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly)) {
+		throw QString("Errore di apertura file"); //forse meglio cambiare il tipo di ritorno del metodo in bool, forse più semplice
+	}
+	else {
+		QByteArray docData = file.readAll();
+		file.close();
+		QJsonDocument doc = QJsonDocument::fromJson(docData);
+		QJsonArray array = doc.array();
+		for (const auto& item : array) {
+			QJsonObject itemObject = item.toObject();
+			QString category = itemObject["tipo"].toString();
+			std::shared_ptr<AbstractItem> newItem;
+			if (category == "Movie") {
+				
+			}
+			else if (category == "Album") {
+
+			}
+			else if (category == "Videogame") {
+
+			}
+			else if (category == "Comic") {
+
+			}
+			else if (category == "Books") {
+
+			}
+		}
+	}
+}
+ 
