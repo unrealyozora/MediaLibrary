@@ -3,6 +3,7 @@
 Movie::Movie(std::string _director, std::string _screenwriter, unsigned int _length, std::string _production_company) :
 	director(_director), screenwriter(_screenwriter), length(_length), production_company(_production_company) {
 };
+
 const std::string Movie::getDirector() const {
 	return director;
 }
@@ -33,4 +34,8 @@ const std::string Movie::getProd() const {
 
 void Movie::setProd(const std::string p) {
 	this->production_company = p;
+}
+
+void Movie::accept(ItemVisitor& visitor){
+	visitor.visitMovie(*this);
 }
