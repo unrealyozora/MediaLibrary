@@ -1,18 +1,20 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 #include <AbstractItem.h>
+#include <qlist.h>
 #include <memory>
 class Library {
 private:
-	std::vector<std::shared_ptr<AbstractItem>> media;
+	QList<std::shared_ptr<AbstractItem>> media;
 public:
 	const unsigned int getSize() const;
 	const bool is_empty() const;
+	QList<std::shared_ptr<AbstractItem>> getList();
 
-	/*-------------------------------------------------------NUOVA AGGIUNTA-------------------------------------------------------*/
-	// Metodo per aggiungere un oggetto alla libreria
-	//void addItem(std::shared_ptr<AbstractItem> item);
-	/*----------------------------------------------------------------------------------------------------------------------------*/
+	//Metodi per aggiungere e rimuovere un oggetto alla libreria
+	void addItem(std::shared_ptr<AbstractItem> item);
+	void removeItem(std::string title, unsigned int year); //il metodo removeItem richiede il titolo e l'anno, in modo da non creare eventuali casi di omonimia
+	
 
 	//sezione gestione json/xml
 	/*void toJson();
