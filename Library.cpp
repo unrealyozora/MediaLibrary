@@ -3,6 +3,7 @@
 #include <qjsondocument.h>
 #include <qjsonarray.h>
 #include <qjsonobject.h>
+#include <JsonReader.h>
 
 const unsigned int Library::getSize() const {
 	return media.size();
@@ -43,7 +44,9 @@ void Library::fromJson(const QString& path) {
 			QString category = itemObject["tipo"].toString();
 			std::shared_ptr<AbstractItem> newItem;
 			if (category == "Movie") {
-				
+				newItem = JsonReader::readMovie(itemObject);//sto provando a implementare una classe JsonReader che verra chiamata qui a seconda del tipo di oggetto da aggiungere
+															// il problema sta nel restituire il giusto tipo (al momento restituisco abstractItem ma costruito con i parametri specifici di Movie
+															// non mi da nessun errore ma non credo si possa fare
 			}
 			else if (category == "Album") {
 

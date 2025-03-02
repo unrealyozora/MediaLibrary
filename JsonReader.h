@@ -4,6 +4,6 @@
 #include <qjsonobject.h>
 class JsonReader {
 public:
-	AbstractItem* readMovie(QJsonObject& obj) const ;
+	static std::shared_ptr<AbstractItem> readMovie(QJsonObject& obj) ;
 };
 #endif

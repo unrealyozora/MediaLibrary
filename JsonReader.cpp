@@ -1,6 +1,8 @@
 #include "JsonReader.h"
 #include <movie.h>
 #include <memory>
-AbstractItem* JsonReader::readMovie(QJsonObject& obj) const  {
-	Movie* movie=new Movie(obj.value("director").toString())
+std::shared_ptr<AbstractItem> JsonReader::readMovie(QJsonObject& obj)  {
+	return std::make_shared<AbstractItem>
+		(obj["title"].toString(), obj["year"].toString(), obj["description"].toArray(),obj["genre"].toArray(), obj["country"].toString(), 
+			obj["director"].toString(), obj["screenwriter"].toString(), obj["length"].toString(), obj["production_comp"].toString());
 }
