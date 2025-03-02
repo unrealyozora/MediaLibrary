@@ -7,7 +7,7 @@ private:
 	unsigned int songs;
 	unsigned int length;
 public:
-	Album(std::string _author, unsigned int _songs, unsigned int _length);
+	Album(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _author, unsigned int _songs, unsigned int _length);
 	const std::string getAuthor() const ;
 	void setAuthor(const std::string& a);
 	const unsigned int getLength() const;
