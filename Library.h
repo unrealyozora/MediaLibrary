@@ -9,7 +9,7 @@ private:
 public:
 	const unsigned int getSize() const;
 	const bool is_empty() const;
-	QList<std::shared_ptr<AbstractItem>> getList();
+	QList<std::shared_ptr<AbstractItem>> getList() const;
 
 	//Metodi per aggiungere e rimuovere un oggetto alla libreria
 	void addItem(std::shared_ptr<AbstractItem> item);

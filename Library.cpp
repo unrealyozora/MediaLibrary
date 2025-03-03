@@ -13,7 +13,7 @@ const bool Library::is_empty() const {
 	return media.empty();
 }
 
-QList<std::shared_ptr<AbstractItem>> Library::getList() {
+QList<std::shared_ptr<AbstractItem>> Library::getList() const {
 	return media;
 }
 
@@ -32,7 +32,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 void Library::fromJson(const QString& path) {
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
-		throw QString("Errore di apertura file"); //forse meglio cambiare il tipo di ritorno del metodo in bool, forse pi� semplice
+		throw QString("Errore di apertura file");
 	}
 	else {
 		QByteArray docData = file.readAll();
@@ -44,9 +44,7 @@ void Library::fromJson(const QString& path) {
 			QString category = itemObject["tipo"].toString();
 			std::shared_ptr<AbstractItem> newItem;
 			if (category == "Movie") {
-				newItem = JsonReader::readMovie(itemObject);//sto provando a implementare una classe JsonReader che verra chiamata qui a seconda del tipo di oggetto da aggiungere
-															// il problema sta nel restituire il giusto tipo (al momento restituisco abstractItem ma costruito con i parametri specifici di Movie
-															// non mi da nessun errore ma non credo si possa fare
+				newItem = JsonReader::readMovie(itemObject);
 			}
 			else if (category == "Album") {
 				newItem = JsonReader::readAlbum(itemObject);

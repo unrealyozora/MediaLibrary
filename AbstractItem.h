@@ -2,7 +2,6 @@
 #define ITEM_ABSTRACT_ITEM_H
 #include <string>
 #include <vector>
-#include <ItemVisitor.h>
 class AbstractItem {
 protected:
 	std::string title;
@@ -11,8 +10,8 @@ protected:
 	std::string description;
 	std::string genre;
 	std::string country;
-	AbstractItem(std::string _title, unsigned int _year , std::string _description, std::string _genre, std::string _country);
 public:
+	AbstractItem(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country);
 	virtual ~AbstractItem();
 	const std::string getTitle() const;
 	void setTitle(const std::string& s);

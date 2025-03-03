@@ -18,7 +18,6 @@ public:
 	void setLength(const unsigned int l);
 	const std::string getProd() const;
 	void setProd(const std::string p);
-	virtual void accept(ItemVisitor& visitor);
 
 };
 #endif
