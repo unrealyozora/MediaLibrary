@@ -8,7 +8,7 @@ class Comic:public AbstractItem {
         unsigned int chapters;
         static constexpr mediatype type = mediatype::Comic;
     protected:
-        Comic(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string author, unsigned int chapters);
+        Comic(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, std::string author, unsigned int chapters);
 
     public:
 

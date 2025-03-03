@@ -9,9 +9,9 @@ protected:
 	const enum mediatype {Album, Book, Comic, Movie, Videogame};
 	unsigned int year;
 	std::string description;
-	std::vector<std::string> genre;
+	std::string genre;
 	std::string country;
-	AbstractItem(std::string _title, unsigned int _year , std::string _description, std::vector<std::string> _genre, std::string _country);
+	AbstractItem(std::string _title, unsigned int _year , std::string _description, std::string _genre, std::string _country);
 public:
 	virtual ~AbstractItem();
 	const std::string getTitle() const;
@@ -20,11 +20,11 @@ public:
 	void setYear(unsigned int& y);
 	const std::string getDescription() const;
 	void setDescription(const std::string& s);
-	const std::vector<std::string> getGenre() const;
-	void setGenre(const std::vector<std::string>& g);
+	const std::string getGenre() const;
+	void setGenre(const std::string& g);
 	const std::string getCountry() const;
 	void setCountry(const std::string& c);
-	virtual void accept(ItemVisitor& iv)=0;
+	//virtual void accept(ItemVisitor& iv)=0;
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
 

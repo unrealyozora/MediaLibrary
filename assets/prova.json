@@ -1,0 +1,51 @@
+[
+    {
+        "title": "Inception",
+        "year": "2010",
+        "description": "A mind-bending thriller about dreams within dreams.",
+        "genre": ["Sci-Fi", "Thriller"],
+        "country": "USA",
+        "director": "Christopher Nolan",
+        "screenwriter": "Christopher Nolan",
+        "length": 148,
+        "production_comp": "Warner Bros"
+    },
+    {
+        "title": "The Dark Side of the Moon",
+        "year": "1973",
+        "description": "An iconic progressive rock album by Pink Floyd.",
+        "genre": ["Rock", "Progressive Rock"],
+        "country": "UK",
+        "author": "Pink Floyd",
+        "songs": 10,
+        "length": 43
+    },
+    {
+        "title": "The Witcher 3",
+        "year": "2015",
+        "description": "An open-world RPG set in a fantasy universe.",
+        "genre": ["RPG", "Adventure"],
+        "country": "Poland",
+        "developer": "CD Projekt Red",
+        "multiplayer": false
+    },
+    {
+        "title": "Spider-Man",
+        "year": "1962",
+        "description": "The origin story of one of the most beloved superheroes.",
+        "genre": ["Superhero", "Action"],
+        "country": "USA",
+        "author": "Stan Lee",
+        "chapters": 15
+    },
+    {
+        "title": "1984",
+        "year": "1949",
+        "description": "A dystopian novel about totalitarian surveillance.",
+        "genre": ["Dystopian", "Political Fiction"],
+        "country": "UK",
+        "author": "George Orwell",
+        "pages": 328,
+        "publ": "Secker & Warburg"
+    }
+]

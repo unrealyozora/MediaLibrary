@@ -2,6 +2,7 @@
 #define JSON_READER_H
 #include <AbstractItem.h>
 #include <qjsonobject.h>
+#include <qjsonarray.h>
 #include <movie.h>
 #include <Videogames.h>
 #include <Comic.h>

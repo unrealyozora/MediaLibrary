@@ -18,7 +18,7 @@ QList<std::shared_ptr<AbstractItem>> Library::getList() {
 }
 
 void Library::addItem(std::shared_ptr<AbstractItem> item) {
-	media.push_back(item);
+	media.append(item);
 }
 
 void Library::removeItem(const std::string& title, unsigned int year) {

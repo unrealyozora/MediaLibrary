@@ -1,4 +1,4 @@
-#include <test_visitor.cpp>
+#include <json_test.cpp>
 
 int main() {
 	test();
