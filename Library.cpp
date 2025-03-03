@@ -32,7 +32,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 void Library::fromJson(const QString& path) {
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
-		throw QString("Errore di apertura file"); //forse meglio cambiare il tipo di ritorno del metodo in bool, forse più semplice
+		throw QString("Errore di apertura file"); //forse meglio cambiare il tipo di ritorno del metodo in bool, forse piï¿½ semplice
 	}
 	else {
 		QByteArray docData = file.readAll();
@@ -49,16 +49,16 @@ void Library::fromJson(const QString& path) {
 															// non mi da nessun errore ma non credo si possa fare
 			}
 			else if (category == "Album") {
-
+				newItem = JsonReader::readAlbum(itemObject);
 			}
 			else if (category == "Videogame") {
-
+				newItem = JsonReader::readVideogame(itemObject);
 			}
 			else if (category == "Comic") {
-
+				newItem = JsonReader::readComic(itemObject);
 			}
 			else if (category == "Books") {
-
+				newItem = JsonReader::readBooks(itemObject);
 			}
 		}
 	}
