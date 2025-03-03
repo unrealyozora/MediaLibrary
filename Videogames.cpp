@@ -1,6 +1,6 @@
 #include <Videogames.h>
 
-Videogames::Videogames(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _developer, bool _multiplayer) 
+Videogames::Videogames(enum mediatype _type, std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _developer, bool _multiplayer) 
 	:AbstractItem(_title, _year, _description, _genre, _country), developer(_developer), multiplayer(_multiplayer){};
 
 

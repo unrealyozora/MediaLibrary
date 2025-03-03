@@ -8,7 +8,7 @@ private:
 	unsigned int length;
 	std::string production_company;
 public:
-	Movie(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _director, std::string _screenwriter, unsigned int length, std::string _production_company);
+	Movie(enum mediatype _type=mediatype::Movie, std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _director, std::string _screenwriter, unsigned int length, std::string _production_company);
 	const std::string getDirector() const;
 	void setDirector(const std::string& d);
 	const std::string getScreenwriter() const;

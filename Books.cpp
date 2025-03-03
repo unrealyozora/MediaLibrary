@@ -1,6 +1,6 @@
 #include <Books.h>
 
-Books::Books(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _author, unsigned int _pages, std::string _publ_house) 
+Books::Books(enum mediatype _type, std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _author, unsigned int _pages, std::string _publ_house) 
 	:AbstractItem(_title, _year, _description, _genre, _country), author(_author), pages(_pages), publ_house(_publ_house) {};
 
 

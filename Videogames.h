@@ -8,7 +8,7 @@ class Videogames:public AbstractItem {
 		std::string developer;
 		bool multiplayer;
 	protected:
-		Videogames(std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _developer, bool _multiplayer);
+		Videogames(enum mediatype _type=mediatype::Videogame, std::string _title, unsigned int _year, std::string _description, std::vector<std::string> _genre, std::string _country, std::string _developer, bool _multiplayer);
 	public:
 		const std::string getDeveloper() const;
 		void setDeveloper(const std::string& dev);
