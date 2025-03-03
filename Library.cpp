@@ -60,6 +60,8 @@ void Library::fromJson(const QString& path) {
 			else if (category == "Books") {
 				newItem = JsonReader::readBooks(itemObject);
 			}
+
+			media.append(newItem);
 		}
 	}
 }

@@ -1,5 +1,4 @@
 #include "JsonReader.h"
-#include <movie.h>
 #include <memory>
 std::shared_ptr<Movie> JsonReader::readMovie(QJsonObject& obj)  {
 	return std::make_shared<Movie>
@@ -13,7 +12,7 @@ std::shared_ptr<Album> JsonReader::readAlbum(QJsonObject &obj) {
 			obj["author"].toString(), obj["songs"].toInt(), obj["length"].toInt());
 }
 
-std::shared_ptr<Videogame> JsonReader::readVideogame(QJsonObject &obj){
+std::shared_ptr<Videogames> JsonReader::readVideogame(QJsonObject &obj){
     return std::make_shared<Videogames>
 		(obj["title"].toString(), obj["year"].toString(), obj["description"].toArray(), obj["genre"].toArray(), obj["country"].toString(),
             obj["developer"].toString(), obj["multiplayer"].toBool()); // non sono sicuro esista il metodo toBool, non posso controllarlo al momento
