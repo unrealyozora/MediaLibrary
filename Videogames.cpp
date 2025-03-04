@@ -16,3 +16,7 @@ const unsigned int Videogames::getMultiplayer() const {
 void Videogames::setMultiplayer(bool mult) {
 	this->multiplayer = mult;
 }
+
+void Videogames::accept(ItemVisitor& iv) {
+	iv.visit(*this);
+}

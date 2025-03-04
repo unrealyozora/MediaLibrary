@@ -14,5 +14,6 @@ class Videogames:public AbstractItem {
 		void setDeveloper(const std::string& dev);
 		const unsigned int getMultiplayer() const;
 		void setMultiplayer(const bool mult);
+		virtual void accept(ItemVisitor& iv);
 };
 #endif

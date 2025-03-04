@@ -16,3 +16,7 @@ const unsigned int Comic::getChapters() const {
 void Comic::setChapters(unsigned int& len) {
 	this->chapters = len;
 }
+
+void Comic::accept(ItemVisitor& iv) {
+	iv.visit(*this);
+}

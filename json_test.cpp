@@ -2,12 +2,13 @@
 #include <QString>
 #include <iostream>
 static void test() {
-	QString path = "C:\\Users\\tomma\\Dev\\MediaLibrary\\assets\\prova.json";
+	QString path_lettura = "C:\\Users\\tomma\\Dev\\MediaLibrary\\assets\\prova.json";
+	QString path_scrittura = "C:\\Users\\tomma\\Dev\\MediaLibrary\\assets\\prova_scrittura.json";
 	Library* newLib = new Library();
 	try {
-		newLib->fromJson(path);
+		newLib->fromJson(path_lettura);
 	}
-	catch (QString s) { std::cout << s; 
+	catch (QString s) { std::cout << s.toStdString(); 
 	}
 
 	if (newLib->is_empty()) {
@@ -18,6 +19,15 @@ static void test() {
 			std::cout << x[i]->getTitle()<<std::endl;
 		}
 	}
+
+	std::cout << "operazione di lettura completata";
+
+	try {
+		newLib->toJson(path_scrittura);
+	}
+	catch (QString s) { std::cout << s.toStdString(); 
+	}
+	std::cout << "operazione di scrittura completata";
 }
 
 	

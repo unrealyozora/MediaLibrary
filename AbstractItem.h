@@ -2,6 +2,7 @@
 #define ITEM_ABSTRACT_ITEM_H
 #include <string>
 #include <vector>
+#include <ItemVisitor.h>
 class AbstractItem {
 protected:
 	std::string title;
@@ -23,7 +24,7 @@ public:
 	void setGenre(const std::string& g);
 	const std::string getCountry() const;
 	void setCountry(const std::string& c);
-	//virtual void accept(ItemVisitor& iv)=0;
+	virtual void accept(ItemVisitor& iv)=0;
 };
 #endif // !ITEM_ABSTRACT_ITEM_H
 

@@ -36,3 +36,7 @@ void Movie::setProd(const std::string p) {
 	this->production_company = p;
 }
 
+void Movie::accept(ItemVisitor& iv) {
+	iv.visit(*this);
+}
+

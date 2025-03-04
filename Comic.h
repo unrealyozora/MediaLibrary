@@ -13,6 +13,7 @@ class Comic:public AbstractItem {
         void setAuthor(const std::string& dir);
         const unsigned int getChapters() const;
         void setChapters(unsigned int& len);
+        virtual void accept(ItemVisitor& iv);
 };
 
 

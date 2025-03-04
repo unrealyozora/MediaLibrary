@@ -27,6 +27,10 @@ void Album::setSongs(const unsigned int s) {
 	this->songs = s;
 }
 
+void Album::accept(ItemVisitor& iv) {
+	iv.visit(*this);
+}
+
 
 
 

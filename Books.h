@@ -15,6 +15,7 @@ class Books: public AbstractItem{
 		void setPages(unsigned int& pag);
 		const std::string getPub() const;
 		void setPub(const std::string& pub);
+		virtual void accept(ItemVisitor& iv);
 };
 
 #endif

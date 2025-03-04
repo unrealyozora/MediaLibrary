@@ -15,6 +15,7 @@ public:
 	void setLength(const unsigned int l);
 	const unsigned int getSongs() const ;
 	void setSongs(const unsigned int s);
+	virtual void accept(ItemVisitor& iv);
 };
 
 #endif

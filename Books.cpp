@@ -22,3 +22,7 @@ const std::string Books::getPub() const {
 void Books::setPub(const std::string& b) {
 	this->publ_house = b;
 }
+
+void Books::accept(ItemVisitor& iv) {
+	iv.visit(*this);
+}
