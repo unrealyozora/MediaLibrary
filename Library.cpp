@@ -33,7 +33,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 void Library::fromJson(const QString& path) {
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
-		throw QString("Error when opening file");
+		throw std::runtime_error(file.errorString().toStdString());
 	}else {
 		QByteArray docData = file.readAll();
 		file.close();
@@ -68,7 +68,7 @@ void Library::toJson(const QString &path) const {
 	QFile file(path);
 	//aggiungere gestione libreria vuota
 	if (!file.open(QIODevice::WriteOnly)){
-		throw QString ("Error when opening file");
+		throw std::runtime_error(file.errorString().toStdString());
 	}else{
 		for (auto& x:this->getList()){
 			x->accept(json_visitor);

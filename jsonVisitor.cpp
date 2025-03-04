@@ -69,6 +69,6 @@ void jsonVisitor::visit(Videogames& videogame) {
     videogame_obj.insert("genre", QJsonValue::fromVariant(videogame.getGenre().c_str()));
     videogame_obj.insert("country", QJsonValue::fromVariant(videogame.getCountry().c_str()));
     videogame_obj.insert("developer", QJsonValue::fromVariant(videogame.getDeveloper().c_str()));
-    videogame_obj.insert("multiplayer", QJsonValue::fromVariant(videogame.getMultiplayer()));
+    videogame_obj.insert("multiplayer", QJsonValue::fromVariant(QVariant(videogame.getMultiplayer()).toBool()));
     array.append(videogame_obj);
 }

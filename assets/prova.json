@@ -2,7 +2,7 @@
     {
         "title": "Inception",
         "tipo": "Movie",
-        "year": "2010",
+        "year": 2010,
         "description": "A mind-bending thriller about dreams within dreams.",
         "genre": "Sci-Fi",
         "country": "USA",
@@ -14,7 +14,7 @@
     {
         "title": "The Dark Side of the Moon",
         "tipo": "Album",
-        "year": "1973",
+        "year": 1973,
         "description": "An iconic progressive rock album by Pink Floyd.",
         "genre": "Rock", 
         "country": "UK",
@@ -25,7 +25,7 @@
     {
         "title": "The Witcher 3",
         "tipo": "Videogame",
-        "year": "2015",
+        "year": 2015,
         "description": "An open-world RPG set in a fantasy universe.",
         "genre": "RPG",
         "country": "Poland",
@@ -35,7 +35,7 @@
     {
         "title": "Spider-Man",
         "tipo": "Comic",
-        "year": "1962",
+        "year": 1962,
         "description": "The origin story of one of the most beloved superheroes.",
         "genre": "Superhero",
         "country": "USA",
@@ -45,7 +45,7 @@
     {
         "title": "1984",
         "tipo": "Books",
-        "year": "1949",
+        "year": 1949,
         "description": "A dystopian novel about totalitarian surveillance.",
         "genre": "Dystopian",
         "country": "UK",
