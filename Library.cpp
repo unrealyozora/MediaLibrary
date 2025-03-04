@@ -32,9 +32,8 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 void Library::fromJson(const QString& path) {
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
-		throw QString("Errore di apertura file");
-	}
-	else {
+		throw QString("Error when opening file");
+	}else {
 		QByteArray docData = file.readAll();
 		file.close();
 		QJsonDocument doc = QJsonDocument::fromJson(docData);
@@ -58,9 +57,20 @@ void Library::fromJson(const QString& path) {
 			else if (category == "Books") {
 				newItem = JsonReader::readBooks(itemObject);
 			}
-
 			media.append(newItem);
 		}
 	}
 }
- 
+
+void Library::toJson(const QString &path) {
+	QFile file(path);
+	//aggiungere gestione libreria vuota
+	if (!file.open(QIODevice::WriteOnly)){
+		throw QString ("Error when opening file");
+	}else{
+		for (auto& x:this->getList()){
+			QJsonObject newObject;
+			jsonWriter.accept(x);
+		}
+	}
+}

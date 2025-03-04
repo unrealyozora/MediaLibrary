@@ -7,11 +7,11 @@ static void test() {
 	try {
 		newLib->fromJson(path);
 	}
-	catch (QString s) { std::cout << "Errore nell'apertura del file json"; 
+	catch (QString s) { std::cout << s; 
 	}
 
 	if (newLib->is_empty()) {
-		std::cout << "La lista è vuota, ziopovero";
+		std::cout << "La lista ï¿½ vuota, ziopovero";
 	} else {
 		auto x = newLib->getList();
 		for (int i = 0; i < newLib->getSize(); ++i) {

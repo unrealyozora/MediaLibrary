@@ -17,9 +17,9 @@ public:
 	
 	void fromJson(const QString& path);
 	//sezione gestione json/xml
-	/*void toJson();
+	void toJson(const QString& path);
 	
-	void toXml();
+	/*void toXml();
 	void fromXml();*/
 };
 #endif
