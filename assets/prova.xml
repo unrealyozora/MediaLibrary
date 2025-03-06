@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+    <item tipo="Movie">
+        <title>Inception</title>
+        <year>2010</year>
+        <description>A mind-bending thriller about dreams within dreams.</description>
+        <genre>Sci-Fi</genre>
+        <country>USA</country>
+        <director>Christopher Nolan</director>
+        <screenwriter>Christopher Nolan</screenwriter>
+        <length>148</length>
+        <production_comp>Warner Bros</production_comp>
+    </item>
+    <item tipo="Album">
+        <title>The Dark Side of the Moon</title>
+        <year>1973</year>
+        <description>An iconic progressive rock album by Pink Floyd.</description>
+        <genre>Rock</genre>
+        <country>UK</country>
+        <author>Pink Floyd</author>
+        <songs>10</songs>
+        <length>43</length>
+    </item>
+    <item tipo="Videogame">
+        <title>The Witcher 3</title>
+        <year>2015</year>
+        <description>An open-world RPG set in a fantasy universe.</description>
+        <genre>RPG</genre>
+        <country>Poland</country>
+        <developer>CD Projekt Red</developer>
+        <multiplayer>false</multiplayer>
+    </item>
+    <item tipo="Comic">
+        <title>Spider-Man</title>
+        <year>1962</year>
+        <description>The origin story of one of the most beloved superheroes.</description>
+        <genre>Superhero</genre>
+        <country>USA</country>
+        <author>Stan Lee</author>
+        <chapters>15</chapters>
+    </item>
+    <item tipo="Books">
+        <title>1984</title>
+        <year>1949</year>
+        <description>A dystopian novel about totalitarian surveillance.</description>
+        <genre>Dystopian</genre>
+        <country>UK</country>
+        <author>George Orwell</author>
+        <pages>328</pages>
+        <publ>SeckerWarburg</publ>
+    </item>
+</items>
