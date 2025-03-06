@@ -1,10 +1,10 @@
 #include "jsonVisitor.h"
 #include <qjsonobject.h>
-QJsonArray jsonVisitor::getArray() const {
+QJsonArray JsonVisitor::getArray() const {
     return array;
 }
 
-void jsonVisitor::visit(Album& album) {
+void JsonVisitor::visit(Album& album) {
     QJsonObject album_obj;
     album_obj.insert("title", QJsonValue::fromVariant(album.getTitle().c_str()));
     album_obj.insert("tipo", QJsonValue::fromVariant("Album"));
@@ -18,7 +18,7 @@ void jsonVisitor::visit(Album& album) {
     array.append(album_obj);
 }
 
-void jsonVisitor::visit(Books& book) {
+void JsonVisitor::visit(Books& book) {
     QJsonObject book_obj;
     book_obj.insert("title", QJsonValue::fromVariant(book.getTitle().c_str()));
     book_obj.insert("tipo", QJsonValue::fromVariant("Books"));
@@ -32,7 +32,7 @@ void jsonVisitor::visit(Books& book) {
     array.append(book_obj);
 }
 
-void jsonVisitor::visit(Comic& comic) {
+void JsonVisitor::visit(Comic& comic) {
     QJsonObject comic_obj;
     comic_obj.insert("title", QJsonValue::fromVariant(comic.getTitle().c_str()));
     comic_obj.insert("tipo", QJsonValue::fromVariant("Comic"));
@@ -45,7 +45,7 @@ void jsonVisitor::visit(Comic& comic) {
     array.append(comic_obj);
 }
 
-void jsonVisitor::visit(Movie& movie) {
+void JsonVisitor::visit(Movie& movie) {
     QJsonObject movie_obj;
     movie_obj.insert("title", QJsonValue::fromVariant(movie.getTitle().c_str()));
     movie_obj.insert("tipo", QJsonValue::fromVariant("Movie"));
@@ -60,7 +60,7 @@ void jsonVisitor::visit(Movie& movie) {
     array.append(movie_obj);
 }
 
-void jsonVisitor::visit(Videogames& videogame) {
+void JsonVisitor::visit(Videogames& videogame) {
     QJsonObject videogame_obj;
     videogame_obj.insert("title", QJsonValue::fromVariant(videogame.getTitle().c_str()));
     videogame_obj.insert("tipo", QJsonValue::fromVariant("Videogame"));

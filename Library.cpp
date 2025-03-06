@@ -4,7 +4,7 @@
 #include <qjsonarray.h>
 #include <qjsonobject.h>
 #include <JsonReader.h>
-#include <jsonVisitor.h>
+#include <JsonWriter.h>
 
 const unsigned int Library::getSize() const {
 	return media.size();
@@ -64,17 +64,16 @@ void Library::fromJson(const QString& path) {
 }
 
 void Library::toJson(const QString &path) const {
-	jsonVisitor json_visitor;
 	QFile file(path);
 	//aggiungere gestione libreria vuota
 	if (!file.open(QIODevice::WriteOnly)){
 		throw std::runtime_error(file.errorString().toStdString());
 	}else{
 		for (auto& x:this->getList()){
-			x->accept(json_visitor);
+			JsonWriter::readObject(x);
 		}
 		//scrittura su documento
-		QJsonDocument doc (json_visitor.getArray());
+		QJsonDocument doc (JsonWriter::getVisitor().getArray());
 		file.write(doc.toJson());
 		file.close();
 	}

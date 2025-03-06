@@ -8,7 +8,7 @@
 #include <Videogames.h>
 #include <ItemVisitor.h>
 
-class jsonVisitor: public ItemVisitor{
+class JsonVisitor: public ItemVisitor{
 private:
     QJsonArray array;
 public:
