@@ -34,3 +34,4 @@ const std::string AbstractItem::getCountry() const {
 void AbstractItem::setCountry(const std::string& c) {
 	this->country = c;
 }
+

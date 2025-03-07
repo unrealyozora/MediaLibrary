@@ -1,6 +1,7 @@
 #ifndef VIDEOGAMES_H
 #define VIDEOGAMES_H
 #include <AbstractItem.h>
+#include "XmlVisitor.h"
 
 
 class Videogames:public AbstractItem {

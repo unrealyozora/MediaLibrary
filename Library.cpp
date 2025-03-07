@@ -10,6 +10,7 @@
 #include <QXmlStreamReader>
 #include <QDebug>
 #include "XmlParser.h"
+#include "XmlWriter.h"
 
 const unsigned int Library::getSize() const {
 	return media.size();
@@ -81,7 +82,7 @@ void Library::toJson(const QString& path) const {
 	
 }
 
-/*--------------------------------------------NUOVA VERSIONE DEL TOXML-----------------------------------------------------------*/
+
 void Library::fromXml(const QString& path) {
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
@@ -134,6 +135,6 @@ void Library::fromXml(const QString& path) {
 	file.close();
 }
 
-/*void Library::toXml(const QString& path) const {
+void Library::toXml(const QString& path) const {
 	XmlWriter::writeXml(path, media);
-}*/
+}

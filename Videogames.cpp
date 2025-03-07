@@ -20,3 +20,6 @@ void Videogames::setMultiplayer(bool mult) {
 void Videogames::accept(ItemVisitor& iv) {
 	iv.visit(*this);
 }
+
+
+

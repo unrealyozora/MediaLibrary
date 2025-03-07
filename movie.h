@@ -1,6 +1,7 @@
 #ifndef ITEM_MOVIE_H
 #define ITEM_MOVIE_H
 #include <AbstractItem.h>
+#include "XmlVisitor.h"
 class Movie: public AbstractItem {
 private:
 	std::string director;
