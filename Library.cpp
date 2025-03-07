@@ -7,6 +7,10 @@
 #include <JsonWriter.h>
 #include <iostream>
 
+//per far funzionare xml
+#include <QXmlStreamReader>
+#include <QDebug>
+#include "XmlParser.h"
 
 const unsigned int Library::getSize() const {
 	return media.size();
@@ -65,7 +69,7 @@ void Library::fromJson(const QString& path) {
 	}
 }
 
-void Library::toJson(const QString &path) const {
+/*void Library::toJson(const QString& path) const {
 	try {
 		JsonWriter::writeJson(this->getList(), path);
 	}
@@ -75,3 +79,61 @@ void Library::toJson(const QString &path) const {
 	//aggiungere gestione libreria vuota
 	
 }
+*/
+
+/*--------------------------------------------NUOVA VERSIONE DEL TOJSON----------------------------------------------------------*/
+void Library::toJson(const QString& path) const {
+	JsonWriter::writeJson(path, media);
+}
+
+/*--------------------------------------------NUOVA VERSIONE DEL TOXML-----------------------------------------------------------*/
+void Library::fromXml(const QString& path) {
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly)) {
+		throw std::runtime_error(file.errorString().toStdString());
+	}
+
+	QXmlStreamReader xmlReader(&file);
+
+	while (!xmlReader.atEnd() && !xmlReader.hasError()) {
+		QXmlStreamReader::TokenType token = xmlReader.readNext();
+
+		if (token == QXmlStreamReader::StartElement && xmlReader.name() == "item") {
+			QXmlStreamAttributes attributes = xmlReader.attributes();
+			if (attributes.hasAttribute("tipo")) {
+				QString category = attributes.value("tipo").toString();
+				std::shared_ptr<AbstractItem> newItem;
+
+				if (category == "Movie") {
+					newItem = XmlParser::parseMovie(xmlReader);
+				}
+				else if (category == "Album") {
+					newItem = XmlParser::parseAlbum(xmlReader);
+				}
+				else if (category == "Videogame") {
+					newItem = XmlParser::parseVideogame(xmlReader);
+				}
+				else if (category == "Comic") {
+					newItem = XmlParser::parseComic(xmlReader);
+				}
+				else if (category == "Books") {
+					newItem = XmlParser::parseBook(xmlReader);
+				}
+
+				if (newItem) {
+					media.append(newItem);
+				}
+			}
+		}
+	}
+
+	if (xmlReader.hasError()) {
+		throw std::runtime_error(xmlReader.errorString().toStdString());
+	}
+
+	file.close();
+}
+
+/*void Library::toXml(const QString& path) const {
+	XmlWriter::writeXml(path, media);
+}*/

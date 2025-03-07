@@ -41,7 +41,7 @@ void JsonVisitor::visit(Comic& comic) {
     comic_obj.insert("genre", QJsonValue::fromVariant(comic.getGenre().c_str()));
     comic_obj.insert("country", QJsonValue::fromVariant(comic.getCountry().c_str()));
     comic_obj.insert("author", QJsonValue::fromVariant(comic.getAuthor().c_str()));
-    comic_obj.insert("chaoters", QJsonValue::fromVariant(comic.getChapters()));
+    comic_obj.insert("chapters", QJsonValue::fromVariant(comic.getChapters()));
     array.append(comic_obj);
 }
 

@@ -15,11 +15,12 @@ public:
 	void addItem(std::shared_ptr<AbstractItem> item);
 	void removeItem(const std::string& title, unsigned int year); //il metodo removeItem richiede il titolo e l'anno, in modo da non creare eventuali casi di omonimia
 	
-	void fromJson(const QString& path);
 	//sezione gestione json/xml
+	void fromJson(const QString& path);
 	void toJson(const QString& path) const;
 	
-	/*void toXml();
-	void fromXml();*/
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+	//void toXml(const QString& path) const;
+	void fromXml(const QString& path);
 };
 #endif

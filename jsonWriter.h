@@ -6,6 +6,6 @@
 #include <JsonVisitor.h>
 class JsonWriter{
 public:
-	static void writeJson(const QList <std::shared_ptr<AbstractItem>>& items, const QString& path);
+	static void writeJson(const QString& path, const QList<std::shared_ptr<AbstractItem>>& media);
 };
 #endif
