@@ -5,21 +5,23 @@
 #include "Movie.h"
 #include "Videogames.h"
 
+#include <iostream>//debug only
+
 std::shared_ptr<AbstractItem> XmlParser::parseAlbum(QXmlStreamReader& xmlReader) {
     QString title, description, genre, country, author;
     unsigned int year = 0, songs = 0, length = 0;
 
-    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "Album")) {
+    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "item")) {
         xmlReader.readNext();
         if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            if (xmlReader.name() == "Title") title = xmlReader.readElementText();
-            else if (xmlReader.name() == "Year") year = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Description") description = xmlReader.readElementText();
-            else if (xmlReader.name() == "Genre") genre = xmlReader.readElementText();
-            else if (xmlReader.name() == "Country") country = xmlReader.readElementText();
-            else if (xmlReader.name() == "Author") author = xmlReader.readElementText();
-            else if (xmlReader.name() == "Songs") songs = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Length") length = xmlReader.readElementText().toUInt();
+            if (xmlReader.name() == "title") title = xmlReader.readElementText();
+            else if (xmlReader.name() == "year") year = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "description") description = xmlReader.readElementText();
+            else if (xmlReader.name() == "genre") genre = xmlReader.readElementText();
+            else if (xmlReader.name() == "country") country = xmlReader.readElementText();
+            else if (xmlReader.name() == "author") author = xmlReader.readElementText();
+            else if (xmlReader.name() == "songs") songs = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "length") length = xmlReader.readElementText().toUInt();
         }
     }
     return std::make_shared<Album>(title.toStdString(), year, description.toStdString(), genre.toStdString(), country.toStdString(), author.toStdString(), songs, length);
@@ -29,17 +31,17 @@ std::shared_ptr<AbstractItem> XmlParser::parseBook(QXmlStreamReader& xmlReader) 
     QString title, description, genre, country, author, publ_house;
     unsigned int year = 0, pages = 0;
 
-    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "Book")) {
+    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "item")) {
         xmlReader.readNext();
         if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            if (xmlReader.name() == "Title") title = xmlReader.readElementText();
-            else if (xmlReader.name() == "Year") year = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Description") description = xmlReader.readElementText();
-            else if (xmlReader.name() == "Genre") genre = xmlReader.readElementText();
-            else if (xmlReader.name() == "Country") country = xmlReader.readElementText();
-            else if (xmlReader.name() == "Author") author = xmlReader.readElementText();
-            else if (xmlReader.name() == "Pages") pages = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Publisher") publ_house = xmlReader.readElementText();
+            if (xmlReader.name() == "title") title = xmlReader.readElementText();
+            else if (xmlReader.name() == "year") year = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "description") description = xmlReader.readElementText();
+            else if (xmlReader.name() == "genre") genre = xmlReader.readElementText();
+            else if (xmlReader.name() == "country") country = xmlReader.readElementText();
+            else if (xmlReader.name() == "author") author = xmlReader.readElementText();
+            else if (xmlReader.name() == "pages") pages = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "publisher") publ_house = xmlReader.readElementText();
         }
     }
     return std::make_shared<Books>(title.toStdString(), year, description.toStdString(), genre.toStdString(), country.toStdString(), author.toStdString(), pages, publ_house.toStdString());
@@ -49,16 +51,16 @@ std::shared_ptr<AbstractItem> XmlParser::parseComic(QXmlStreamReader& xmlReader)
     QString title, description, genre, country, author;
     unsigned int year = 0, chapters = 0;
 
-    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "Comic")) {
+    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "item")) {
         xmlReader.readNext();
         if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            if (xmlReader.name() == "Title") title = xmlReader.readElementText();
-            else if (xmlReader.name() == "Year") year = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Description") description = xmlReader.readElementText();
-            else if (xmlReader.name() == "Genre") genre = xmlReader.readElementText();
-            else if (xmlReader.name() == "Country") country = xmlReader.readElementText();
-            else if (xmlReader.name() == "Author") author = xmlReader.readElementText();
-            else if (xmlReader.name() == "Chapters") chapters = xmlReader.readElementText().toUInt();
+            if (xmlReader.name() == "title") title = xmlReader.readElementText();
+            else if (xmlReader.name() == "year") year = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "description") description = xmlReader.readElementText();
+            else if (xmlReader.name() == "genre") genre = xmlReader.readElementText();
+            else if (xmlReader.name() == "country") country = xmlReader.readElementText();
+            else if (xmlReader.name() == "author") author = xmlReader.readElementText();
+            else if (xmlReader.name() == "chapters") chapters = xmlReader.readElementText().toUInt();
         }
     }
     return std::make_shared<Comic>(title.toStdString(), year, description.toStdString(), genre.toStdString(), country.toStdString(), author.toStdString(), chapters);
@@ -68,18 +70,18 @@ std::shared_ptr<AbstractItem> XmlParser::parseMovie(QXmlStreamReader& xmlReader)
     QString title, description, genre, country, director, screenwriter, production_company;
     unsigned int year = 0, length = 0;
 
-    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "Movie")) {
+    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name()=="item")) {
         xmlReader.readNext();
         if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            if (xmlReader.name() == "Title") title = xmlReader.readElementText();
-            else if (xmlReader.name() == "Year") year = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Description") description = xmlReader.readElementText();
-            else if (xmlReader.name() == "Genre") genre = xmlReader.readElementText();
-            else if (xmlReader.name() == "Country") country = xmlReader.readElementText();
-            else if (xmlReader.name() == "Director") director = xmlReader.readElementText();
-            else if (xmlReader.name() == "Screenwriter") screenwriter = xmlReader.readElementText();
-            else if (xmlReader.name() == "Length") length = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "ProductionCompany") production_company = xmlReader.readElementText();
+            if (xmlReader.name() == "title") title = xmlReader.readElementText();
+            else if (xmlReader.name() == "year") year = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "description") description = xmlReader.readElementText();
+            else if (xmlReader.name() == "genre") genre = xmlReader.readElementText();
+            else if (xmlReader.name() == "country") country = xmlReader.readElementText();
+            else if (xmlReader.name() == "director") director = xmlReader.readElementText();
+            else if (xmlReader.name() == "screenwriter") screenwriter = xmlReader.readElementText();
+            else if (xmlReader.name() == "length") length = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "production_comp") production_company = xmlReader.readElementText();
         }
     }
     return std::make_shared<Movie>(title.toStdString(), year, description.toStdString(), genre.toStdString(), country.toStdString(), director.toStdString(), screenwriter.toStdString(), length, production_company.toStdString());
@@ -90,16 +92,16 @@ std::shared_ptr<AbstractItem> XmlParser::parseVideogame(QXmlStreamReader& xmlRea
     unsigned int year = 0;
     bool multiplayer = false;
 
-    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "Videogame")) {
+    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == "item")) {
         xmlReader.readNext();
         if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            if (xmlReader.name() == "Title") title = xmlReader.readElementText();
-            else if (xmlReader.name() == "Year") year = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "Description") description = xmlReader.readElementText();
-            else if (xmlReader.name() == "Genre") genre = xmlReader.readElementText();
-            else if (xmlReader.name() == "Country") country = xmlReader.readElementText();
-            else if (xmlReader.name() == "Developer") developer = xmlReader.readElementText();
-            else if (xmlReader.name() == "Multiplayer") multiplayer = (xmlReader.readElementText().toLower() == "true");
+            if (xmlReader.name() == "title") title = xmlReader.readElementText();
+            else if (xmlReader.name() == "year") year = xmlReader.readElementText().toUInt();
+            else if (xmlReader.name() == "description") description = xmlReader.readElementText();
+            else if (xmlReader.name() == "genre") genre = xmlReader.readElementText();
+            else if (xmlReader.name() == "country") country = xmlReader.readElementText();
+            else if (xmlReader.name() == "developer") developer = xmlReader.readElementText();
+            else if (xmlReader.name() == "multiplayer") multiplayer = (xmlReader.readElementText().toLower() == "true");
         }
     }
     return std::make_shared<Videogames>(title.toStdString(), year, description.toStdString(), genre.toStdString(), country.toStdString(), developer.toStdString(), multiplayer);

@@ -6,7 +6,6 @@
 #include <JsonReader.h>
 #include <JsonWriter.h>
 #include <iostream>
-
 //per far funzionare xml
 #include <QXmlStreamReader>
 #include <QDebug>
@@ -69,21 +68,17 @@ void Library::fromJson(const QString& path) {
 	}
 }
 
-/*void Library::toJson(const QString& path) const {
+void Library::toJson(const QString& path) const {
 	try {
-		JsonWriter::writeJson(this->getList(), path);
+		JsonWriter::writeJson(path, this->getList());
+	}
+	catch (QString& s){
+		std::cout << s.toStdString() << std::endl; //gestire lista vuota in altro modo?
 	}
 	catch (const std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 	}
-	//aggiungere gestione libreria vuota
 	
-}
-*/
-
-/*--------------------------------------------NUOVA VERSIONE DEL TOJSON----------------------------------------------------------*/
-void Library::toJson(const QString& path) const {
-	JsonWriter::writeJson(path, media);
 }
 
 /*--------------------------------------------NUOVA VERSIONE DEL TOXML-----------------------------------------------------------*/
@@ -105,18 +100,23 @@ void Library::fromXml(const QString& path) {
 				std::shared_ptr<AbstractItem> newItem;
 
 				if (category == "Movie") {
+					std::cout << "library.cpp/movie" << std::endl;
 					newItem = XmlParser::parseMovie(xmlReader);
 				}
 				else if (category == "Album") {
+					std::cout << "library.cpp/album"<<std::endl;
 					newItem = XmlParser::parseAlbum(xmlReader);
 				}
 				else if (category == "Videogame") {
+					std::cout << "library.cpp/game" << std::endl;
 					newItem = XmlParser::parseVideogame(xmlReader);
 				}
 				else if (category == "Comic") {
+					std::cout << "library.cpp/comic" << std::endl;
 					newItem = XmlParser::parseComic(xmlReader);
 				}
 				else if (category == "Books") {
+					std::cout << "library.cpp/book" << std::endl;
 					newItem = XmlParser::parseBook(xmlReader);
 				}
 

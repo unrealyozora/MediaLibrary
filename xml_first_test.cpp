@@ -1,18 +1,29 @@
 #include <qfile.h>
-#include <qsdtring.h>
+#include <QString>
 #include <iostream>
-void test(){
-    QString="assets/prova.xml";
+#include <qxmlstream.h>
+#include "xml_first_test.h"
+#include <Library.h>
+#include <Videogames.h>
+
+void XmlTest::test() {
+    QString path = "assets/prova.xml";
+    Library* newLib = new Library();
     QFile file(path);
-    if (file.open(QIODevice::ReadOnly)){
-        QXmlStreamReader xmlReader;
-        xmlReader.setDevice(&file);
-        xmlReader.readNext();
-        while(!xmlReader.isEndDocument()){
-            if (xmlReader.isStartElement()){
-                QString title=xmlReader.name().toString();
-                std::cout<<title.toStdString();
-            }
-        }
+    try {
+        newLib->fromXml(path);
+    }
+    catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    std::cout << "finito xml" << std::endl;
+    if (newLib->is_empty()) {
+        std::cout << " La lista e' vuota, ziopovero ";
+    }
+    else {
+        auto x = newLib->getList();
+
+        std::cout<<dynamic_cast<Videogames*>(x[2].get())->getMultiplayer();
+        
     }
 }
