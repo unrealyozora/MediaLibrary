@@ -4,11 +4,10 @@
 #include <qxmlstream.h>
 #include "xml_first_test.h"
 #include "../library/Library.h"
-#include "../items/Videogames.h"
 
 void XmlTest::test() {
-    QString path = "assets/prova.xml";
-    QString write_path = "assets/scrittura.xml";
+    QString path = "assets/provas.xml";
+    QString write_path = "assets/scritturas.xml";
     Library* newLib = new Library();
     QFile file(path);
     try {
@@ -17,14 +16,15 @@ void XmlTest::test() {
     catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;
     }
-    std::cout << "finito xml" << std::endl;
     if (newLib->is_empty()) {
-        std::cout << " La lista e' vuota, ziopovero ";
+        std::cout << "La lista e' vuota";
     }
     else {
         auto x = newLib->getList();
 
-        std::cout<<dynamic_cast<Videogames*>(x[2].get())->getMultiplayer();
+        for (unsigned int i = 0; i < newLib->getSize(); ++i) {
+            std::cout << x[i]->getTitle() << std::endl;
+        }
         
     }
 

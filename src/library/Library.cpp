@@ -73,9 +73,9 @@ void Library::toJson(const QString& path) const {
 		JsonWriter::writeJson(path, this->getList());
 	}
 	catch (QString& s){
-		std::cout << s.toStdString() << std::endl; //gestire lista vuota in altro modo?
+		std::cout << s.toStdString() << std::endl; //libreria vuota
 	}
-	catch (const std::runtime_error& e) {
+	catch (const std::runtime_error& e) {	//errore nel file
 		std::cerr << e.what() << std::endl;
 	}
 	
@@ -98,25 +98,19 @@ void Library::fromXml(const QString& path) {
 			if (attributes.hasAttribute("tipo")) {
 				QString category = attributes.value("tipo").toString();
 				std::shared_ptr<AbstractItem> newItem;
-
 				if (category == "Movie") {
-					std::cout << "library.cpp/movie" << std::endl;
 					newItem = XmlParser::parseMovie(xmlReader);
 				}
 				else if (category == "Album") {
-					std::cout << "library.cpp/album"<<std::endl;
 					newItem = XmlParser::parseAlbum(xmlReader);
 				}
 				else if (category == "Videogame") {
-					std::cout << "library.cpp/game" << std::endl;
 					newItem = XmlParser::parseVideogame(xmlReader);
 				}
 				else if (category == "Comic") {
-					std::cout << "library.cpp/comic" << std::endl;
 					newItem = XmlParser::parseComic(xmlReader);
 				}
 				else if (category == "Books") {
-					std::cout << "library.cpp/book" << std::endl;
 					newItem = XmlParser::parseBook(xmlReader);
 				}
 
@@ -135,5 +129,13 @@ void Library::fromXml(const QString& path) {
 }
 
 void Library::toXml(const QString& path) const {
-	XmlWriter::writeXml(path, media);
+	try {
+		XmlWriter::writeXml(path, media);
+	}
+	catch (QString& s) {
+		std::cout << s.toStdString() << std::endl; //libreria vuota
+	}
+	catch (const std::runtime_error& e) {
+		std::cerr << e.what() << std::endl;	//errore nel file
+	}
 }

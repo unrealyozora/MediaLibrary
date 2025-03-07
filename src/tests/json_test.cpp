@@ -12,20 +12,14 @@ static void test() {
 	}
 
 	if (newLib->is_empty()) {
-		std::cout << " La lista e' vuota, ziopovero ";
+		std::cout << "La lista e' vuota";
 	} else {
 		auto x = newLib->getList();
 		for (unsigned int i = 0; i < newLib->getSize(); ++i) {
 			std::cout << x[i]->getTitle()<<std::endl;
 		}
 	}
-
-	std::cout << "operazione di lettura completata";
-
-
 	newLib->toJson(path_scrittura);
-	
-	std::cout << "operazione di scrittura completata";
 }
 
 	

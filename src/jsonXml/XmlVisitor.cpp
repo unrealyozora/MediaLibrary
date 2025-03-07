@@ -1,5 +1,4 @@
 #include "XmlVisitor.h"
-
 XmlVisitor::XmlVisitor(QXmlStreamWriter& writer) : xmlWriter(writer) {}
 
 void XmlVisitor::visit(Album& album) {

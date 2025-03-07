@@ -41,7 +41,7 @@ std::shared_ptr<AbstractItem> XmlParser::parseBook(QXmlStreamReader& xmlReader) 
             else if (xmlReader.name() == "country") country = xmlReader.readElementText();
             else if (xmlReader.name() == "author") author = xmlReader.readElementText();
             else if (xmlReader.name() == "pages") pages = xmlReader.readElementText().toUInt();
-            else if (xmlReader.name() == "publisher") publ_house = xmlReader.readElementText();
+            else if (xmlReader.name() == "publ") publ_house = xmlReader.readElementText();
         }
     }
     return std::make_shared<Books>(title.toStdString(), year, description.toStdString(), genre.toStdString(), country.toStdString(), author.toStdString(), pages, publ_house.toStdString());
