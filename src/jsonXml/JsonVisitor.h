@@ -1,12 +1,12 @@
 #ifndef JSON_VISITOR_H
 #define JSON_VISITOR_H
 #include <qjsonarray.h>
-#include <album.h>
-#include <Books.h>
-#include <Comic.h>
-#include <movie.h>
-#include <Videogames.h>
-#include <ItemVisitor.h>
+#include "../items/album.h"
+#include "../items/Books.h"
+#include "../items/Comic.h"
+#include "../items/Movie.h"
+#include "../items/Videogames.h"
+#include "../items/ItemVisitor.h"
 
 class JsonVisitor: public ItemVisitor{
 private:

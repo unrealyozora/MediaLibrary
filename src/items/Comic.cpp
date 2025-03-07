@@ -1,4 +1,4 @@
-#include <Comic.h>
+#include "Comic.h"
 
 Comic::Comic(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, std::string _author, unsigned int _chapters)
 	:AbstractItem(_title, _year, _description, _genre, _country), author(_author), chapters(_chapters){}

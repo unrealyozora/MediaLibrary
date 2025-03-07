@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <QXmlStreamReader>
-#include "AbstractItem.h"
+#include "../items/AbstractItem.h"
 
 class XmlParser {
 public:

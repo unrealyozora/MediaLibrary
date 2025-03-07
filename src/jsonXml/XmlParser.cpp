@@ -1,9 +1,9 @@
 #include "XmlParser.h"
-#include "Album.h"
-#include "Books.h"
-#include "Comic.h"
-#include "Movie.h"
-#include "Videogames.h"
+#include "../items/album.h"
+#include "../items/Books.h"
+#include "../items/Comic.h"
+#include "../items/Movie.h"
+#include "../items/Videogames.h"
 
 #include <iostream>//debug only
 

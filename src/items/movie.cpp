@@ -1,4 +1,4 @@
-#include <movie.h>
+#include "Movie.h"
 
 Movie::Movie(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country,  std::string _director, std::string _screenwriter, unsigned int _length, std::string _production_company)
 	: AbstractItem(_title, _year, _description, _genre, _country), director(_director), screenwriter(_screenwriter), length(_length), production_company(_production_company) {
@@ -39,4 +39,6 @@ void Movie::setProd(const std::string p) {
 void Movie::accept(ItemVisitor& iv) {
 	iv.visit(*this);
 }
+
+
 

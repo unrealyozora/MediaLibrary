@@ -1,13 +1,13 @@
 #ifndef JSON_READER_H
 #define JSON_READER_H
-#include <AbstractItem.h>
+#include "../items/AbstractItem.h"
 #include <qjsonobject.h>
 #include <qjsonarray.h>
-#include <movie.h>
-#include <Videogames.h>
-#include <Comic.h>
-#include <Books.h>
-#include <album.h>
+#include "../items/Movie.h"
+#include "../items/Videogames.h"
+#include "../items/Comic.h"
+#include "../items/Books.h"
+#include "../items/album.h"
 class JsonReader {
 public:
 	static std::shared_ptr<Movie> readMovie(QJsonObject& obj);

@@ -1,6 +1,6 @@
 #ifndef COMIC_H
 #define COMIC_H
-#include <AbstractItem.h>
+#include "AbstractItem.h"
 
 class Comic:public AbstractItem {
     private:

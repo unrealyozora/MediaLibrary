@@ -1,6 +1,6 @@
-#include <Library.h>
 #include <QString>
 #include <iostream>
+#include "../library/Library.h"
 static void test() {
 	QString path_lettura = "C:\\Users\\tomma\\Dev\\MediaLibrary\\assets\\prova.json";
 	QString path_scrittura = "C:\\Users\\tomma\\Dev\\MediaLibrary\\assets\\prova_scrittura.json";

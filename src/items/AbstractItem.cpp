@@ -1,4 +1,4 @@
-#include <AbstractItem.h>
+#include "AbstractItem.h"
 
 AbstractItem::AbstractItem(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country) :
 	title(_title), year(_year), description(_description), genre(_genre), country(_country) {}
@@ -34,3 +34,4 @@ const std::string AbstractItem::getCountry() const {
 void AbstractItem::setCountry(const std::string& c) {
 	this->country = c;
 }
+

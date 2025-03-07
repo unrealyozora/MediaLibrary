@@ -3,11 +3,12 @@
 #include <iostream>
 #include <qxmlstream.h>
 #include "xml_first_test.h"
-#include <Library.h>
-#include <Videogames.h>
+#include "../library/Library.h"
+#include "../items/Videogames.h"
 
 void XmlTest::test() {
     QString path = "assets/prova.xml";
+    QString write_path = "assets/scrittura.xml";
     Library* newLib = new Library();
     QFile file(path);
     try {
@@ -25,5 +26,12 @@ void XmlTest::test() {
 
         std::cout<<dynamic_cast<Videogames*>(x[2].get())->getMultiplayer();
         
+    }
+
+    try {
+        newLib->toXml(write_path);
+    }
+    catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
     }
 }

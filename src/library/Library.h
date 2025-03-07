@@ -1,8 +1,8 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
-#include <AbstractItem.h>
-#include <qlist.h>
 #include <memory>
+#include "../items/AbstractItem.h"
+#include <qlist.h>
 class Library {
 private:
 	QList<std::shared_ptr<AbstractItem>> media;
@@ -15,12 +15,12 @@ public:
 	void addItem(std::shared_ptr<AbstractItem> item);
 	void removeItem(const std::string& title, unsigned int year); //il metodo removeItem richiede il titolo e l'anno, in modo da non creare eventuali casi di omonimia
 	
-	//sezione gestione json/xml
+	//sezione gestione json
 	void fromJson(const QString& path);
 	void toJson(const QString& path) const;
 	
-/*-------------------------------------------------------------------------------------------------------------------------------*/
-	//void toXml(const QString& path) const;
+	//sezione gestione xml
 	void fromXml(const QString& path);
+	void toXml(const QString& path) const;
 };
 #endif
