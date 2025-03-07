@@ -11,8 +11,9 @@ protected:
 	std::string description;
 	std::string genre;
 	std::string country;
+	std::string image;
 public:
-	AbstractItem(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country);
+	AbstractItem(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, std::string _image);
 	virtual ~AbstractItem();
 	const std::string getTitle() const;
 	void setTitle(const std::string& s);
@@ -24,6 +25,8 @@ public:
 	void setGenre(const std::string& g);
 	const std::string getCountry() const;
 	void setCountry(const std::string& c);
+	const std::string getImage() const;
+	void setImage(const std::string& i);
 	virtual void accept(ItemVisitor& iv) = 0;
 
 };

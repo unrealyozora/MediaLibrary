@@ -1,7 +1,7 @@
 #include "Movie.h"
 
-Movie::Movie(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country,  std::string _director, std::string _screenwriter, unsigned int _length, std::string _production_company)
-	: AbstractItem(_title, _year, _description, _genre, _country), director(_director), screenwriter(_screenwriter), length(_length), production_company(_production_company) {
+Movie::Movie(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, const std::string _image, std::string _director, std::string _screenwriter, unsigned int _length, std::string _production_company)
+	: AbstractItem(_title, _year, _description, _genre, _country, _image), director(_director), screenwriter(_screenwriter), length(_length), production_company(_production_company) {
 }
 
 const std::string Movie::getDirector() const {

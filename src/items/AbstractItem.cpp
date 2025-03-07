@@ -1,7 +1,7 @@
 #include "AbstractItem.h"
 
-AbstractItem::AbstractItem(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country) :
-	title(_title), year(_year), description(_description), genre(_genre), country(_country) {}
+AbstractItem::AbstractItem(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, std::string _image) :
+	title(_title), year(_year), description(_description), genre(_genre), country(_country), image(_image) {}
 AbstractItem::~AbstractItem() {}
 
 const std::string AbstractItem::getTitle() const {
@@ -33,5 +33,13 @@ const std::string AbstractItem::getCountry() const {
 }
 void AbstractItem::setCountry(const std::string& c) {
 	this->country = c;
+}
+
+const std::string AbstractItem::getImage() const {
+	return image;
+}
+
+void AbstractItem::setImage(const std::string& i) {
+	this->image = i;
 }
 
