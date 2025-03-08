@@ -8,7 +8,7 @@ class Books: public AbstractItem{
 		std::string publ_house;
 		static constexpr mediatype type = mediatype::Book;
 	public:
-		Books(std::string& _title, unsigned int _year, std::string& _description, std::string& _genre, std::string& _country, const std::string& _image, std::string& _author, unsigned int _pages, std::string& _publ_house);
+		Books(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _pages, const std::string& _publ_house);
 		const std::string& getAuthor() const;
 		void setAuthor(const std::string& auth);
 		const unsigned int getPages() const;

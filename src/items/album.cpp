@@ -1,6 +1,6 @@
 #include "album.h"
 
-Album::Album(std::string& _title, unsigned int _year ,std::string& _description, std::string& _genre, std::string& _country, const std::string& _image, std::string& _author, unsigned int _songs, unsigned int _length)
+Album::Album(const std::string& _title, unsigned int _year , const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _songs, unsigned int _length)
 	: AbstractItem(_title, _year, _description, _genre, _country, _image), author(_author), songs(_songs), length(_length) {}
 
 const std::string& Album::getAuthor() const{

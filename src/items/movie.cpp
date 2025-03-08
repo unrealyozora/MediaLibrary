@@ -32,7 +32,7 @@ const std::string& Movie::getProd() const {
 	return production_company;
 }
 
-void Movie::setProd(const std::string p) {
+void Movie::setProd(const std::string& p) {
 	this->production_company = p;
 }
 

@@ -2,8 +2,10 @@
 #define LIBRARY_H
 #include <memory>
 #include "../items/AbstractItem.h"
-#include <qlist.h>
-class Library {
+#include <QList>
+#include <QObject>
+class Library: public QObject {
+	Q_OBJECT
 private:
 	QList<std::shared_ptr<AbstractItem>> media;
 public:
@@ -22,5 +24,8 @@ public:
 	//sezione gestione xml
 	void fromXml(const QString& path);
 	void toXml(const QString& path) const;
+
+signals:
+	void itemsChanged();  // Notifica quando la lista cambia
 };
 #endif

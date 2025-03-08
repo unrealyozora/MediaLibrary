@@ -8,7 +8,7 @@ private:
 	unsigned int length;
 	static constexpr mediatype type = mediatype::Album;
 public:
-	Album(std::string& _title, unsigned int _year, std::string& _description, std::string& _genre, std::string& _country, const std::string& _image, std::string& _author, unsigned int _songs, unsigned int _length);
+	Album(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _songs, unsigned int _length);
 	const std::string& getAuthor() const ;
 	void setAuthor(const std::string& a);
 	const unsigned int getLength() const;
