@@ -14,7 +14,7 @@ private:
     QXmlStreamWriter& xmlWriter;
 
 public:
-    XmlVisitor(QXmlStreamWriter& writer);
+    explicit XmlVisitor(QXmlStreamWriter& writer);
     void visit(Album& album) override;
     void visit(Books& book) override;
     void visit(Comic& comic) override;

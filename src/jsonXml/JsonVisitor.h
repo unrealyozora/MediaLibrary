@@ -13,10 +13,10 @@ private:
     QJsonArray array;
 public:
     QJsonArray getArray() const;
-    virtual void visit(Album& album);
-    virtual void visit(Books& book);
-    virtual void visit(Comic& comic);
-    virtual void visit(Movie& movie);
-    virtual void visit(Videogames& videogame);
+    virtual void visit(Album& album) override;
+    virtual void visit(Books& book) override;
+    virtual void visit(Comic& comic) override;
+    virtual void visit(Movie& movie) override;
+    virtual void visit(Videogames& videogame) override;
 };
 #endif

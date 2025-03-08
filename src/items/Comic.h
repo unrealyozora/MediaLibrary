@@ -8,12 +8,12 @@ class Comic:public AbstractItem {
         unsigned int chapters;
         static constexpr mediatype type = mediatype::Comic;
     public:
-        Comic(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, const std::string _image, std::string author, unsigned int chapters);
-        const std::string getAuthor() const;
+        Comic(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& author, unsigned int chapters);
+        const std::string& getAuthor() const;
         void setAuthor(const std::string& dir);
         const unsigned int getChapters() const;
-        void setChapters(unsigned int& len);
-        virtual void accept(ItemVisitor& iv);
+        void setChapters(const unsigned int& len);
+        virtual void accept(ItemVisitor& iv) override;
 };
 
 

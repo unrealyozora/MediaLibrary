@@ -1,10 +1,10 @@
 #include "Movie.h"
 
-Movie::Movie(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, const std::string _image, std::string _director, std::string _screenwriter, unsigned int _length, std::string _production_company)
+Movie::Movie(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _director, const std::string& _screenwriter, unsigned int _length, const std::string& _production_company)
 	: AbstractItem(_title, _year, _description, _genre, _country, _image), director(_director), screenwriter(_screenwriter), length(_length), production_company(_production_company) {
 }
 
-const std::string Movie::getDirector() const {
+const std::string& Movie::getDirector() const {
 	return director;
 }
 
@@ -12,7 +12,7 @@ void Movie::setDirector(const std::string& d) {
 	this->director = d;
 }
 
-const std::string Movie::getScreenwriter() const {
+const std::string& Movie::getScreenwriter() const {
 	return screenwriter;
 }
 
@@ -28,7 +28,7 @@ void Movie::setLength(const unsigned int l) {
 	this->length = l;
 }
 
-const std::string Movie::getProd() const {
+const std::string& Movie::getProd() const {
 	return production_company;
 }
 

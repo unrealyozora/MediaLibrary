@@ -1,10 +1,10 @@
 #include "Videogames.h"
 
-Videogames::Videogames(std::string _title, unsigned int _year, std::string _description, std::string _genre, std::string _country, const std::string _image, std::string _developer, bool _multiplayer)
+Videogames::Videogames(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _developer, bool _multiplayer)
 	:AbstractItem(_title, _year, _description, _genre, _country, _image), developer(_developer), multiplayer(_multiplayer){};
 
 
-const std::string Videogames::getDeveloper() const {
+const std::string& Videogames::getDeveloper() const {
 	return developer;
 }
 void Videogames::setDeveloper(const std::string& dev) {

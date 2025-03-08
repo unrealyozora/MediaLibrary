@@ -6,6 +6,7 @@
         "description": "A mind-bending thriller about dreams within dreams.",
         "genre": "Sci-Fi",
         "country": "USA",
+        "image": "assets/placeholder.jpg",
         "director": "Christopher Nolan",
         "screenwriter": "Christopher Nolan",
         "length": 148,
@@ -18,6 +19,7 @@
         "description": "An iconic progressive rock album by Pink Floyd.",
         "genre": "Rock", 
         "country": "UK",
+        "image": "assets/placeholder.jpg",
         "author": "Pink Floyd",
         "songs": 10,
         "length": 43
@@ -29,6 +31,7 @@
         "description": "An open-world RPG set in a fantasy universe.",
         "genre": "RPG",
         "country": "Poland",
+        "image": "assets/placeholder.jpg",
         "developer": "CD Projekt Red",
         "multiplayer": false
     },
@@ -39,6 +42,7 @@
         "description": "The origin story of one of the most beloved superheroes.",
         "genre": "Superhero",
         "country": "USA",
+        "image": "assets/placeholder.jpg",
         "author": "Stan Lee",
         "chapters": 15
     },
@@ -49,6 +53,7 @@
         "description": "A dystopian novel about totalitarian surveillance.",
         "genre": "Dystopian",
         "country": "UK",
+        "image": "assets/placeholder.jpg",
         "author": "George Orwell",
         "pages": 328,
         "publ": "Secker & Warburg"
