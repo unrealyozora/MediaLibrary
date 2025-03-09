@@ -7,8 +7,13 @@
 class Library: public QObject {
 	Q_OBJECT
 private:
+	static Library* instance;
+	Library() {};
+	Library(const Library&) = delete;
+	Library& operator=(const Library&) = delete;
 	QList<std::shared_ptr<AbstractItem>> media;
 public:
+	static Library* getInstance();
 	const unsigned int getSize() const;
 	const bool is_empty() const;
 	QList<std::shared_ptr<AbstractItem>> getList() const;
@@ -26,6 +31,6 @@ public:
 	void toXml(const QString& path) const;
 
 signals:
-	void itemsChanged();  // Notifica quando la lista cambia
+	void updateList(const QList<std::shared_ptr<AbstractItem>>& newList);  // Notifica quando la lista cambia
 };
 #endif

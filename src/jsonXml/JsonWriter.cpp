@@ -4,7 +4,7 @@
 
 void JsonWriter::writeJson(const QString& path, const QList<std::shared_ptr<AbstractItem>>& media) {
     if (media.isEmpty()) {
-        throw QString("La libreria è vuota"); //gestire libreria vuota in un altro modo
+        throw QString("La libreria Ã¨ vuota"); //gestire libreria vuota in un altro modo
     }
     JsonVisitor visitor;
     QFile file(path);

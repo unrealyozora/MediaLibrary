@@ -11,6 +11,15 @@
 #include "../jsonXml/XmlParser.h"
 #include "../jsonXml/XmlWriter.h"
 
+Library* Library::instance = nullptr;
+Library* Library::getInstance() {
+	if (instance == nullptr) {
+		instance = new Library();
+	}
+	return instance;
+	
+}
+
 const unsigned int Library::getSize() const {
 	return media.size();
 }
@@ -36,6 +45,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 }
 
 void Library::fromJson(const QString& path) {
+	media.clear();
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
 		throw std::runtime_error(file.errorString().toStdString());
@@ -66,6 +76,7 @@ void Library::fromJson(const QString& path) {
 			media.append(newItem);
 		}
 	}
+	emit updateList(media);
 }
 
 void Library::toJson(const QString& path) const {
@@ -83,6 +94,7 @@ void Library::toJson(const QString& path) const {
 
 
 void Library::fromXml(const QString& path) {
+	media.clear();
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
 		throw std::runtime_error(file.errorString().toStdString());
@@ -126,6 +138,7 @@ void Library::fromXml(const QString& path) {
 	}
 
 	file.close();
+	emit updateList(media);
 }
 
 void Library::toXml(const QString& path) const {
@@ -139,3 +152,4 @@ void Library::toXml(const QString& path) const {
 		std::cerr << e.what() << std::endl;	//errore nel file
 	}
 }
+

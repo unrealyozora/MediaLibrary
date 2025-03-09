@@ -1,31 +1,33 @@
 #include <QApplication>
-#include <QTableView>
+
+#include <QMainWindow>
 #include "library/library.h"
 #include "view/LibraryModel.h"
 #include "items/AbstractItem.h"
-#include "view/MainWidget.h"
+
+#include "view/LibraryListModel.h"
+#include "view/LibraryMainWindow.h"
 int main(int argc, char* argv[]) {
+
+    Library* library = Library::getInstance();
     QApplication app(argc, argv);
-    QWidget* window = new QWidget();
-    Library library;
-    LibraryModel model;
-    QHBoxLayout* mLayout = new QHBoxLayout(window);
-    MainWidget* widget = new MainWidget();
-    //widget->show();
 
-    // il signal non è ancora stato implementato
-    QObject::connect(&library, &Library::itemsChanged, [&]() {
-        model.setItems(library.getList());
-        });
+    //creazione MainWindow
+    LibraryMainWindow* window = new LibraryMainWindow();
+    //creazione Modello
+    
+    
+    //creazione layout orizzontale
+    
+    
 
-    QString path = "assets/prova.json";
-    library.fromJson(path);
-    model.setItems(library.getList());
-    QTableView tableView;
-    tableView.setModel(&model);
-    //tableView.show();
-    mLayout->addWidget(widget);
-    mLayout->addWidget(&tableView);
+    
+
+    
+
+    //creazione vista
+    
+    
     window->resize(1024, 512);
     window->show();
 

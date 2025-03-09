@@ -3,6 +3,8 @@
 #include <QWindow>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QMenuBar>
+#include <QMenu>
 
 class MainWidget : public QWidget {
 	Q_OBJECT

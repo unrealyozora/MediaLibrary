@@ -3,7 +3,7 @@
 
 void XmlWriter::writeXml(const QString& path, const QList<std::shared_ptr<AbstractItem>>& media) {
     if (media.isEmpty()) {
-        throw QString("La libreria è vuota");
+        throw QString("La libreria Ã¨ vuota");
     }
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly)) {
