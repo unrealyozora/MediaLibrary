@@ -1,7 +1,7 @@
 #include <QApplication>
 
 #include <QMainWindow>
-#include "library/library.h"
+#include "library/Library.h"
 #include "view/LibraryModel.h"
 #include "items/AbstractItem.h"
 

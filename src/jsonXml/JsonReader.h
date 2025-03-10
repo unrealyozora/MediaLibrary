@@ -1,9 +1,10 @@
 #ifndef JSON_READER_H
 #define JSON_READER_H
 #include "../items/AbstractItem.h"
+#include <memory>
 #include <qjsonobject.h>
 #include <qjsonarray.h>
-#include "../items/Movie.h"
+#include "../items/movie.h"
 #include "../items/Videogames.h"
 #include "../items/Comic.h"
 #include "../items/Books.h"

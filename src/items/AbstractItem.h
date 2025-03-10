@@ -6,7 +6,7 @@
 class AbstractItem {
 protected:
 	std::string title;
-	const enum mediatype {Album, Book, Comic, Movie, Videogame};
+	enum mediatype {Album, Book, Comic, Movie, Videogame};
 	unsigned int year;
 	std::string description;
 	std::string genre;

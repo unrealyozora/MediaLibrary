@@ -1,4 +1,4 @@
-#include "Movie.h"
+#include "movie.h"
 
 Movie::Movie(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _director, const std::string& _screenwriter, unsigned int _length, const std::string& _production_company)
 	: AbstractItem(_title, _year, _description, _genre, _country, _image), director(_director), screenwriter(_screenwriter), length(_length), production_company(_production_company) {

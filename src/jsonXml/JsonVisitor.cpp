@@ -1,5 +1,6 @@
-#include "jsonVisitor.h"
-#include <qjsonobject.h>
+#include "JsonVisitor.h"
+#include <QJsonObject>
+#include <QVariant>
 QJsonArray JsonVisitor::getArray() const {
     return array;
 }

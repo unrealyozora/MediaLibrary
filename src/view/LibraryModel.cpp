@@ -1,5 +1,5 @@
 #include "LibraryModel.h"
-
+#include <QDebug>
 LibraryModel::LibraryModel(QObject* parent): QAbstractTableModel(parent) {}
 
 void LibraryModel::setItems(const QList<std::shared_ptr<AbstractItem>>& _items) {

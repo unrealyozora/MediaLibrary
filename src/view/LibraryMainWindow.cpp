@@ -1,5 +1,5 @@
 #include "LibraryMainWindow.h"
-#include "../library/library.h"
+#include "../library/Library.h"
 #include "MainWidget.h"
 #include "LibraryListModel.h"
 #include <QListView>
@@ -7,6 +7,7 @@
 #include <QMenuBar>
 #include <QApplication>
 #include <QMessageBox>
+#include <QDebug>
 LibraryMainWindow::LibraryMainWindow() {
 	LibraryListModel* model = new LibraryListModel();
 	QHBoxLayout* mLayout = new QHBoxLayout();

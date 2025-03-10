@@ -2,6 +2,7 @@
 #define VIEW_TABLE_MODEL_H
 #include <QAbstractTableModel>
 #include "../items/AbstractItem.h"
+#include <memory>
 class LibraryModel : public QAbstractTableModel {
 	Q_OBJECT
 private:
