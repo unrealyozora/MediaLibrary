@@ -1,4 +1,4 @@
-#include "MainWidget.h"
+#include "SideMenu.h"
 
 MainWidget::MainWidget(QWidget* parent):QWidget(parent){
 	QVBoxLayout* layout = new QVBoxLayout(this);

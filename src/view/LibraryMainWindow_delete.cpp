@@ -1,6 +1,6 @@
 #include "LibraryMainWindow.h"
 #include "../library/Library.h"
-#include "MainWidget.h"
+#include "SideMenu.h"
 #include "LibraryListModel.h"
 #include <QListView>
 #include <QLayout>
@@ -11,7 +11,7 @@
 LibraryMainWindow::LibraryMainWindow() {
 	LibraryListModel* model = new LibraryListModel();
 	QHBoxLayout* mLayout = new QHBoxLayout();
-	MainWidget* widget = new MainWidget();
+	SideMenu* widget = new SideMenu();
 	QListView* listview = new QListView();
 	listview->setModel(model);
 	listview->setViewMode(QListView::IconMode);  // Mostra solo icone

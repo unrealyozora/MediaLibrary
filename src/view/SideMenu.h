@@ -1,5 +1,5 @@
-#ifndef VIEW_MAIN_H
-#define VIEW_MAIN_H
+#ifndef VIEW_SIDE_H
+#define VIEW_SIDE_H
 #include <QWindow>
 #include <QPushButton>
 #include <QHBoxLayout>
