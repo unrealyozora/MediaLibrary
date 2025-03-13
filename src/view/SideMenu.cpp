@@ -1,6 +1,6 @@
 #include "SideMenu.h"
 
-MainWidget::MainWidget(QWidget* parent):QWidget(parent){
+SideMenu::SideMenu(QWidget* parent):QWidget(parent){
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
 	album = new QPushButton("Albums");

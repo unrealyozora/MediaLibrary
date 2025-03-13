@@ -6,7 +6,7 @@
 #include <QMenuBar>
 #include <QMenu>
 
-class MainWidget : public QWidget {
+class SideMenu : public QWidget {
 	Q_OBJECT
 private:
 	QPushButton* album=new QPushButton("Albums");
@@ -15,6 +15,6 @@ private:
 	QPushButton* movie = new QPushButton("Movies");
 	QPushButton* videogame = new QPushButton("Videogames");
 public:
-	MainWidget(QWidget* parent=nullptr);
+	SideMenu(QWidget* parent=nullptr);
 };
 #endif

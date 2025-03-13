@@ -2,9 +2,7 @@
 
 #include <QMainWindow>
 #include "library/Library.h"
-#include "view/LibraryModel.h"
 #include "items/AbstractItem.h"
-
 #include "view/LibraryListModel.h"
 #include "view/LibraryMainWindow.h"
 int main(int argc, char* argv[]) {
