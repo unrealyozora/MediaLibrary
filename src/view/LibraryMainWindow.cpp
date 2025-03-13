@@ -1,6 +1,7 @@
 #include "LibraryMainWindow.h"
 #include "LibraryMainWindow.h"
 #include "../library/Library.h"
+#include "ThumbnailDelegate.h"
 #include "SideMenu.h"
 #include "LibraryListModel.h"
 #include <QListView>
@@ -22,12 +23,13 @@ LibraryMainWindow::LibraryMainWindow(){
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
    /*------------------------CREAZIONE WIDGET-------------------*/
-
+	 
     LibraryListModel* model = new LibraryListModel();
     SideMenu* sideMenu = new SideMenu();
     QListView* listview = new QListView();
     QWidget* centralWidget = new QWidget();
     QHBoxLayout* MainLayout = new QHBoxLayout();
+	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
 
     listview->setModel(model);
 	listview->setViewMode(QListView::IconMode);  // Mostra solo icone
@@ -35,6 +37,7 @@ LibraryMainWindow::LibraryMainWindow(){
 	listview->setSpacing(50);                    // Spaziatura tra elementi
 	listview->setResizeMode(QListView::Adjust);
 	listview->setSelectionMode(QAbstractItemView::SingleSelection);
+	listview->setItemDelegate(thumbnaildelegate);
 
     MainLayout->addWidget(sideMenu);
     MainLayout->addWidget(listview);
@@ -90,7 +93,11 @@ void LibraryMainWindow::SaveFile(){
 			}else if (filepath.endsWith(".xml", Qt::CaseInsensitive)){
 				Library::getInstance()->toXml(filepath);
 			}else{
-				qDebug("Invalid format"); //aggiungere qwarningbox
+				QMessageBox invalidFilemsg;
+				invalidFilemsg.setWindowTitle("Error");
+				invalidFilemsg.setText("<p align='center'>Unsupported file format<br></p>");
+				invalidFilemsg.exec();
+				
 			}
 		}
 	}

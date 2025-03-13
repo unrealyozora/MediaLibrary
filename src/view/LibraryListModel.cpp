@@ -22,6 +22,9 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
         return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
             .scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
+    else if (role == Qt::DisplayRole) {
+        return items.at(index.row())->getTitle().c_str();
+    }
 
     return QVariant();
 }
