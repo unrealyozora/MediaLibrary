@@ -15,8 +15,10 @@ LibraryMainWindow::LibraryMainWindow(){
     QMenu* fileMenu = new QMenu("File", this);
     menuBar->addMenu(fileMenu);
     QAction* openAction = new QAction("Open", this);
+	QAction* saveAction = new QAction("Save as", this);
 	QAction* exitAction = new QAction("Exit", this);
 	fileMenu->addAction(openAction);
+	fileMenu->addAction(saveAction);
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
    /*------------------------CREAZIONE WIDGET-------------------*/
@@ -40,20 +42,20 @@ LibraryMainWindow::LibraryMainWindow(){
     this->setCentralWidget(centralWidget);
 
     connect(openAction, &QAction::triggered, this, &LibraryMainWindow::OpenFile); //Finestra di dialogo apertura file
+	connect(saveAction, &QAction::triggered, this, &LibraryMainWindow::SaveFile);
 	connect(exitAction, &QAction::triggered, this, &QApplication::quit); // Uscita dall' applicazione
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
 }
 
+
 void LibraryMainWindow::OpenFile() {
-		QString filepath = QFileDialog::getOpenFileName(this, "Seleziona un file", "", "Library File (*.json *.xml);;Tutti i file (*.*)");
+		QString filepath = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.json *.xml);;Tutti i file (*.*)");
 		if (!filepath.isEmpty()) {
 			if (filepath.endsWith(".json", Qt::CaseInsensitive)) {
-				qDebug("json");
 				Library::getInstance()->fromJson(filepath);
 				
 			}
 			else if (filepath.endsWith(".xml", Qt::CaseInsensitive)) {
-				qDebug("xml");
 				Library::getInstance()->fromXml(filepath);
 			}
 			else {
@@ -65,6 +67,31 @@ void LibraryMainWindow::OpenFile() {
 			
 		}
 		else {
-			qDebug() << "Nessun file selezionato."; //exception handling da mettere
+			qDebug() << "Nessun file selezionato."; //debug only
 		}
+}
+
+void LibraryMainWindow::SaveFile(){
+	QString selectedFilter;
+	QString filepath= QFileDialog::getSaveFileName(this, "Save a file", "", "Json File (*.json);;Xml File(*.xml)", &selectedFilter);
+	if (!filepath.isEmpty()){
+		QFileInfo fileInfo(filepath);
+		if (fileInfo.suffix().isEmpty()){
+			if (selectedFilter.contains("*.json")){
+				filepath+=".json";
+				Library::getInstance()->toJson(filepath);
+			}else if (selectedFilter.contains("*.xml")){
+				filepath+=".xml";
+				Library::getInstance()->toXml(filepath);
+			}
+		}else{
+			if (filepath.endsWith(".json", Qt::CaseInsensitive)){
+				Library::getInstance()->toJson(filepath);
+			}else if (filepath.endsWith(".xml", Qt::CaseInsensitive)){
+				Library::getInstance()->toXml(filepath);
+			}else{
+				qDebug("Invalid format"); //aggiungere qwarningbox
+			}
+		}
+	}
 }

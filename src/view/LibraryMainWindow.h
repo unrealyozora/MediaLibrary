@@ -8,5 +8,6 @@ public:
 	LibraryMainWindow();
 private slots:
 	void OpenFile();
+	void SaveFile();
 };
 #endif
