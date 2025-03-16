@@ -16,5 +16,10 @@ private:
 	QPushButton* videogame = new QPushButton("Videogames");
 public:
 	SideMenu(QWidget* parent=nullptr);
+
+/*-------------------------------------------------------------------*/
+signals:
+	void categoryChanged(const QString& category);
+/*-------------------------------------------------------------------*/
 };
 #endif

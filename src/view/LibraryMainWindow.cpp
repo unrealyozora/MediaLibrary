@@ -45,6 +45,9 @@ LibraryMainWindow::LibraryMainWindow(){
 	connect(saveAction, &QAction::triggered, this, &LibraryMainWindow::SaveFile);
 	connect(exitAction, &QAction::triggered, this, &QApplication::quit); // Uscita dall' applicazione
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
+	/*-------------------------------------------------------------------*/
+	connect(sideMenu, &SideMenu::categoryChanged, model, &LibraryListModel::filterByCategory); // Collegamento SideMenu -> LibraryListModel
+
 }
 
 

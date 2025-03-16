@@ -13,4 +13,12 @@ SideMenu::SideMenu(QWidget* parent):QWidget(parent){
 	layout->addWidget(comic);
 	layout->addWidget(movie);
 	layout->addWidget(videogame);
+	/*-------------------------------------------------------------------*/
+	connect(album, &QPushButton::clicked, this, [this]() { emit categoryChanged("Album"); });
+	connect(book, &QPushButton::clicked, this, [this]() { emit categoryChanged("Book"); });
+	connect(comic, &QPushButton::clicked, this, [this]() { emit categoryChanged("Comic"); });
+	connect(movie, &QPushButton::clicked, this, [this]() { emit categoryChanged("Movie"); });
+	connect(videogame, &QPushButton::clicked, this, [this]() { emit categoryChanged("Videogame"); });
+
+	/*-------------------------------------------------------------------*/
 }
