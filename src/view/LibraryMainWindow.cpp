@@ -4,6 +4,7 @@
 #include "ThumbnailDelegate.h"
 #include "SideMenu.h"
 #include "LibraryListModel.h"
+#include "LibraryModelFilter.h"
 #include <QListView>
 #include <QLayout>
 #include <QMenuBar>
@@ -25,13 +26,15 @@ LibraryMainWindow::LibraryMainWindow(){
    /*------------------------CREAZIONE WIDGET-------------------*/
 	 
     LibraryListModel* model = new LibraryListModel();
-    SideMenu* sideMenu = new SideMenu();
+	LibraryModelFilter* categoryFilter = new LibraryModelFilter();
+    SideMenu* sideMenu = new SideMenu(categoryFilter);
     QListView* listview = new QListView();
     QWidget* centralWidget = new QWidget();
     QHBoxLayout* MainLayout = new QHBoxLayout();
 	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
 
-    listview->setModel(model);
+	categoryFilter->setSourceModel(model);
+    listview->setModel(categoryFilter);
 	listview->setViewMode(QListView::IconMode);  // Mostra solo icone
 	listview->setIconSize(QSize(20, 20));      // Dimensioni delle immagini
 	listview->setSpacing(50);                    // Spaziatura tra elementi
@@ -48,9 +51,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	connect(saveAction, &QAction::triggered, this, &LibraryMainWindow::SaveFile);
 	connect(exitAction, &QAction::triggered, this, &QApplication::quit); // Uscita dall' applicazione
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
-	/*-------------------------------------------------------------------*/
-	connect(sideMenu, &SideMenu::categoryChanged, model, &LibraryListModel::filterByCategory); // Collegamento SideMenu -> LibraryListModel
-
 }
 
 

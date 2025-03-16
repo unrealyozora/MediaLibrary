@@ -1,6 +1,6 @@
 #include "SideMenu.h"
-
-SideMenu::SideMenu(QWidget* parent):QWidget(parent){
+#include "LibraryListModel.h"
+SideMenu::SideMenu(LibraryModelFilter* filterProxy, QWidget* parent):QWidget(parent), filterProxy(filterProxy){
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
 	album = new QPushButton("Albums");
@@ -13,12 +13,5 @@ SideMenu::SideMenu(QWidget* parent):QWidget(parent){
 	layout->addWidget(comic);
 	layout->addWidget(movie);
 	layout->addWidget(videogame);
-	/*-------------------------------------------------------------------*/
-	connect(album, &QPushButton::clicked, this, [this]() { emit categoryChanged("Album"); });
-	connect(book, &QPushButton::clicked, this, [this]() { emit categoryChanged("Book"); });
-	connect(comic, &QPushButton::clicked, this, [this]() { emit categoryChanged("Comic"); });
-	connect(movie, &QPushButton::clicked, this, [this]() { emit categoryChanged("Movie"); });
-	connect(videogame, &QPushButton::clicked, this, [this]() { emit categoryChanged("Videogame"); });
-
-	/*-------------------------------------------------------------------*/
+	connect(album, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterCategory("Album"); });
 }
