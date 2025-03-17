@@ -10,6 +10,12 @@ class LibraryListModel :public QAbstractListModel {
 private:
 	QList<std::shared_ptr<AbstractItem>> items;
 public:
+	enum Roles{
+		TitleRole=Qt::UserRole+1,
+		CategoryRole,
+		AlbumArtistRole,
+	};
+
 	explicit LibraryListModel(QObject* parent = nullptr);
 	void setItems(const QList <std::shared_ptr<AbstractItem>>& _items);
 	int rowCount(const QModelIndex& parent = QModelIndex()) const override;

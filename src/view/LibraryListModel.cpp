@@ -1,8 +1,8 @@
 #include "LibraryListModel.h"
-#include "../items/Album.h"  
+#include "../items/album.h"  
 #include "../items/Books.h"  
 #include "../items/Comic.h"  
-#include "../items/Movie.h"  
+#include "../items/movie.h"  
 #include "../items/Videogames.h"
 
 LibraryListModel::LibraryListModel(QObject* parent):QAbstractListModel(parent) {}
@@ -32,7 +32,19 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
     else if (role == Qt::DisplayRole) {
         return items.at(index.row())->getTitle().c_str();
     }
-    else if (role)
+    else if (role==Roles::CategoryRole){
+        if (dynamic_cast<Album*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
+            return "Album";
+        }else if (dynamic_cast<Books*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
+            return "Book";
+        }else if (dynamic_cast<Comic*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
+            return "Comic";
+        }else if (dynamic_cast<Movie*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
+            return "Movie";
+        }else if (dynamic_cast<Videogames*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
+            return "Videogame";
+        }
+    }
 
     return QVariant();
 }

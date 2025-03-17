@@ -27,6 +27,7 @@ public:
 	void setCountry(const std::string& c);
 	const std::string& getImage() const;
 	void setImage(const std::string& i);
+
 	virtual void accept(ItemVisitor& iv) = 0;
 
 };

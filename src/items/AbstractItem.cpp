@@ -43,3 +43,5 @@ void AbstractItem::setImage(const std::string& i) {
 	this->image = i;
 }
 
+
+
