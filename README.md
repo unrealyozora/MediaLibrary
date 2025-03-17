@@ -1,6 +1,4 @@
----
 date: March 14, 2025
----
 # Servizi utilizzati
 - Ide: Visual Studio 2022
 - Git/ Github
