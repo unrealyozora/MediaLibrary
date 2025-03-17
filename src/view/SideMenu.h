@@ -10,6 +10,7 @@
 class SideMenu : public QWidget {
 	Q_OBJECT
 private:
+	QPushButton* all;
 	QPushButton* album;
 	QPushButton* book;
 	QPushButton* comic;

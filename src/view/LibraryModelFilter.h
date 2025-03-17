@@ -11,7 +11,7 @@ public:
 	explicit LibraryModelFilter(QObject* parent = nullptr) : QSortFilterProxyModel(parent) {}
 	void setFilterCategory(const QString& category);
 	bool isFilterEnabled() const;
-	void setFilterEnabled(bool enabled);
+	void setFilterEnabled(bool x);
 protected:
 	bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
 };

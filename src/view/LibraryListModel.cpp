@@ -26,13 +26,20 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
         return QVariant();
 
     if (role == Qt::DecorationRole) {  // Usa DecorationRole per mostrare l'immagine
-        return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
+        if (dynamic_cast<Movie*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
+            return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
+            .scaled(400, 700, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        }else{ //aggiungere gli altri tipi se funziona
+            return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
             .scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        }
+        
     }
     else if (role == Qt::DisplayRole) {
         return items.at(index.row())->getTitle().c_str();
     }
     else if (role==Roles::CategoryRole){
+        //in alternativa si puo usare un metodo visitor che accetta un abstractitem e qui ritorna la stringa contenente la categoria a seconda del tipo concreto che gli passiamo
         if (dynamic_cast<Album*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
             return "Album";
         }else if (dynamic_cast<Books*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
