@@ -28,7 +28,7 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
     if (role == Qt::DecorationRole) {  // Usa DecorationRole per mostrare l'immagine
         if (dynamic_cast<Movie*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
             return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
-            .scaled(400, 700, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            .scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         }else{ //aggiungere gli altri tipi se funziona
             return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
             .scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -51,6 +51,9 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
         }else if (dynamic_cast<Videogames*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
             return "Videogame";
         }
+    }
+    else if (role == Qt::UserRole) {
+        return QVariant::fromValue(((items.at(index.row())).get()));
     }
 
     return QVariant();

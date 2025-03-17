@@ -3,8 +3,7 @@
 #include "../library/Library.h"
 #include "ThumbnailDelegate.h"
 #include "SideMenu.h"
-#include "LibraryListModel.h"
-#include "LibraryModelFilter.h"
+#include "ItemDetailWidget.h"
 #include <QListView>
 #include <QLayout>
 #include <QMenuBar>
@@ -24,15 +23,16 @@ LibraryMainWindow::LibraryMainWindow(){
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
    /*------------------------CREAZIONE WIDGET-------------------*/
-	 
-    LibraryListModel* model = new LibraryListModel();
-	LibraryModelFilter* categoryFilter = new LibraryModelFilter();
-    SideMenu* sideMenu = new SideMenu(categoryFilter);
-    QListView* listview = new QListView();
-    QWidget* centralWidget = new QWidget();
+	stackedWidget = new QStackedWidget(this);
+    model = new LibraryListModel(this);
+	categoryFilter = new LibraryModelFilter(this);
+    SideMenu* sideMenu = new SideMenu(categoryFilter, stackedWidget);
+    QListView* listview = new QListView(this);
+    QWidget* centralWidget = new QWidget(this);
     QHBoxLayout* MainLayout = new QHBoxLayout();
 	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
-
+	detailWidget = new ItemWidget(this);
+	
 	categoryFilter->setSourceModel(model);
     listview->setModel(categoryFilter);
 	listview->setViewMode(QListView::IconMode);  // Mostra solo icone
@@ -41,9 +41,10 @@ LibraryMainWindow::LibraryMainWindow(){
 	listview->setResizeMode(QListView::Adjust);
 	listview->setSelectionMode(QAbstractItemView::SingleSelection);
 	listview->setItemDelegate(thumbnaildelegate);
-
+	stackedWidget->addWidget(listview);
+	stackedWidget->addWidget(detailWidget);
     MainLayout->addWidget(sideMenu);
-    MainLayout->addWidget(listview);
+    MainLayout->addWidget(stackedWidget);
     centralWidget->setLayout(MainLayout);
     this->setCentralWidget(centralWidget);
 
@@ -51,6 +52,8 @@ LibraryMainWindow::LibraryMainWindow(){
 	connect(saveAction, &QAction::triggered, this, &LibraryMainWindow::SaveFile);
 	connect(exitAction, &QAction::triggered, this, &QApplication::quit); // Uscita dall' applicazione
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
+	connect(listview, &QListView::clicked, this, &LibraryMainWindow::itemSelected);
+	connect(detailWidget, &ItemWidget::backToHome, this, &LibraryMainWindow::backHome);
 }
 
 
@@ -58,6 +61,7 @@ void LibraryMainWindow::OpenFile() {
 		QString filepath = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.json *.xml);;Tutti i file (*.*)");
 		if (!filepath.isEmpty()) {
 			if (filepath.endsWith(".json", Qt::CaseInsensitive)) {
+				categoryFilter->setFilterEnabled(false);
 				Library::getInstance()->fromJson(filepath);
 				
 			}
@@ -104,4 +108,18 @@ void LibraryMainWindow::SaveFile(){
 			}
 		}
 	}
+}
+
+void LibraryMainWindow::itemSelected(const QModelIndex& index) {
+	qDebug("elemento cliccato");//debug only
+	AbstractItem* selectedItem = index.data(Qt::UserRole).value<AbstractItem*>();
+	if (selectedItem) {
+		qDebug("itemSelected entrato");//debug only
+		detailWidget->showDetails(selectedItem);
+		stackedWidget->setCurrentIndex(1);
+	}
+}
+
+void LibraryMainWindow::backHome(){
+	stackedWidget->setCurrentIndex(0);
 }

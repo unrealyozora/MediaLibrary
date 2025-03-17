@@ -1,6 +1,6 @@
 #include "SideMenu.h"
 #include "LibraryListModel.h"
-SideMenu::SideMenu(LibraryModelFilter* filterProxy, QWidget* parent):QWidget(parent), filterProxy(filterProxy){
+SideMenu::SideMenu(LibraryModelFilter* filterProxy, QStackedWidget* stackedWidget, QWidget* parent):QWidget(parent), filterProxy(filterProxy), stackedWidget(stackedWidget){
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
 	all = new QPushButton("All");
@@ -15,10 +15,10 @@ SideMenu::SideMenu(LibraryModelFilter* filterProxy, QWidget* parent):QWidget(par
 	layout->addWidget(comic);
 	layout->addWidget(movie);
 	layout->addWidget(videogame);
-	connect(all, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterEnabled(false); });
-	connect(album, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterCategory("Album"); });
-	connect(book, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterCategory("Book"); });
-	connect(comic, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterCategory("Comic"); });
-	connect(movie, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterCategory("Movie"); });
-	connect(videogame, &QPushButton::clicked, this, [this, filterProxy]() {filterProxy->setFilterCategory("Videogame"); });
+	connect(all, &QPushButton::clicked, this, [this, filterProxy, stackedWidget]() {filterProxy->setFilterEnabled(false); stackedWidget->setCurrentIndex(0); });
+	connect(album, &QPushButton::clicked, this, [this, filterProxy, stackedWidget]() {filterProxy->setFilterCategory("Album"); stackedWidget->setCurrentIndex(0); });
+	connect(book, &QPushButton::clicked, this, [this, filterProxy, stackedWidget]() {filterProxy->setFilterCategory("Book"); stackedWidget->setCurrentIndex(0); });
+	connect(comic, &QPushButton::clicked, this, [this, filterProxy, stackedWidget]() {filterProxy->setFilterCategory("Comic"); stackedWidget->setCurrentIndex(0); });
+	connect(movie, &QPushButton::clicked, this, [this, filterProxy, stackedWidget]() {filterProxy->setFilterCategory("Movie"); stackedWidget->setCurrentIndex(0); });
+	connect(videogame, &QPushButton::clicked, this, [this, filterProxy, stackedWidget]() {filterProxy->setFilterCategory("Videogame"); stackedWidget->setCurrentIndex(0); });
 }
