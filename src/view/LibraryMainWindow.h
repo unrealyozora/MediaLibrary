@@ -12,7 +12,8 @@ private:
 	QStackedWidget* stackedWidget;
 	ItemWidget* detailWidget;
 	LibraryListModel* model;
-	LibraryModelFilter* categoryFilter;
+	LibraryCategoryFilter* categoryFilter;
+	LibraryQueryFilter* queryFilter;
 public:
 	LibraryMainWindow();
 private slots:

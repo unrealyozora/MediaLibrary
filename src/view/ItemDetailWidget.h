@@ -10,7 +10,7 @@ private:
 	QPushButton* backButton;
 	QLabel* label;
 public:
-	ItemWidget(QWidget* parent = nullptr);
+	explicit ItemWidget(QWidget* parent = nullptr);
 	void showDetails(AbstractItem* item);
 signals:
 	void backToHome();

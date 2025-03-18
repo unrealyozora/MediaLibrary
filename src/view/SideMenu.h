@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QMenuBar>
 #include <QMenu>
+#include <QLineEdit>
 #include <QStackedWidget>
 #include "LibraryModelFilter.h"
 
@@ -17,10 +18,12 @@ private:
 	QPushButton* comic;
 	QPushButton* movie;
 	QPushButton* videogame;
-	QSortFilterProxyModel* filterProxy;
+	QSortFilterProxyModel* categoryProxy;
+	QSortFilterProxyModel* queryProxy;
+	QLineEdit* searchbar;
 	QStackedWidget* stackedWidget;
 public:
-	explicit SideMenu(LibraryModelFilter* filterProxy, QStackedWidget* stackedWidget, QWidget* parent=nullptr);
+	explicit SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* queryProxy, QStackedWidget* stackedWidget, QWidget* parent=nullptr);
 
 /*-------------------------------------------------------------------*/
 signals:

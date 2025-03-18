@@ -4,7 +4,7 @@
 class ThumbnailDelegate : public QStyledItemDelegate {
 	Q_OBJECT
 public:
-	ThumbnailDelegate(QObject* parent = 0);
+	explicit ThumbnailDelegate(QObject* parent = nullptr);
 	void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 	QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 };

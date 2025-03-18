@@ -25,16 +25,22 @@ LibraryMainWindow::LibraryMainWindow(){
    /*------------------------CREAZIONE WIDGET-------------------*/
 	stackedWidget = new QStackedWidget(this);
     model = new LibraryListModel(this);
-	categoryFilter = new LibraryModelFilter(this);
-    SideMenu* sideMenu = new SideMenu(categoryFilter, stackedWidget);
+	categoryFilter = new LibraryCategoryFilter(this);
+	queryFilter = new LibraryQueryFilter(this);
+    SideMenu* sideMenu = new SideMenu(categoryFilter, queryFilter, stackedWidget);
     QListView* listview = new QListView(this);
     QWidget* centralWidget = new QWidget(this);
     QHBoxLayout* MainLayout = new QHBoxLayout();
 	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
 	detailWidget = new ItemWidget(this);
 	
+
 	categoryFilter->setSourceModel(model);
-    listview->setModel(categoryFilter);
+	queryFilter->setSourceModel(categoryFilter);
+	queryFilter->setFilterCaseSensitivity(Qt::CaseInsensitive);
+	
+
+    listview->setModel(queryFilter);
 	listview->setViewMode(QListView::IconMode);  // Mostra solo icone
 	listview->setIconSize(QSize(20, 20));      // Dimensioni delle immagini
 	listview->setSpacing(50);                    // Spaziatura tra elementi
