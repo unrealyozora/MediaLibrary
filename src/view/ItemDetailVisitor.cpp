@@ -1,124 +1,192 @@
-#include "ItemDetailVisitor.h"
-#include <QString>
-#include <QLayout>
-#include <QLineEdit>
+#include "ItemDetailVisitor.h"  
+#include <QString>  
+#include <QLayout>  
+#include <QLineEdit>  
+#include <QFont>  
+#include <QLabel>  
+#include <QPixmap>  
 
-void ItemDetailVisitor::visit(Album& album) {
+void ItemDetailVisitor::visit(Album& album) {  
 
-    QVBoxLayout* layout = new QVBoxLayout();
+   QHBoxLayout* mainLayout = new QHBoxLayout();  
+   QVBoxLayout* infoLayout = new QVBoxLayout();
 
-    QLabel* label = new QLabel(QString::fromStdString(album.getTitle()));
-    layout->addWidget(label);
+   QLabel* imageLabel = new QLabel();  
+   QPixmap pixmap(QString::fromStdString(album.getImage()));  
+   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, widget->parentWidget()->height(), Qt::KeepAspectRatio)); // Set the image to half the parent widget width
+   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, widget->parentWidget()->height()); // Ensure the image label has a minimum size  
+   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
 
-    QLabel* authorLabel = new QLabel("Author:");
-    QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(album.getAuthor()));
-    layout->addWidget(authorLabel);
-    layout->addWidget(authorEdit);
+   QLabel* label = new QLabel(QString::fromStdString(album.getTitle()));  
+   QFont font = label->font();  
+   font.setPointSize(16); // Set the font size for the title  
+   label->setFont(font);  
+   infoLayout->addWidget(label);  
 
-    QLabel* songsLabel = new QLabel("Songs:");
-    QLineEdit* songsEdit = new QLineEdit(QString::number(album.getSongs()));
-    layout->addWidget(songsLabel);
-    layout->addWidget(songsEdit);
+   QLabel* authorLabel = new QLabel("Author:");  
+   QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(album.getAuthor()));  
+   infoLayout->addWidget(authorLabel);  
+   infoLayout->addWidget(authorEdit);  
 
-    QLabel* lengthLabel = new QLabel("Length:");
-    QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));
-    layout->addWidget(lengthLabel);
-    layout->addWidget(lengthEdit);
+   QLabel* songsLabel = new QLabel("Songs:");  
+   QLineEdit* songsEdit = new QLineEdit(QString::number(album.getSongs()));  
+   infoLayout->addWidget(songsLabel);  
+   infoLayout->addWidget(songsEdit);  
 
-    widget->setLayout(layout);
+   QLabel* lengthLabel = new QLabel("Length:");  
+   QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));  
+   infoLayout->addWidget(lengthLabel);  
+   infoLayout->addWidget(lengthEdit);  
+
+   infoLayout->setSpacing(0); // Set the spacing between components  
+
+   mainLayout->addLayout(infoLayout);
+   widget->setLayout(mainLayout);  
 }
 
-void ItemDetailVisitor::visit(Books& book) {
+void ItemDetailVisitor::visit(Books& book) {  
 
-    QVBoxLayout* layout = new QVBoxLayout();
+   QHBoxLayout* mainLayout = new QHBoxLayout();
+   QVBoxLayout* infoLayout = new QVBoxLayout();
 
-    QLabel* label = new QLabel(QString::fromStdString(book.getTitle()));
-    layout->addWidget(label);
+   QLabel* imageLabel = new QLabel();
+   QPixmap pixmap(QString::fromStdString(book.getImage()));
+   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, widget->parentWidget()->height(), Qt::KeepAspectRatio)); // Set the image to half the parent widget width
+   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, widget->parentWidget()->height()); // Ensure the image label has a minimum size  
+   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image   
 
-    QLabel* authorLabel = new QLabel("Author:");
-    QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));
-    layout->addWidget(authorLabel);
-    layout->addWidget(authorEdit);
+   QLabel* label = new QLabel(QString::fromStdString(book.getTitle()));  
+   QFont font = label->font();  
+   font.setPointSize(16); // Set the font size for the title  
+   label->setFont(font);  
+   infoLayout->addWidget(label);  
 
-    QLabel* pagesLabel = new QLabel("Pages:");
-    QLineEdit* pagesEdit = new QLineEdit(QString::number(book.getPages()));
-    layout->addWidget(pagesLabel);
-    layout->addWidget(pagesEdit);
+   QLabel* authorLabel = new QLabel("Author:");  
+   QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));  
+   infoLayout->addWidget(authorLabel);  
+   infoLayout->addWidget(authorEdit);  
 
-    QLabel* publHouseLabel = new QLabel("Publishing House:");
-    QLineEdit* publHouseEdit = new QLineEdit(QString::fromStdString(book.getPub()));
-    layout->addWidget(publHouseLabel);
-    layout->addWidget(publHouseEdit);
+   QLabel* pagesLabel = new QLabel("Pages:");  
+   QLineEdit* pagesEdit = new QLineEdit(QString::number(book.getPages()));  
+   infoLayout->addWidget(pagesLabel);  
+   infoLayout->addWidget(pagesEdit);  
 
-    widget->setLayout(layout);
-}
+   QLabel* publHouseLabel = new QLabel("Publishing House:");  
+   QLineEdit* publHouseEdit = new QLineEdit(QString::fromStdString(book.getPub()));  
+   infoLayout->addWidget(publHouseLabel);  
+   infoLayout->addWidget(publHouseEdit);  
 
-void ItemDetailVisitor::visit(Comic& comic) {
+   infoLayout->setSpacing(10); // Set the spacing between components  
 
-    QVBoxLayout* layout = new QVBoxLayout();
+   mainLayout->addLayout(infoLayout);
+   widget->setLayout(mainLayout);  
+}  
 
-    QLabel* label = new QLabel(QString::fromStdString(comic.getTitle()));
-    layout->addWidget(label);
+void ItemDetailVisitor::visit(Comic& comic) {  
 
-    QLabel* authorLabel = new QLabel("Author:");
-    QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(comic.getAuthor()));
-    layout->addWidget(authorLabel);
-    layout->addWidget(authorEdit);
+	QHBoxLayout* mainLayout = new QHBoxLayout();
+	QVBoxLayout* infoLayout = new QVBoxLayout();
 
-    QLabel* chaptersLabel = new QLabel("Chapters:");
-    QLineEdit* chaptersEdit = new QLineEdit(QString::number(comic.getChapters()));
-    layout->addWidget(chaptersLabel);
-    layout->addWidget(chaptersEdit);
+   QLabel* imageLabel = new QLabel();
+   QPixmap pixmap(QString::fromStdString(comic.getImage()));
+   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, widget->parentWidget()->height(), Qt::KeepAspectRatio)); // Set the image to half the parent widget width
+   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, widget->parentWidget()->height()); // Ensure the image label has a minimum size  
+   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image   
 
-    widget->setLayout(layout);
-}
+   QLabel* label = new QLabel(QString::fromStdString(comic.getTitle()));  
+   QFont font = label->font();  
+   font.setPointSize(16); // Set the font size for the title  
+   label->setFont(font);  
+   infoLayout->addWidget(label);  
 
-void ItemDetailVisitor::visit(Movie& movie) {
+   QLabel* authorLabel = new QLabel("Author:");  
+   QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(comic.getAuthor()));  
+   infoLayout->addWidget(authorLabel);  
+   infoLayout->addWidget(authorEdit);  
 
-    QVBoxLayout* layout = new QVBoxLayout();
+   QLabel* chaptersLabel = new QLabel("Chapters:");  
+   QLineEdit* chaptersEdit = new QLineEdit(QString::number(comic.getChapters()));  
+   infoLayout->addWidget(chaptersLabel);  
+   infoLayout->addWidget(chaptersEdit);  
 
-    QLabel* label = new QLabel(QString::fromStdString(movie.getTitle()));
-    layout->addWidget(label);
+   infoLayout->setSpacing(10); // Set the spacing between components  
 
-    QLabel* directorLabel = new QLabel("Director:");
-    QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));
-    layout->addWidget(directorLabel);
-    layout->addWidget(directorEdit);
+   mainLayout->addLayout(infoLayout);
+   widget->setLayout(mainLayout);  
+}  
 
-    QLabel* screenwriterLabel = new QLabel("Screenwriter:");
-    QLineEdit* screenwriterEdit = new QLineEdit(QString::fromStdString(movie.getScreenwriter()));
-    layout->addWidget(screenwriterLabel);
-    layout->addWidget(screenwriterEdit);
+void ItemDetailVisitor::visit(Movie& movie) {  
 
-    QLabel* lengthLabel = new QLabel("Length:");
-    QLineEdit* lengthEdit = new QLineEdit(QString::number(movie.getLength()));
-    layout->addWidget(lengthLabel);
-    layout->addWidget(lengthEdit);
+	QHBoxLayout* mainLayout = new QHBoxLayout();
+	QVBoxLayout* infoLayout = new QVBoxLayout();
 
-    QLabel* prodCompanyLabel = new QLabel("Production Company:");
-    QLineEdit* prodCompanyEdit = new QLineEdit(QString::fromStdString(movie.getProd()));
-    layout->addWidget(prodCompanyLabel);
-    layout->addWidget(prodCompanyEdit);
+   QLabel* imageLabel = new QLabel();
+   QPixmap pixmap(QString::fromStdString(movie.getImage()));
+   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, widget->parentWidget()->height(), Qt::KeepAspectRatio)); // Set the image to half the parent widget width
+   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, widget->parentWidget()->height()); // Ensure the image label has a minimum size  
+   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
 
-    widget->setLayout(layout);
-}
+   QLabel* label = new QLabel(QString::fromStdString(movie.getTitle()));  
+   QFont font = label->font();  
+   font.setPointSize(16); // Set the font size for the title  
+   label->setFont(font);  
+   infoLayout->addWidget(label);  
 
-void ItemDetailVisitor::visit(Videogames& videogame) {
+   QLabel* directorLabel = new QLabel("Director:");  
+   QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));  
+   infoLayout->addWidget(directorLabel);  
+   infoLayout->addWidget(directorEdit);  
 
-    QVBoxLayout* layout = new QVBoxLayout();
+   QLabel* screenwriterLabel = new QLabel("Screenwriter:");  
+   QLineEdit* screenwriterEdit = new QLineEdit(QString::fromStdString(movie.getScreenwriter()));  
+   infoLayout->addWidget(screenwriterLabel);  
+   infoLayout->addWidget(screenwriterEdit);  
 
-    QLabel* label = new QLabel(QString::fromStdString(videogame.getTitle()));
-    layout->addWidget(label);
+   QLabel* lengthLabel = new QLabel("Length:");  
+   QLineEdit* lengthEdit = new QLineEdit(QString::number(movie.getLength()));  
+   infoLayout->addWidget(lengthLabel);  
+   infoLayout->addWidget(lengthEdit);  
 
-    QLabel* developerLabel = new QLabel("Developer:");
-    QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));
-    layout->addWidget(developerLabel);
-    layout->addWidget(developerEdit);
+   QLabel* prodCompanyLabel = new QLabel("Production Company:");  
+   QLineEdit* prodCompanyEdit = new QLineEdit(QString::fromStdString(movie.getProd()));  
+   infoLayout->addWidget(prodCompanyLabel);  
+   infoLayout->addWidget(prodCompanyEdit);  
 
-    QLabel* multiplayerLabel = new QLabel("Multiplayer:");
-    QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");
-    layout->addWidget(multiplayerLabel);
-    layout->addWidget(multiplayerEdit);
+   infoLayout->setSpacing(10); // Set the spacing between components  
 
-    widget->setLayout(layout);
+   mainLayout->addLayout(infoLayout);
+   widget->setLayout(mainLayout);  
+}  
+
+void ItemDetailVisitor::visit(Videogames& videogame) {  
+
+	QHBoxLayout* mainLayout = new QHBoxLayout();
+	QVBoxLayout* infoLayout = new QVBoxLayout();
+
+   QLabel* imageLabel = new QLabel();
+   QPixmap pixmap(QString::fromStdString(videogame.getImage()));
+   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, widget->parentWidget()->height(), Qt::KeepAspectRatio)); // Set the image to half the parent widget width
+   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, widget->parentWidget()->height()); // Ensure the image label has a minimum size  
+   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
+
+   QLabel* label = new QLabel(QString::fromStdString(videogame.getTitle()));  
+   QFont font = label->font();  
+   font.setPointSize(16); // Set the font size for the title  
+   label->setFont(font);  
+   infoLayout->addWidget(label);  
+
+   QLabel* developerLabel = new QLabel("Developer:");  
+   QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));  
+   infoLayout->addWidget(developerLabel);  
+   infoLayout->addWidget(developerEdit);  
+
+   QLabel* multiplayerLabel = new QLabel("Multiplayer:");  
+   QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");  
+   infoLayout->addWidget(multiplayerLabel);  
+   infoLayout->addWidget(multiplayerEdit);  
+
+   infoLayout->setSpacing(10); // Set the spacing between components  
+
+   mainLayout->addLayout(infoLayout);
+   widget->setLayout(mainLayout);  
 }
