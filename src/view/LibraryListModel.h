@@ -9,16 +9,17 @@ class LibraryListModel :public QAbstractListModel {
 	Q_OBJECT
 private:
 	QList<std::shared_ptr<AbstractItem>> items;
-	/*-------------------------------------------------------------------*/
-	QString currentCategory = "All";
-	/*-------------------------------------------------------------------*/
 public:
+	enum Roles{
+		TitleRole=Qt::UserRole+1,
+		CategoryRole,
+		AlbumArtistRole,
+	};
+
 	explicit LibraryListModel(QObject* parent = nullptr);
 	void setItems(const QList <std::shared_ptr<AbstractItem>>& _items);
 	int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 	QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-	/*-------------------------------------------------------------------*/
-	void filterByCategory(const QString& category);
-	/*-------------------------------------------------------------------*/
+	
 };
 #endif

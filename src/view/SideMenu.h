@@ -5,17 +5,25 @@
 #include <QHBoxLayout>
 #include <QMenuBar>
 #include <QMenu>
+#include <QLineEdit>
+#include <QStackedWidget>
+#include "LibraryModelFilter.h"
 
 class SideMenu : public QWidget {
 	Q_OBJECT
 private:
-	QPushButton* album=new QPushButton("Albums");
-	QPushButton* book = new QPushButton("Books");
-	QPushButton* comic = new QPushButton("Comics");
-	QPushButton* movie = new QPushButton("Movies");
-	QPushButton* videogame = new QPushButton("Videogames");
+	QPushButton* all;
+	QPushButton* album;
+	QPushButton* book;
+	QPushButton* comic;
+	QPushButton* movie;
+	QPushButton* videogame;
+	QSortFilterProxyModel* categoryProxy;
+	QSortFilterProxyModel* queryProxy;
+	QLineEdit* searchbar;
+	QStackedWidget* stackedWidget;
 public:
-	SideMenu(QWidget* parent=nullptr);
+	explicit SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* queryProxy, QStackedWidget* stackedWidget, QWidget* parent=nullptr);
 
 /*-------------------------------------------------------------------*/
 signals:
