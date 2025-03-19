@@ -4,13 +4,13 @@
 #include <QPushButton>
 #include <QLabel>
 #include "../items/AbstractItem.h"
-class ItemWidget :public QWidget {
+class ItemDetailWidget :public QWidget {
 	Q_OBJECT
 private:
 	QPushButton* backButton;
 	QLabel* label;
 public:
-	explicit ItemWidget(QWidget* parent = nullptr);
+	explicit ItemDetailWidget(QWidget* parent = nullptr);
 	void showDetails(AbstractItem* item);
 signals:
 	void backToHome();
