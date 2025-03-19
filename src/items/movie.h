@@ -7,7 +7,6 @@ private:
 	std::string screenwriter;
 	unsigned int length;
 	std::string production_company;
-	static constexpr mediatype type = mediatype::Movie;
 public:
 	Movie(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _director, const std::string& _screenwriter, unsigned int length, const std::string& _production_company);
 	const std::string& getDirector() const;

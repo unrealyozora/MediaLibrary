@@ -6,7 +6,6 @@ class Comic:public AbstractItem {
     private:
         std::string author;
         unsigned int chapters;
-        static constexpr mediatype type = mediatype::Comic;
     public:
         Comic(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& author, unsigned int chapters);
         const std::string& getAuthor() const;
