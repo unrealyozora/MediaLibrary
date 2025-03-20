@@ -22,6 +22,8 @@ public:
     void visit(Comic& comic) override;
     void visit(Movie& movie) override;
     void visit(Videogames& videogame) override;
+
+    void clearLayout(QLayout* layout);
 };
 
 #endif

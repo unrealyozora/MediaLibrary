@@ -12,7 +12,7 @@ SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* que
 	layout->addWidget(searchbar);
 	QList<QPushButton*> buttonList;
 	all = new QPushButton(QIcon(":icons/all"),"All");
-	album = new QPushButton(QIcon(":icons/album"), "Alvums");
+	album = new QPushButton(QIcon(":icons/album"), "Albums");
 	book= new QPushButton(QIcon(":icons/book"), "Books");
 	comic = new QPushButton(QIcon(":icons/comic"),"Comics");
 	movie = new QPushButton(QIcon(":icons/movie"),"Movies");
