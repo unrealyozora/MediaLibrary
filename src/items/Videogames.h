@@ -6,7 +6,6 @@ class Videogames:public AbstractItem {
 	private:
 		std::string developer;
 		bool multiplayer;
-		static constexpr mediatype type = mediatype::Videogame;
 	public:
 		Videogames(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _developer, bool _multiplayer);
 		const std::string& getDeveloper() const;

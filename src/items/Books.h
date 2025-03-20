@@ -6,7 +6,6 @@ class Books: public AbstractItem{
 		std::string author;
 		unsigned int pages;
 		std::string publ_house;
-		static constexpr mediatype type = mediatype::Book;
 	public:
 		Books(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _pages, const std::string& _publ_house);
 		const std::string& getAuthor() const;

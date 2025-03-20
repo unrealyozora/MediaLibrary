@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="album">icons/album.png</file>
+        <file alias="all">icons/all.png</file>
+        <file alias="book">icons/book.png</file>
+        <file alias="comic">icons/comic.png</file>
+        <file alias="movie">icons/movie.png</file>
+        <file alias="videogame">icons/videogame.png</file>
+    </qresource>
+</RCC>

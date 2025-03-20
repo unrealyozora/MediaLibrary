@@ -28,6 +28,7 @@ LibraryMainWindow::LibraryMainWindow(){
 	categoryFilter = new LibraryCategoryFilter(this);
 	queryFilter = new LibraryQueryFilter(this);
     SideMenu* sideMenu = new SideMenu(categoryFilter, queryFilter, stackedWidget);
+	sideMenu->setFixedWidth(225);
     QListView* listview = new QListView(this);
     QWidget* centralWidget = new QWidget(this);
     QHBoxLayout* MainLayout = new QHBoxLayout();

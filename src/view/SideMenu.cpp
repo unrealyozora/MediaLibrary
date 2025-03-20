@@ -3,20 +3,36 @@
 SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* queryProxy, QStackedWidget* stackedWidget, QWidget* parent):QWidget(parent), categoryProxy(categoryProxy), queryProxy(queryProxy), stackedWidget(stackedWidget){
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
-	all = new QPushButton("All");
-	album = new QPushButton("Albums");
-	book= new QPushButton("Books");
-	comic = new QPushButton("Comics");
-	movie = new QPushButton("Movies");
-	videogame = new QPushButton("Videogames");
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(0);
 	searchbar = new QLineEdit(this);
+	searchbar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	searchbar->setFixedHeight(30);
+	searchbar->setPlaceholderText("Search...");
 	layout->addWidget(searchbar);
-	layout->addWidget(all);
-	layout->addWidget(album);
-	layout->addWidget(book);
-	layout->addWidget(comic);
-	layout->addWidget(movie);
-	layout->addWidget(videogame);
+	QList<QPushButton*> buttonList;
+	all = new QPushButton(QIcon(":icons/all"),"All");
+	album = new QPushButton(QIcon(":icons/album"), "Alvums");
+	book= new QPushButton(QIcon(":icons/book"), "Books");
+	comic = new QPushButton(QIcon(":icons/comic"),"Comics");
+	movie = new QPushButton(QIcon(":icons/movie"),"Movies");
+	videogame = new QPushButton(QIcon(":icons/videogame"),"Videogames");
+	buttonList.append(all);
+	buttonList.append(album);
+	buttonList.append(book);
+	buttonList.append(comic);
+	buttonList.append(movie);
+	buttonList.append(videogame);
+	for (QPushButton* button : buttonList) {
+		button->setFlat(true);
+		button->setCheckable(true);
+		button->setAutoExclusive(true);
+		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		button->setStyleSheet("text-align: left; padding-left: 10px;");
+		button->setFixedHeight(30);
+		layout->addWidget(button);
+	}
+	all->setChecked(true);
 	connect(all, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterEnabled(false); stackedWidget->setCurrentIndex(0); });
 	connect(album, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Album"); stackedWidget->setCurrentIndex(0); });
 	connect(book, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Book"); stackedWidget->setCurrentIndex(0); });

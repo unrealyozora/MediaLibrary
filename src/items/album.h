@@ -6,7 +6,6 @@ private:
 	std::string author;
 	unsigned int songs;
 	unsigned int length;
-	static constexpr mediatype type = mediatype::Album;
 public:
 	Album(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _songs, unsigned int _length);
 	const std::string& getAuthor() const ;
