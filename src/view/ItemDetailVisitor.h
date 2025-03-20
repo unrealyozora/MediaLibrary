@@ -12,10 +12,10 @@
 
 class ItemDetailVisitor : public ItemVisitor {
 private:
-    ItemDetailWidget* widget;
+    ItemDetailsWidget* widget;
 
 public:
-    explicit ItemDetailVisitor(ItemDetailWidget* _widget) : widget(_widget) {}
+    explicit ItemDetailVisitor(ItemDetailsWidget* _widget) : widget(_widget) {}
 
     void visit(Album& album) override;
     void visit(Books& book) override;

@@ -32,7 +32,7 @@ LibraryMainWindow::LibraryMainWindow(){
     QWidget* centralWidget = new QWidget(this);
     QHBoxLayout* MainLayout = new QHBoxLayout();
 	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
-	detailWidget = new ItemWidget(this);
+	detailWidget = new ItemDetailsWidget(this);
 	
 
 	categoryFilter->setSourceModel(model);
@@ -59,7 +59,7 @@ LibraryMainWindow::LibraryMainWindow(){
 	connect(exitAction, &QAction::triggered, this, &QApplication::quit); // Uscita dall' applicazione
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
 	connect(listview, &QListView::clicked, this, &LibraryMainWindow::itemSelected);
-	connect(detailWidget, &ItemWidget::backToHome, this, &LibraryMainWindow::backHome);
+	connect(detailWidget, &ItemDetailsWidget::backToHome, this, &LibraryMainWindow::backHome);
 }
 
 

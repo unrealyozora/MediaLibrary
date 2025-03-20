@@ -10,7 +10,7 @@ class LibraryMainWindow :public QMainWindow {
 	Q_OBJECT
 private:
 	QStackedWidget* stackedWidget;
-	ItemWidget* detailWidget;
+	ItemDetailsWidget* detailWidget;
 	LibraryListModel* model;
 	LibraryCategoryFilter* categoryFilter;
 	LibraryQueryFilter* queryFilter;
