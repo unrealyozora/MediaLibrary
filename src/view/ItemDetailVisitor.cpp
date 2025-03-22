@@ -8,7 +8,6 @@
 #include <QFormLayout>
 
 void ItemDetailVisitor::visit(Album& album) {
-    // Rimuove layout precedente se esiste
     if (widget->layout() != nullptr) {
         QLayoutItem* item;
         while ((item = widget->layout()->takeAt(0)) != nullptr) {
@@ -20,61 +19,118 @@ void ItemDetailVisitor::visit(Album& album) {
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
-    QGridLayout* infoLayout = new QGridLayout();
 
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
     QPixmap pixmap(QString::fromStdString(album.getImage()));
-    int imageHeight = widget->parentWidget()->height() - 20;
-    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, imageHeight, Qt::KeepAspectRatio));
-    imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, imageHeight);
+    int imageHeight = widget->parentWidget()->height();
+    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
+    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
     topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
 
-    // *** TITOLO ***
+    // *** WIDGET CONTENITORE INFO ***
+    QWidget* infoWidget = new QWidget();
+    QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
+    infoLayout->setContentsMargins(20, 0, 40, 0); // Margini laterali
+
     QLabel* titleLabel = new QLabel(QString::fromStdString(album.getTitle()));
     QFont titleFont = titleLabel->font();
-    titleFont.setPointSize(18);
+    titleFont.setPointSize(20);
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
     titleLabel->setAlignment(Qt::AlignCenter);
-    infoLayout->addWidget(titleLabel, 0, 0, 1, 2, Qt::AlignCenter);
-
-    // ** Spazio dopo il titolo **
-    infoLayout->setRowMinimumHeight(1, 15);
+    infoLayout->addSpacing(65); // Spazio prima del titolo
+    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
+    QLabel* yearLabel = new QLabel("Year:");
+    QLineEdit* yearEdit = new QLineEdit(QString::number(album.getYear()));
+    yearEdit->setReadOnly(true);
+    infoLayout->addWidget(yearLabel);
+    infoLayout->addWidget(yearEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* descriptionLabel = new QLabel("Description:");
+    QLineEdit* descriptionEdit = new QLineEdit(QString::fromStdString(album.getDescription()));
+    descriptionEdit->setReadOnly(true);
+    infoLayout->addWidget(descriptionLabel);
+    infoLayout->addWidget(descriptionEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(album.getGenre()));
+    genreEdit->setReadOnly(true);
+    infoLayout->addWidget(genreLabel);
+    infoLayout->addWidget(genreEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* countryLabel = new QLabel("Country:");
+    QLineEdit* countryEdit = new QLineEdit(QString::fromStdString(album.getCountry()));
+    countryEdit->setReadOnly(true);
+    infoLayout->addWidget(countryLabel);
+    infoLayout->addWidget(countryEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
     QLabel* authorLabel = new QLabel("Author:");
     QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(album.getAuthor()));
-    infoLayout->addWidget(authorLabel, 2, 0);
-    infoLayout->addWidget(authorEdit, 3, 0, 1, 2); // Occupa due colonne per allineamento migliore
+    authorEdit->setReadOnly(true);
+    infoLayout->addWidget(authorLabel);
+    infoLayout->addWidget(authorEdit);
 
-    // Spazio tra le sezioni
-    infoLayout->setRowMinimumHeight(4, 10);
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
     QLabel* songsLabel = new QLabel("Songs:");
     QLineEdit* songsEdit = new QLineEdit(QString::number(album.getSongs()));
-    infoLayout->addWidget(songsLabel, 5, 0);
-    infoLayout->addWidget(songsEdit, 6, 0, 1, 2);
+    songsEdit->setReadOnly(true);
+    infoLayout->addWidget(songsLabel);
+    infoLayout->addWidget(songsEdit);
 
-    infoLayout->setRowMinimumHeight(7, 10);
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
     QLabel* lengthLabel = new QLabel("Length:");
     QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));
-    infoLayout->addWidget(lengthLabel, 8, 0);
-    infoLayout->addWidget(lengthEdit, 9, 0, 1, 2);
+    lengthEdit->setReadOnly(true);
+    infoLayout->addWidget(lengthLabel);
+    infoLayout->addWidget(lengthEdit);
 
-    // Spazio per separare il bottone
-    infoLayout->setRowMinimumHeight(10, 30);
+    infoLayout->addStretch(); // Spinge tutto in alto
+    infoWidget->setLayout(infoLayout);
+    infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    // *** BACK BUTTON ***
+    // *** WIDGET CONTENITORE PULSANTE ***
+    QWidget* buttonWidget = new QWidget();
+    QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+
+    QPushButton* saveButton = new QPushButton("Save");
+    saveButton->setFixedSize(150, 40);
+    saveButton->setEnabled(false);
+
     QPushButton* backButton = new QPushButton("Back");
-    backButton->setFixedWidth(150); // Rende il bottone più visibile
+    backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
-    infoLayout->addWidget(backButton, 11, 0, 1, 2, Qt::AlignCenter);
 
-    // *** ASSEMBLAGGIO LAYOUT ***
+    buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
+
+    buttonWidget->setLayout(buttonLayout);
+    buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+    // *** CONTENITORE DESTRO ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->addLayout(infoLayout);
+    rightLayout->addWidget(infoWidget, 1);
+    rightLayout->addWidget(buttonWidget, 0);
+    rightLayout->setSpacing(0);
 
     topLayout->addLayout(rightLayout);
     mainLayout->addLayout(topLayout);
@@ -84,56 +140,135 @@ void ItemDetailVisitor::visit(Album& album) {
 
 
 void ItemDetailVisitor::visit(Books& book) {
-	if (widget->layout() != nullptr) {
-		QLayoutItem* item;
-		while ((item = widget->layout()->takeAt(0)) != nullptr) {
-			delete item->widget();
-			delete item;
-		}
-		delete widget->layout();
-	}
+    if (widget->layout() != nullptr) {
+        QLayoutItem* item;
+        while ((item = widget->layout()->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete widget->layout();
+    }
 
-   QHBoxLayout* mainLayout = new QHBoxLayout();
-   QVBoxLayout* infoLayout = new QVBoxLayout();
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    QHBoxLayout* topLayout = new QHBoxLayout();
 
-   QLabel* imageLabel = new QLabel();
-   QPixmap pixmap(QString::fromStdString(book.getImage()));
-   int imageHeight = widget->parentWidget()->height() - 20; // Subtract 20 to add space at the top and bottom
-   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, imageHeight, Qt::KeepAspectRatio)); // Set the image to half the parent widget width
-   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, imageHeight); // Ensure the image label has a minimum size  
-   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
+    // *** IMMAGINE ***
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(QString::fromStdString(book.getImage()));
+    int imageHeight = widget->parentWidget()->height();
+    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
+    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
+    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
 
-   QLabel* label = new QLabel(QString::fromStdString(book.getTitle()));  
-   QFont font = label->font();  
-   font.setPointSize(16); // Set the font size for the title  
-   label->setFont(font);  
-   infoLayout->addWidget(label);  
+    // *** WIDGET CONTENITORE INFO ***
+    QWidget* infoWidget = new QWidget();
+    QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
+    infoLayout->setContentsMargins(40, 0, 40, 0); // Margini laterali
 
-   QLabel* authorLabel = new QLabel("Author:");  
-   QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));  
-   infoLayout->addWidget(authorLabel);  
-   infoLayout->addWidget(authorEdit);  
+    QLabel* titleLabel = new QLabel(QString::fromStdString(book.getTitle()));
+    QFont titleFont = titleLabel->font();
+    titleFont.setPointSize(20);
+    titleFont.setBold(true);
+    titleLabel->setFont(titleFont);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    infoLayout->addSpacing(65); // Spazio prima del titolo
+    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
-   QLabel* pagesLabel = new QLabel("Pages:");  
-   QLineEdit* pagesEdit = new QLineEdit(QString::number(book.getPages()));  
-   infoLayout->addWidget(pagesLabel);  
-   infoLayout->addWidget(pagesEdit);  
+    // *** INFO ***
+    QLabel* yearLabel = new QLabel("Year:");
+    QLineEdit* yearEdit = new QLineEdit(QString::number(book.getYear()));
+    yearEdit->setReadOnly(true);
+    infoLayout->addWidget(yearLabel);
+    infoLayout->addWidget(yearEdit);
 
-   QLabel* publHouseLabel = new QLabel("Publishing House:");  
-   QLineEdit* publHouseEdit = new QLineEdit(QString::fromStdString(book.getPub()));  
-   infoLayout->addWidget(publHouseLabel);  
-   infoLayout->addWidget(publHouseEdit);  
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
-   infoLayout->setSpacing(0); // Set the spacing between components  
-   infoLayout->setContentsMargins(0, 0, 30, 20);
+    QLabel* descriptionLabel = new QLabel("Description:");
+    QLineEdit* descriptionEdit = new QLineEdit(QString::fromStdString(book.getDescription()));
+    descriptionEdit->setReadOnly(true);
+    infoLayout->addWidget(descriptionLabel);
+    infoLayout->addWidget(descriptionEdit);
 
-   QPushButton* backButton = new QPushButton("Back");
-   QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
-   infoLayout->addWidget(backButton);
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
-   mainLayout->addLayout(infoLayout);
-   widget->setLayout(mainLayout);  
-}  
+    QLabel* genreLabel = new QLabel("Genre:");
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(book.getGenre()));
+    genreEdit->setReadOnly(true);
+    infoLayout->addWidget(genreLabel);
+    infoLayout->addWidget(genreEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* countryLabel = new QLabel("Country:");
+    QLineEdit* countryEdit = new QLineEdit(QString::fromStdString(book.getCountry()));
+    countryEdit->setReadOnly(true);
+    infoLayout->addWidget(countryLabel);
+    infoLayout->addWidget(countryEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* authorLabel = new QLabel("Author:");
+    QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));
+    authorEdit->setReadOnly(true);
+    infoLayout->addWidget(authorLabel);
+    infoLayout->addWidget(authorEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* pagesLabel = new QLabel("Pages:");
+    QLineEdit* pagesEdit = new QLineEdit(QString::number(book.getPages()));
+    pagesEdit->setReadOnly(true);
+    infoLayout->addWidget(pagesLabel);
+    infoLayout->addWidget(pagesEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* publHouseLabel = new QLabel("Publishing House:");
+    QLineEdit* publHouseEdit = new QLineEdit(QString::fromStdString(book.getPub()));
+    publHouseEdit->setReadOnly(true);
+    infoLayout->addWidget(publHouseLabel);
+    infoLayout->addWidget(publHouseEdit);
+
+    infoLayout->addStretch(); // Spinge tutto in alto
+    infoWidget->setLayout(infoLayout);
+    infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
+    // *** WIDGET CONTENITORE PULSANTE ***
+    QWidget* buttonWidget = new QWidget();
+    QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+
+    QPushButton* saveButton = new QPushButton("Save");
+    saveButton->setFixedSize(150, 40);
+    saveButton->setEnabled(false);
+
+    QPushButton* backButton = new QPushButton("Back");
+    backButton->setFixedSize(150, 40);
+    QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
+
+    buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
+
+    buttonWidget->setLayout(buttonLayout);
+    buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+    // *** CONTENITORE DESTRO ***
+    QVBoxLayout* rightLayout = new QVBoxLayout();
+    rightLayout->addWidget(infoWidget, 1);
+    rightLayout->addWidget(buttonWidget, 0);
+    rightLayout->setSpacing(0);
+
+    topLayout->addLayout(rightLayout);
+    mainLayout->addLayout(topLayout);
+
+    widget->setLayout(mainLayout);
+}
 
 void ItemDetailVisitor::visit(Comic& comic) {
 	if (widget->layout() != nullptr) {
@@ -145,41 +280,117 @@ void ItemDetailVisitor::visit(Comic& comic) {
 		delete widget->layout();
 	}
 
-	QHBoxLayout* mainLayout = new QHBoxLayout();
-	QVBoxLayout* infoLayout = new QVBoxLayout();
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    QHBoxLayout* topLayout = new QHBoxLayout();
 
-   QLabel* imageLabel = new QLabel();
-   QPixmap pixmap(QString::fromStdString(comic.getImage()));
-   int imageHeight = widget->parentWidget()->height() - 20; // Subtract 20 to add space at the top and bottom
-   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, imageHeight, Qt::KeepAspectRatio)); // Set the image to half the parent widget width
-   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, imageHeight); // Ensure the image label has a minimum size  
-   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
+    // *** IMMAGINE ***
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(QString::fromStdString(comic.getImage()));
+    int imageHeight = widget->parentWidget()->height();
+    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
+    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
+    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
 
-   QLabel* label = new QLabel(QString::fromStdString(comic.getTitle()));  
-   QFont font = label->font();  
-   font.setPointSize(16); // Set the font size for the title  
-   label->setFont(font);  
-   infoLayout->addWidget(label);  
+    // *** WIDGET CONTENITORE INFO ***
+    QWidget* infoWidget = new QWidget();
+    QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
+    infoLayout->setContentsMargins(40, 0, 40, 0); // Margini laterali
+
+    QLabel* titleLabel = new QLabel(QString::fromStdString(comic.getTitle()));
+    QFont titleFont = titleLabel->font();
+    titleFont.setPointSize(20);
+    titleFont.setBold(true);
+    titleLabel->setFont(titleFont);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    infoLayout->addSpacing(65); // Spazio prima del titolo
+    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
+
+    // *** INFO ***
+    QLabel* yearLabel = new QLabel("Year:");
+    QLineEdit* yearEdit = new QLineEdit(QString::number(comic.getYear()));
+    yearEdit->setReadOnly(true);
+    infoLayout->addWidget(yearLabel);
+    infoLayout->addWidget(yearEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* descriptionLabel = new QLabel("Description:");
+    QLineEdit* descriptionEdit = new QLineEdit(QString::fromStdString(comic.getDescription()));
+    descriptionEdit->setReadOnly(true);
+    infoLayout->addWidget(descriptionLabel);
+    infoLayout->addWidget(descriptionEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(comic.getGenre()));
+    genreEdit->setReadOnly(true);
+    infoLayout->addWidget(genreLabel);
+    infoLayout->addWidget(genreEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* countryLabel = new QLabel("Country:");
+    QLineEdit* countryEdit = new QLineEdit(QString::fromStdString(comic.getCountry()));
+    countryEdit->setReadOnly(true);
+    infoLayout->addWidget(countryLabel);
+    infoLayout->addWidget(countryEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
    QLabel* authorLabel = new QLabel("Author:");  
-   QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(comic.getAuthor()));  
+   QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(comic.getAuthor()));
+   authorEdit->setReadOnly(true);
    infoLayout->addWidget(authorLabel);  
    infoLayout->addWidget(authorEdit);  
 
+   infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
    QLabel* chaptersLabel = new QLabel("Chapters:");  
-   QLineEdit* chaptersEdit = new QLineEdit(QString::number(comic.getChapters()));  
+   QLineEdit* chaptersEdit = new QLineEdit(QString::number(comic.getChapters()));
+   chaptersEdit->setReadOnly(true);
    infoLayout->addWidget(chaptersLabel);  
    infoLayout->addWidget(chaptersEdit);  
 
-   infoLayout->setSpacing(0); // Set the spacing between components  
-   infoLayout->setContentsMargins(0, 0, 30, 20);
+   infoLayout->addStretch(); // Spinge tutto in alto
+   infoWidget->setLayout(infoLayout);
+   infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
+   // *** WIDGET CONTENITORE PULSANTE ***
+   QWidget* buttonWidget = new QWidget();
+   QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+
+   QPushButton* modifyButton = new QPushButton("Modify");
+   modifyButton->setFixedSize(150, 40);
+   //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+
+   QPushButton* saveButton = new QPushButton("Save");
+   saveButton->setFixedSize(150, 40);
+   saveButton->setEnabled(false);
 
    QPushButton* backButton = new QPushButton("Back");
+   backButton->setFixedSize(150, 40);
    QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
-   infoLayout->addWidget(backButton);
 
-   mainLayout->addLayout(infoLayout);
-   widget->setLayout(mainLayout);  
+   buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
+   buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+   buttonLayout->addStretch();
+   buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
+
+   buttonWidget->setLayout(buttonLayout);
+   buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+   // *** CONTENITORE DESTRO ***
+   QVBoxLayout* rightLayout = new QVBoxLayout();
+   rightLayout->addWidget(infoWidget, 1);
+   rightLayout->addWidget(buttonWidget, 0);
+   rightLayout->setSpacing(0);
+
+   topLayout->addLayout(rightLayout);
+   mainLayout->addLayout(topLayout);
+
+   widget->setLayout(mainLayout);
 }  
 
 void ItemDetailVisitor::visit(Movie& movie) {
@@ -192,96 +403,254 @@ void ItemDetailVisitor::visit(Movie& movie) {
 		delete widget->layout();
 	}
 
-	QHBoxLayout* mainLayout = new QHBoxLayout();
-	QVBoxLayout* infoLayout = new QVBoxLayout();
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    QHBoxLayout* topLayout = new QHBoxLayout();
 
-   QLabel* imageLabel = new QLabel();
-   QPixmap pixmap(QString::fromStdString(movie.getImage()));
-   int imageHeight = widget->parentWidget()->height() - 20; // Subtract 20 to add space at the top and bottom
-   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, imageHeight, Qt::KeepAspectRatio)); // Set the image to half the parent widget width
-   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, imageHeight); // Ensure the image label has a minimum size  
-   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
+    // *** IMMAGINE ***
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(QString::fromStdString(movie.getImage()));
+    int imageHeight = widget->parentWidget()->height();
+    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
+    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
+    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
 
-   QLabel* label = new QLabel(QString::fromStdString(movie.getTitle()));  
-   QFont font = label->font();  
-   font.setPointSize(16); // Set the font size for the title  
-   label->setFont(font);  
-   infoLayout->addWidget(label);  
+    // *** WIDGET CONTENITORE INFO ***
+    QWidget* infoWidget = new QWidget();
+    QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
+    infoLayout->setContentsMargins(40, 0, 40, 0); // Margini laterali
+
+    QLabel* titleLabel = new QLabel(QString::fromStdString(movie.getTitle()));
+    QFont titleFont = titleLabel->font();
+    titleFont.setPointSize(20);
+    titleFont.setBold(true);
+    titleLabel->setFont(titleFont);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    infoLayout->addSpacing(65); // Spazio prima del titolo
+    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
+
+    // *** INFO ***
+    QLabel* yearLabel = new QLabel("Year:");
+    QLineEdit* yearEdit = new QLineEdit(QString::number(movie.getYear()));
+    yearEdit->setReadOnly(true);
+    infoLayout->addWidget(yearLabel);
+    infoLayout->addWidget(yearEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* descriptionLabel = new QLabel("Description:");
+    QLineEdit* descriptionEdit = new QLineEdit(QString::fromStdString(movie.getDescription()));
+    descriptionEdit->setReadOnly(true);
+    infoLayout->addWidget(descriptionLabel);
+    infoLayout->addWidget(descriptionEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(movie.getGenre()));
+    genreEdit->setReadOnly(true);
+    infoLayout->addWidget(genreLabel);
+    infoLayout->addWidget(genreEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* countryLabel = new QLabel("Country:");
+    QLineEdit* countryEdit = new QLineEdit(QString::fromStdString(movie.getCountry()));
+    countryEdit->setReadOnly(true);
+    infoLayout->addWidget(countryLabel);
+    infoLayout->addWidget(countryEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
    QLabel* directorLabel = new QLabel("Director:");  
-   QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));  
+   QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));
+   directorEdit->setReadOnly(true);
    infoLayout->addWidget(directorLabel);  
    infoLayout->addWidget(directorEdit);  
 
+   infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
    QLabel* screenwriterLabel = new QLabel("Screenwriter:");  
    QLineEdit* screenwriterEdit = new QLineEdit(QString::fromStdString(movie.getScreenwriter()));  
+   screenwriterEdit->setReadOnly(true);
    infoLayout->addWidget(screenwriterLabel);  
    infoLayout->addWidget(screenwriterEdit);  
 
+   infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
    QLabel* lengthLabel = new QLabel("Length:");  
    QLineEdit* lengthEdit = new QLineEdit(QString::number(movie.getLength()));  
+   lengthEdit->setReadOnly(true);
    infoLayout->addWidget(lengthLabel);  
    infoLayout->addWidget(lengthEdit);  
 
+   infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
    QLabel* prodCompanyLabel = new QLabel("Production Company:");  
    QLineEdit* prodCompanyEdit = new QLineEdit(QString::fromStdString(movie.getProd()));  
+   prodCompanyEdit->setReadOnly(true);
    infoLayout->addWidget(prodCompanyLabel);  
    infoLayout->addWidget(prodCompanyEdit);  
 
-   infoLayout->setSpacing(0); // Set the spacing between components  
-   infoLayout->setContentsMargins(0, 0, 30, 20);
+   infoLayout->addStretch(); // Spinge tutto in alto
+   infoWidget->setLayout(infoLayout);
+   infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
+   // *** WIDGET CONTENITORE PULSANTE ***
+   QWidget* buttonWidget = new QWidget();
+   QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+
+   QPushButton* modifyButton = new QPushButton("Modify");
+   modifyButton->setFixedSize(150, 40);
+   //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+
+   QPushButton* saveButton = new QPushButton("Save");
+   saveButton->setFixedSize(150, 40);
+   saveButton->setEnabled(false);
 
    QPushButton* backButton = new QPushButton("Back");
+   backButton->setFixedSize(150, 40);
    QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
-   infoLayout->addWidget(backButton);
 
-   mainLayout->addLayout(infoLayout);
-   widget->setLayout(mainLayout);  
+   buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
+   buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+   buttonLayout->addStretch();
+   buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
+
+   buttonWidget->setLayout(buttonLayout);
+   buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+   // *** CONTENITORE DESTRO ***
+   QVBoxLayout* rightLayout = new QVBoxLayout();
+   rightLayout->addWidget(infoWidget, 1);
+   rightLayout->addWidget(buttonWidget, 0);
+   rightLayout->setSpacing(0);
+
+   topLayout->addLayout(rightLayout);
+   mainLayout->addLayout(topLayout);
+
+   widget->setLayout(mainLayout);
 }  
 
 void ItemDetailVisitor::visit(Videogames& videogame) {
-	if (widget->layout() != nullptr) {
-		QLayoutItem* item;
-		while ((item = widget->layout()->takeAt(0)) != nullptr) {
-			delete item->widget();
-			delete item;
-		}
-		delete widget->layout();
-	}
+    if (widget->layout() != nullptr) {
+        QLayoutItem* item;
+        while ((item = widget->layout()->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete widget->layout();
+    }
 
-	QHBoxLayout* mainLayout = new QHBoxLayout();
-	QVBoxLayout* infoLayout = new QVBoxLayout();
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    QHBoxLayout* topLayout = new QHBoxLayout();
 
-   QLabel* imageLabel = new QLabel();
-   QPixmap pixmap(QString::fromStdString(videogame.getImage()));
-   int imageHeight = widget->parentWidget()->height() - 20; // Subtract 20 to add space at the top and bottom
-   imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 2, imageHeight, Qt::KeepAspectRatio)); // Set the image to half the parent widget width
-   imageLabel->setMinimumSize(widget->parentWidget()->width() / 2, imageHeight); // Ensure the image label has a minimum size  
-   mainLayout->addWidget(imageLabel, 0, Qt::AlignCenter); // Center the image  
+    // *** IMMAGINE ***
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(QString::fromStdString(videogame.getImage()));
+    int imageHeight = widget->parentWidget()->height();
+    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
+    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
+    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
 
-   QLabel* label = new QLabel(QString::fromStdString(videogame.getTitle()));  
-   QFont font = label->font();  
-   font.setPointSize(16); // Set the font size for the title  
-   label->setFont(font);  
-   infoLayout->addWidget(label);  
+    // *** WIDGET CONTENITORE INFO ***
+    QWidget* infoWidget = new QWidget();
+    QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
+    infoLayout->setContentsMargins(40, 0, 40, 0); // Margini laterali
 
-   QLabel* developerLabel = new QLabel("Developer:");  
-   QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));  
-   infoLayout->addWidget(developerLabel);  
-   infoLayout->addWidget(developerEdit);  
+    QLabel* titleLabel = new QLabel(QString::fromStdString(videogame.getTitle()));
+    QFont titleFont = titleLabel->font();
+    titleFont.setPointSize(20);
+    titleFont.setBold(true);
+    titleLabel->setFont(titleFont);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    infoLayout->addSpacing(65); // Spazio prima del titolo
+    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
-   QLabel* multiplayerLabel = new QLabel("Multiplayer:");  
-   QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");  
-   infoLayout->addWidget(multiplayerLabel);  
-   infoLayout->addWidget(multiplayerEdit);  
+    // *** INFO ***
+    QLabel* yearLabel = new QLabel("Year:");
+    QLineEdit* yearEdit = new QLineEdit(QString::number(videogame.getYear()));
+    yearEdit->setReadOnly(true);
+    infoLayout->addWidget(yearLabel);
+    infoLayout->addWidget(yearEdit);
 
-   infoLayout->setSpacing(0); // Set the spacing between components  
-   infoLayout->setContentsMargins(0, 0, 30, 20);
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
 
-   QPushButton* backButton = new QPushButton("Back");
-   QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
-   infoLayout->addWidget(backButton);
+    QLabel* descriptionLabel = new QLabel("Description:");
+    QLineEdit* descriptionEdit = new QLineEdit(QString::fromStdString(videogame.getDescription()));
+    descriptionEdit->setReadOnly(true);
+    infoLayout->addWidget(descriptionLabel);
+    infoLayout->addWidget(descriptionEdit);
 
-   mainLayout->addLayout(infoLayout);
-   widget->setLayout(mainLayout);  
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(videogame.getGenre()));
+    genreEdit->setReadOnly(true);
+    infoLayout->addWidget(genreLabel);
+    infoLayout->addWidget(genreEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* countryLabel = new QLabel("Country:");
+    QLineEdit* countryEdit = new QLineEdit(QString::fromStdString(videogame.getCountry()));
+    countryEdit->setReadOnly(true);
+    infoLayout->addWidget(countryLabel);
+    infoLayout->addWidget(countryEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* developerLabel = new QLabel("Developer:");
+    QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));
+    developerEdit->setReadOnly(true);
+    infoLayout->addWidget(developerLabel);
+    infoLayout->addWidget(developerEdit);
+
+    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+
+    QLabel* multiplayerLabel = new QLabel("Multiplayer:");
+    QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");
+    multiplayerEdit->setReadOnly(true);
+    infoLayout->addWidget(multiplayerLabel);
+    infoLayout->addWidget(multiplayerEdit);
+
+    infoLayout->addStretch(); // Spinge tutto in alto
+    infoWidget->setLayout(infoLayout);
+    infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
+    // *** WIDGET CONTENITORE PULSANTE ***
+    QWidget* buttonWidget = new QWidget();
+    QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+
+    QPushButton* saveButton = new QPushButton("Save");
+    saveButton->setFixedSize(150, 40);
+    saveButton->setEnabled(false);
+
+    QPushButton* backButton = new QPushButton("Back");
+    backButton->setFixedSize(150, 40);
+    QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
+
+    buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
+
+    buttonWidget->setLayout(buttonLayout);
+    buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+    // *** CONTENITORE DESTRO ***
+    QVBoxLayout* rightLayout = new QVBoxLayout();
+    rightLayout->addWidget(infoWidget, Qt::AlignTop);
+    rightLayout->addWidget(buttonWidget, Qt::AlignCenter);
+    rightLayout->setSpacing(0);
+
+    topLayout->addLayout(rightLayout);
+    mainLayout->addLayout(topLayout);
+
+    widget->setLayout(mainLayout);
 }

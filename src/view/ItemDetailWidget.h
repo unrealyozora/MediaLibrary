@@ -14,5 +14,6 @@ public:
 	void showDetails(AbstractItem* item);
 signals:
 	void backToHome();
+	//void modifyItem();
 };
 #endif
