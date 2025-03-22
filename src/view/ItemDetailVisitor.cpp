@@ -39,47 +39,48 @@ void ItemDetailVisitor::visit(Album& album) {
     titleLabel->setAlignment(Qt::AlignCenter);
     infoLayout->addWidget(titleLabel, 0, 0, 1, 2, Qt::AlignCenter);
 
-    // *** INFO (Label accanto alla LineEdit senza spazio extra) ***
+    // ** Spazio dopo il titolo **
+    infoLayout->setRowMinimumHeight(1, 15);
+
+    // *** INFO ***
     QLabel* authorLabel = new QLabel("Author:");
     QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(album.getAuthor()));
-    infoLayout->addWidget(authorLabel, 4, 0);
-    infoLayout->addWidget(authorEdit, 5, 0);
+    infoLayout->addWidget(authorLabel, 2, 0);
+    infoLayout->addWidget(authorEdit, 3, 0, 1, 2); // Occupa due colonne per allineamento migliore
+
+    // Spazio tra le sezioni
+    infoLayout->setRowMinimumHeight(4, 10);
 
     QLabel* songsLabel = new QLabel("Songs:");
     QLineEdit* songsEdit = new QLineEdit(QString::number(album.getSongs()));
-    infoLayout->addWidget(songsLabel, 7, 0);
-    infoLayout->addWidget(songsEdit, 8, 0);
+    infoLayout->addWidget(songsLabel, 5, 0);
+    infoLayout->addWidget(songsEdit, 6, 0, 1, 2);
+
+    infoLayout->setRowMinimumHeight(7, 10);
 
     QLabel* lengthLabel = new QLabel("Length:");
     QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));
-    infoLayout->addWidget(lengthLabel, 10, 0);
-    infoLayout->addWidget(lengthEdit, 11, 0);
+    infoLayout->addWidget(lengthLabel, 8, 0);
+    infoLayout->addWidget(lengthEdit, 9, 0, 1, 2);
 
-    // **Mantenere compattezza**
-    infoLayout->setColumnStretch(0, 0);  // Label non si allarga troppo
-    infoLayout->setColumnStretch(1, 1);  // LineEdit occupa più spazio
-    infoLayout->setVerticalSpacing(5);   // Riduce lo spazio tra righe
+    // Spazio per separare il bottone
+    infoLayout->setRowMinimumHeight(10, 30);
 
     // *** BACK BUTTON ***
     QPushButton* backButton = new QPushButton("Back");
+    backButton->setFixedWidth(150); // Rende il bottone più visibile
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
-
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    buttonLayout->addStretch();
-    buttonLayout->addWidget(backButton);
+    infoLayout->addWidget(backButton, 11, 0, 1, 2, Qt::AlignCenter);
 
     // *** ASSEMBLAGGIO LAYOUT ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addLayout(infoLayout);
-    rightLayout->addStretch();  // Spinge il bottone in basso
-    rightLayout->addLayout(buttonLayout);
 
     topLayout->addLayout(rightLayout);
     mainLayout->addLayout(topLayout);
 
     widget->setLayout(mainLayout);
 }
-
 
 
 void ItemDetailVisitor::visit(Books& book) {
