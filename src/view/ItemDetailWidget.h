@@ -15,5 +15,6 @@ public:
 	//QVBoxLayout* getLayout();
 signals:
 	void backToHome();
+	//void modifyItem();
 };
 #endif
