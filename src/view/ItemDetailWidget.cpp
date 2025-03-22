@@ -3,14 +3,23 @@
 #include <QVBoxLayout>
 
 ItemDetailsWidget::ItemDetailsWidget(QWidget* parent):QWidget(parent) {
-	
+	//setLayout(layout);
 }
 
 void ItemDetailsWidget::showDetails(AbstractItem* item){
+    
+        
 	if (item) {
+        while (QWidget* w = findChild<QWidget*>()) {
+            delete w;
+        }
 		qDebug("showDetails entrato");//debug only
 		ItemDetailVisitor visitor(this);
 		item->accept(visitor);
-		//label->setText(item->getDescription().c_str());
 	}
 }
+
+
+//QVBoxLayout* ItemDetailsWidget::getLayout(){
+//	return layout;
+//}

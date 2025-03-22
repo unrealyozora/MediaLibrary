@@ -3,15 +3,16 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QVBoxLayout>
 #include "../items/AbstractItem.h"
 class ItemDetailsWidget :public QWidget {
 	Q_OBJECT
 private:
-	QPushButton* backButton;
-	QLabel* label;
+	//QVBoxLayout* layout;
 public:
 	explicit ItemDetailsWidget(QWidget* parent = nullptr);
 	void showDetails(AbstractItem* item);
+	//QVBoxLayout* getLayout();
 signals:
 	void backToHome();
 };
