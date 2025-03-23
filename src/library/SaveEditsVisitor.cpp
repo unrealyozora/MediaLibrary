@@ -12,6 +12,8 @@ void SaveEditsVisitor::visit(Album& album){
     album.setCountry(editList->at(3)->text().toStdString());
     album.setAuthor(editList->at(4)->text().toStdString());
     album.setSongs(editList->at(5)->text().toUInt());
+    qDebug() << editList->at(6)->text();
+    qDebug() << editList->at(6)->text().toUInt();
     album.setLength(editList->at(6)->text().toUInt());
 
     Library::getInstance()->updateItem(album);

@@ -1,5 +1,6 @@
 #include "ItemDetailVisitor.h" 
 #include "../library/SaveEditsVisitor.h"
+#include "LengthEdit.h"
 #include <QString>  
 #include <QLayout>  
 #include <QFont>  
@@ -7,6 +8,7 @@
 #include <QPixmap>
 #include <QFormLayout>
 #include <QScrollArea>
+#include <QValidator>
 
 
 void ItemDetailVisitor::visit(Album& album) {
@@ -48,6 +50,7 @@ void ItemDetailVisitor::visit(Album& album) {
     // *** INFO ***
     QLabel* yearLabel = new QLabel("Year:");
     QLineEdit* yearEdit = new QLineEdit(QString::number(album.getYear()));
+    setYearValidator(yearEdit);
     
     yearEdit->setReadOnly(true);
     infoLayout->addWidget(yearLabel);
@@ -107,7 +110,10 @@ void ItemDetailVisitor::visit(Album& album) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* lengthLabel = new QLabel("Length:");
-    QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));
+    //QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));
+    QLineEdit* lengthEdit = new LengthEdit(nullptr, album.getLength()); //nullptr va cambiato
+    
+    
     
     lengthEdit->setReadOnly(true);
     infoLayout->addWidget(lengthLabel);
@@ -200,6 +206,7 @@ void ItemDetailVisitor::visit(Books& book) {
     // *** INFO ***
     QLabel* yearLabel = new QLabel("Year:");
     QLineEdit* yearEdit = new QLineEdit(QString::number(book.getYear()));
+    setYearValidator(yearEdit);
     
     yearEdit->setReadOnly(true);
     infoLayout->addWidget(yearLabel);
@@ -338,6 +345,7 @@ void ItemDetailVisitor::visit(Comic& comic) {
     // *** INFO ***
     QLabel* yearLabel = new QLabel("Year:");
     QLineEdit* yearEdit = new QLineEdit(QString::number(comic.getYear()));
+    setYearValidator(yearEdit);
     
     yearEdit->setReadOnly(true);
     infoLayout->addWidget(yearLabel);
@@ -468,6 +476,7 @@ void ItemDetailVisitor::visit(Movie& movie) {
     // *** INFO ***
     QLabel* yearLabel = new QLabel("Year:");
     QLineEdit* yearEdit = new QLineEdit(QString::number(movie.getYear()));
+    setYearValidator(yearEdit);
     
     yearEdit->setReadOnly(true);
     infoLayout->addWidget(yearLabel);
@@ -626,6 +635,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     // *** INFO ***
     QLabel* yearLabel = new QLabel("Year:");
     QLineEdit* yearEdit = new QLineEdit(QString::number(videogame.getYear()));
+    setYearValidator(yearEdit);
     
     yearEdit->setReadOnly(true);
     infoLayout->addWidget(yearLabel);
@@ -730,6 +740,10 @@ void ItemDetailVisitor::setLineEditFlat(QList<QLineEdit*>* editList){
 void ItemDetailVisitor::saveChanges(AbstractItem& item, QList<QLineEdit*>* editList){
     SaveEditsVisitor editsVisitor(editList);
     item.accept(editsVisitor);
+}
+
+void ItemDetailVisitor::setYearValidator(QLineEdit* yearEdit){
+    yearEdit->setValidator(new QIntValidator(0, 2100));
 }
 
 //solo per test, poi l'estetica finale sarà da cambiare

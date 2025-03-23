@@ -25,6 +25,7 @@ public:
 
     void setLineEditFlat(QList<QLineEdit*>* editList);
     void saveChanges(AbstractItem& item, QList<QLineEdit*>* editList);
+    void setYearValidator(QLineEdit* yearEdit);
 public slots:
     void setLineEditWrite(QList<QLineEdit*>* editList);
 };
