@@ -75,11 +75,27 @@ void LibraryMainWindow::OpenFile() {
 		if (!filepath.isEmpty()) {
 			if (filepath.endsWith(".json", Qt::CaseInsensitive)) {
 				categoryFilter->setFilterEnabled(false);
-				Library::getInstance()->fromJson(filepath);
+				try {
+					Library::getInstance()->fromJson(filepath);
+				}
+				catch (const std::runtime_error& e) {
+					QMessageBox error;
+					error.setWindowTitle("Error");
+					error.setText(e.what());
+					error.exec();
+				}
 				
 			}
 			else if (filepath.endsWith(".xml", Qt::CaseInsensitive)) {
-				Library::getInstance()->fromXml(filepath);
+				try {
+					Library::getInstance()->fromXml(filepath);
+				}
+				catch (const std::runtime_error& e) {
+					QMessageBox error;
+					error.setWindowTitle("Error");
+					error.setText(e.what());
+					error.exec();
+				}
 			}
 			else {
 				QMessageBox invalidFilemsg;
@@ -102,16 +118,64 @@ void LibraryMainWindow::SaveFile(){
 		if (fileInfo.suffix().isEmpty()){
 			if (selectedFilter.contains("*.json")){
 				filepath+=".json";
-				Library::getInstance()->toJson(filepath);
+				try {
+					Library::getInstance()->toJson(filepath);
+				}
+				catch (std::string& s) {
+					qDebug() << "catch savefile entrato";//debug only
+					QMessageBox warning;
+					warning.setWindowTitle("Warning");
+					warning.setText(s.c_str());
+					warning.exec();
+				}
+				catch (const std::runtime_error& e) {
+					QMessageBox error;
+					error.setWindowTitle("Error");
+					error.setText(e.what());
+					error.exec();
+				}
+				
 			}else if (selectedFilter.contains("*.xml")){
 				filepath+=".xml";
-				Library::getInstance()->toXml(filepath);
+				try {
+					Library::getInstance()->toXml(filepath);
+				}
+				catch (std::string& s) {
+					qDebug() << "catch savefile entrato";//debug only
+					QMessageBox warning;
+					warning.setWindowTitle("Warning");
+					warning.setText(s.c_str());
+					warning.exec();
+				}
+				
 			}
 		}else{
 			if (filepath.endsWith(".json", Qt::CaseInsensitive)){
-				Library::getInstance()->toJson(filepath);
+				try {
+					Library::getInstance()->toJson(filepath);
+				}
+				catch (std::string& s) {
+					QMessageBox warning;
+					warning.setWindowTitle("Warning");
+					warning.setText(s.c_str());
+					warning.exec();
+				}
+				catch (const std::runtime_error& e) {
+					QMessageBox error;
+					error.setWindowTitle("Error");
+					error.setText(e.what());
+					error.exec();
+				}
 			}else if (filepath.endsWith(".xml", Qt::CaseInsensitive)){
-				Library::getInstance()->toXml(filepath);
+				try {
+					Library::getInstance()->toXml(filepath);
+				}
+				catch (std::string& s) {
+					QMessageBox warning;
+					warning.setWindowTitle("Warning");
+					warning.setText(s.c_str());
+					warning.exec();
+				}
 			}else{
 				QMessageBox invalidFilemsg;
 				invalidFilemsg.setWindowTitle("Error");

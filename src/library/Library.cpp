@@ -96,15 +96,18 @@ void Library::fromJson(const QString& path) {
 }
 
 void Library::toJson(const QString& path) const {
-	try {
-		JsonWriter::writeJson(path, this->getList());
+	if (media.isEmpty()) {
+		throw std::string("Empty Library");
 	}
-	catch (QString& s){
-		std::cout << s.toStdString() << std::endl; //libreria vuota
+	else {
+		try {
+			JsonWriter::writeJson(path, this->getList());
+		}
+		catch (const std::runtime_error& e) {	//errore nel file
+			throw e;
+		}
 	}
-	catch (const std::runtime_error& e) {	//errore nel file
-		std::cerr << e.what() << std::endl;
-	}
+	
 	
 }
 
@@ -159,14 +162,17 @@ void Library::fromXml(const QString& path) {
 }
 
 void Library::toXml(const QString& path) const {
-	try {
-		XmlWriter::writeXml(path, media);
+	if (media.isEmpty()) {
+		throw std::string("Empty Library");
 	}
-	catch (QString& s) {
-		std::cout << s.toStdString() << std::endl; //libreria vuota
+	else {
+		try {
+			XmlWriter::writeXml(path, media);
+		}
+		catch (const std::runtime_error& e) {
+			throw e;
+		}
 	}
-	catch (const std::runtime_error& e) {
-		std::cerr << e.what() << std::endl;	//errore nel file
-	}
+	
 }
 

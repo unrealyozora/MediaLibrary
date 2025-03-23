@@ -2,9 +2,6 @@
 #include "XmlVisitor.h"
 
 void XmlWriter::writeXml(const QString& path, const QList<std::shared_ptr<AbstractItem>>& media) {
-    if (media.isEmpty()) {
-        throw QString("La libreria è vuota");
-    }
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly)) {
         throw std::runtime_error(file.errorString().toStdString());
