@@ -44,7 +44,23 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 	}
 }
 
+void Library::updateItem(const AbstractItem& item){
+	for (auto& mediaItem : media) {
+		if (mediaItem->getTitle() == item.getTitle() && mediaItem->getYear() == item.getYear()) {
+			*mediaItem = item;
+			emit updateList(media);
+		}
+	}
+	if (filePath.substr(filePath.length() - 4, filePath.length())=="json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
+		toJson(filePath.c_str());
+	}
+	else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
+		toXml(filePath.c_str());
+	}
+}
+
 void Library::fromJson(const QString& path) {
+	filePath = path.toStdString();
 	media.clear();
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {
@@ -94,6 +110,7 @@ void Library::toJson(const QString& path) const {
 
 
 void Library::fromXml(const QString& path) {
+	filePath = path.toStdString();
 	media.clear();
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) {

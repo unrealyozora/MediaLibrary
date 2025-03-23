@@ -34,6 +34,12 @@ LibraryMainWindow::LibraryMainWindow(){
     QHBoxLayout* MainLayout = new QHBoxLayout();
 	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
 	detailWidget = new ItemDetailsWidget(this);
+	/*QPalette pal = detailWidget->palette();
+	QColor myGray(141, 153, 174);
+	pal.setColor(QPalette::Window, myGray);
+	detailWidget->setAutoFillBackground(true);
+	detailWidget->setPalette(pal);*/
+	
 	
 
 	categoryFilter->setSourceModel(model);

@@ -1,61 +1,61 @@
 [
     {
-        "title": "Inception",
-        "tipo": "Movie",
-        "year": 2010,
-        "description": "A mind-bending thriller about dreams within dreams.",
-        "genre": "Sci-Fi",
         "country": "USA",
-        "image": "assets/inception.jpg",
+        "description": "A mind-bending thriller about dreams within dreams.",
         "director": "Christopher Nolan",
-        "screenwriter": "Christopher Nolan",
+        "genre": "Sci-Fi",
+        "image": "assets/inception.jpg",
         "length": 148,
-        "production_comp": "Warner Bros"
+        "production_comp": "Warner Bros",
+        "screenwriter": "Christopher Nolan",
+        "tipo": "Movie",
+        "title": "Inception",
+        "year": 2010
     },
     {
-        "title": "The Dark Side of the Moon",
-        "tipo": "Album",
-        "year": 1973,
+        "author": "Pink Floyd",
+        "country": "UK",
         "description": "An iconic progressive rock album by Pink Floyd.",
         "genre": "Rock",
-        "country": "UK",
         "image": "assets/kaisa.jpg",
-        "author": "Pink Floyd",
+        "length": 43,
         "songs": 10,
-        "length": 43
+        "tipo": "Album",
+        "title": "The Dark Side of the Moon",
+        "year": 2015
     },
     {
-        "title": "The Witcher 3",
-        "tipo": "Videogame",
-        "year": 2015,
-        "description": "An open-world RPG set in a fantasy universe.",
-        "genre": "RPG",
         "country": "Poland",
-        "image": "assets/kaisa.jpg",
+        "description": "An open-world RPG set in a fantasy universe.",
         "developer": "CD Projekt Red",
-        "multiplayer": false
+        "genre": "RPG",
+        "image": "assets/kaisa.jpg",
+        "multiplayer": false,
+        "tipo": "Videogame",
+        "title": "The Witcher 3",
+        "year": 2015
     },
     {
-        "title": "Spider-Man",
-        "tipo": "Comic",
-        "year": 1962,
+        "author": "Stan Lee",
+        "chapters": 15,
+        "country": "USA",
         "description": "The origin story of one of the most beloved superheroes.",
         "genre": "Superhero",
-        "country": "USA",
         "image": "assets/kaisa.jpg",
-        "author": "Stan Lee",
-        "chapters": 15
+        "tipo": "Comic",
+        "title": "Spider-Man",
+        "year": 1962
     },
     {
-        "title": "1984",
-        "tipo": "Books",
-        "year": 1949,
+        "author": "George Orwell",
+        "country": "UK",
         "description": "A dystopian novel about totalitarian surveillance.",
         "genre": "Dystopian",
-        "country": "UK",
         "image": "assets/kaisa.jpg",
-        "author": "George Orwell",
         "pages": 328,
-        "publ": "Secker & Warburg"
+        "publ": "Secker & Warburg",
+        "tipo": "Books",
+        "title": "1984",
+        "year": 1949
     }
 ]

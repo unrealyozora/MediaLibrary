@@ -20,6 +20,7 @@ void ItemDetailsWidget::showDetails(AbstractItem* item){
 }
 
 
+
 //QVBoxLayout* ItemDetailsWidget::getLayout(){
 //	return layout;
 //}

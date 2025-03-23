@@ -12,6 +12,7 @@ private:
 	Library(const Library&) = delete;
 	Library& operator=(const Library&) = delete;
 	QList<std::shared_ptr<AbstractItem>> media;
+	std::string filePath;
 public:
 	static Library* getInstance();
 	const unsigned int getSize() const;
@@ -21,6 +22,7 @@ public:
 	//Metodi per aggiungere e rimuovere un oggetto alla libreria
 	void addItem(std::shared_ptr<AbstractItem> item);
 	void removeItem(const std::string& title, unsigned int year); //il metodo removeItem richiede il titolo e l'anno, in modo da non creare eventuali casi di omonimia
+	void updateItem(const AbstractItem& item);
 	
 	//sezione gestione json
 	void fromJson(const QString& path);

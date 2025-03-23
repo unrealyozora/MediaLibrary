@@ -1,6 +1,6 @@
 #ifndef ITEMDETAILVISITOR_H
 #define ITEMDETAILVISITOR_H
-
+#include <QLineEdit>
 #include "../items/ItemVisitor.h"
 #include "../view/ItemDetailWidget.h"
 #include "../items/album.h"
@@ -13,7 +13,7 @@
 class ItemDetailVisitor : public ItemVisitor {
 private:
     ItemDetailsWidget* widget;
-
+    const unsigned int spacing = 20;
 public:
     explicit ItemDetailVisitor(ItemDetailsWidget* _widget) : widget(_widget) {}
 
@@ -22,6 +22,11 @@ public:
     void visit(Comic& comic) override;
     void visit(Movie& movie) override;
     void visit(Videogames& videogame) override;
+
+    void setLineEditFlat(QList<QLineEdit*>* editList);
+    void saveChanges(AbstractItem& item, QList<QLineEdit*>* editList);
+public slots:
+    void setLineEditWrite(QList<QLineEdit*>* editList);
 };
 
 #endif
