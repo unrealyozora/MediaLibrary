@@ -30,6 +30,5 @@ public:
 
 	virtual void accept(ItemVisitor& iv) = 0;
 };
-Q_DECLARE_METATYPE(AbstractItem*)
+Q_DECLARE_METATYPE(AbstractItem*) //necessario affinchè LibraryListModel possa restituire un QVariant con il puntatore ad un AbstractItem
 #endif // !ITEM_ABSTRACT_ITEM_H
-
