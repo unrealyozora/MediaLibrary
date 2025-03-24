@@ -6,13 +6,13 @@
 #include "view/LibraryListModel.h"
 #include "view/LibraryMainWindow.h"
 int main(int argc, char* argv[]) {
-
-    Library* library = Library::getInstance();
+    
     QApplication app(argc, argv);
     
-
+    qRegisterMetaType<AbstractItem*>("AbstractItem*");
+    Library* library = Library::getInstance();
     //creazione MainWindow
-    LibraryMainWindow* window = new LibraryMainWindow();
+    LibraryMainWindow* window = new LibraryMainWindow(); //controllare memory leak
     //creazione Modello
     
     

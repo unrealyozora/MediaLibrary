@@ -19,5 +19,6 @@ public:
 	void setProd(const std::string& p);
 	virtual void accept(ItemVisitor& iv) override;
 };
+
 #endif
 

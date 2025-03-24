@@ -18,11 +18,11 @@
         "description": "An iconic progressive rock album by Pink Floyd.",
         "genre": "Rock",
         "image": "assets/kaisa.jpg",
-        "length": 135,
+        "length": 20,
         "songs": 10,
         "tipo": "Album",
         "title": "The Dark Side of the Moon",
-        "year": 2015
+        "year": 2023
     },
     {
         "country": "Poland",

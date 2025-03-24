@@ -14,4 +14,5 @@ class Videogames:public AbstractItem {
 		void setMultiplayer(const bool mult);
 		virtual void accept(ItemVisitor& iv) override;
 };
+
 #endif

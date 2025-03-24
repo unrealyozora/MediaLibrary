@@ -2,6 +2,7 @@
 #define ITEM_ABSTRACT_ITEM_H
 #include <string>
 #include <vector>
+#include <QMetaType>
 #include "ItemVisitor.h"
 class AbstractItem {
 protected:
@@ -28,7 +29,7 @@ public:
 	void setImage(const std::string& i);
 
 	virtual void accept(ItemVisitor& iv) = 0;
-
 };
+Q_DECLARE_METATYPE(AbstractItem*)
 #endif // !ITEM_ABSTRACT_ITEM_H
 

@@ -1,6 +1,7 @@
 #ifndef ITEM_VISITOR_H
 #define ITEM_VISITOR_H
 
+class AbstractItem;
 class Album;
 class Books;
 class Comic;

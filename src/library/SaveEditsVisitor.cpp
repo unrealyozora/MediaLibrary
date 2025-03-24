@@ -1,4 +1,5 @@
 #include "SaveEditsVisitor.h"
+#include <QDebug>
 #include "../items/album.h"
 #include "../items/Books.h"
 #include "../items/Comic.h"
