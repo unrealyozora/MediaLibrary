@@ -3,6 +3,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QTabWidget>
+#include <QHBoxLayout>
 class NewItemForm : public QDialog {
 Q_OBJECT
 private:
@@ -19,6 +20,8 @@ private:
 	QLineEdit* movieScreenWriter=nullptr;
 	QLineEdit* movieProdComp=nullptr;
 	QLineEdit* multiplayer=nullptr;
+	//QWidget* imageWidget;
+	QHBoxLayout* imageLayout;
 public:
 	explicit NewItemForm(QWidget* parent = nullptr);
 	void setupAlbumForm();

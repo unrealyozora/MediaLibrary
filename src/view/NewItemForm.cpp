@@ -1,7 +1,10 @@
 #include "NewItemForm.h"
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QDialogButtonBox>
+#include <QPushButton>
 #include <QFormLayout>
+#include <QFileDialog>
 NewItemForm::NewItemForm(QWidget* parent) :QDialog(parent) {
 	setWindowTitle("Add new item");
 	title = new QLineEdit();
@@ -9,9 +12,19 @@ NewItemForm::NewItemForm(QWidget* parent) :QDialog(parent) {
 	description = new QLineEdit();
 	genre = new QLineEdit();
 	country = new QLineEdit();
+	//imageWidget= new QWidget(this);
+	imageLayout= new QHBoxLayout();
+	QPushButton* imageButton = new QPushButton("Browse", this);
 	image = new QLineEdit();
+	imageLayout->addWidget(image, Qt::AlignLeft);
+	imageLayout->addWidget(imageButton);
+	//imageWidget->setLayout(imageLayout);
 	author = new QLineEdit();
 	length = new QLineEdit();
+	connect(imageButton, &QPushButton::clicked,  this, [this](){
+		QString path= QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png);;Tutti i file (*.*)");
+		image->setText(path);
+	});
 }
 
 void NewItemForm::setupAlbumForm(){
@@ -22,7 +35,7 @@ void NewItemForm::setupAlbumForm(){
 	formLayout->addRow("Description: ", description);
 	formLayout->addRow("Genre: ", genre);
 	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image: ", image);
+	formLayout->addRow("Image:" ,imageLayout);
 	formLayout->addRow("Author: ", author);
 	formLayout->addRow("Length: ", length);
 	albumsongs = new QLineEdit(this);
@@ -41,7 +54,7 @@ void NewItemForm::setupBookForm(){
 	formLayout->addRow("Description: ", description);
 	formLayout->addRow("Genre: ", genre);
 	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image: ", image);
+	formLayout->addRow("Image:" ,imageLayout);
 	formLayout->addRow("Author: ", author);
 	length = new QLineEdit(this);
 	formLayout->addRow("Pages: ", length);
@@ -51,6 +64,7 @@ void NewItemForm::setupBookForm(){
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Publishing House: ", bookPublHouse);
+	formLayout->addWidget(buttonBox);
 }
 
 void NewItemForm::setupComicForm(){
@@ -60,7 +74,7 @@ void NewItemForm::setupComicForm(){
 	formLayout->addRow("Description: ", description);
 	formLayout->addRow("Genre: ", genre);
 	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image: ", image);
+	formLayout->addRow("Image:" ,imageLayout);
 	formLayout->addRow("Author: ", author);
 	length = new QLineEdit(this);
 	QDialogButtonBox* buttonBox = new QDialogButtonBox(
@@ -68,6 +82,7 @@ void NewItemForm::setupComicForm(){
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Chapters: ", length);
+	formLayout->addWidget(buttonBox);
 }
 
 void NewItemForm::setupMovieForm(){
@@ -77,7 +92,7 @@ void NewItemForm::setupMovieForm(){
 	formLayout->addRow("Description: ", description);
 	formLayout->addRow("Genre: ", genre);
 	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image: ", image);
+	formLayout->addRow("Image:" ,imageLayout);
 	formLayout->addRow("Director: ", author);
 	length = new QLineEdit(this);
 	formLayout->addRow("Length: ", length);
@@ -89,6 +104,7 @@ void NewItemForm::setupMovieForm(){
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Production Company: ", movieProdComp);
+	formLayout->addWidget(buttonBox);
 }
 
 void NewItemForm::setupVideogameForm(){
@@ -98,7 +114,7 @@ void NewItemForm::setupVideogameForm(){
 	formLayout->addRow("Description: ", description);
 	formLayout->addRow("Genre: ", genre);
 	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image: ", image);
+	formLayout->addRow("Image:" ,imageLayout);
 	formLayout->addRow("Developer: ", author);
 	multiplayer = new QLineEdit(this);
 	QDialogButtonBox* buttonBox = new QDialogButtonBox(
@@ -106,6 +122,7 @@ void NewItemForm::setupVideogameForm(){
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Multiplayer: ", multiplayer);
+	formLayout->addWidget(buttonBox);
 }
 
 void NewItemForm::initializeAlbumForm(){
