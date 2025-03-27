@@ -1,0 +1,23 @@
+#ifndef VIEW_NEWITEM_FORM_H
+#define VIEW_NEWITEM_FORM_H
+#include <QDialog>
+#include <QLineEdit>
+#include <QTabWidget>
+#include <QHBoxLayout>
+class NewItemForm : public QDialog {
+Q_OBJECT
+protected:
+	QLineEdit* title=nullptr;
+	QLineEdit* year=nullptr;
+	QLineEdit* description = nullptr;
+	QLineEdit* genre = nullptr;
+	QLineEdit* country = nullptr;
+	QLineEdit* image = nullptr;
+	QLineEdit* author = nullptr;
+	QLineEdit* length = nullptr;
+	QHBoxLayout* imageLayout = nullptr;
+public:
+	explicit NewItemForm(QWidget* parent = nullptr) :QDialog(parent) {};
+	virtual void onAccepted() = 0;
+};
+#endif // VIEW_NEWITEM_FORM_H

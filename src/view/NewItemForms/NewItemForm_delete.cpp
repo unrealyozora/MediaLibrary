@@ -1,3 +1,4 @@
+#include "../../library/ItemController.h"
 #include "NewItemForm.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -5,6 +6,8 @@
 #include <QPushButton>
 #include <QFormLayout>
 #include <QFileDialog>
+
+#include <iostream> //debug only
 NewItemForm::NewItemForm(QWidget* parent) :QDialog(parent) {
 	setWindowTitle("Add new item");
 	title = new QLineEdit();
@@ -158,4 +161,9 @@ void NewItemForm::initializeVideogameForm(){
 
 void NewItemForm::onAccepted() {
 	accept();
+	ItemController::createMockAlbum();
+	for (auto x : Library::getInstance()->getList()) {
+		std::cout << "item created: " << x->getTitle();
+	}
+	
 }

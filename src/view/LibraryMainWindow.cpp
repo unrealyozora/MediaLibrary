@@ -4,7 +4,11 @@
 #include "ThumbnailDelegate.h"
 #include "SideMenu.h"
 #include "ItemDetailWidget.h"
-#include "NewItemForm.h"
+#include "NewItemForms/AlbumForm.h"
+#include "NewItemForms/BookForm.h"
+#include "NewItemForms/ComicForm.h"
+#include "NewItemForms/MovieForm.h"
+#include "NewItemForms/VideogameForm.h"
 #include <QListView>
 #include <QLayout>
 #include <QMenuBar>
@@ -24,7 +28,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
    /*------------------------CREAZIONE WIDGET-------------------*/
-	NewItemForm* itemForm = new NewItemForm(this);
 	QPushButton* newButton = new QPushButton("New item", this);
 	QMenu* buttonMenu = new QMenu(this);
 	QAction* newAlbum = new QAction("Add album", buttonMenu);
@@ -100,11 +103,26 @@ LibraryMainWindow::LibraryMainWindow(){
 			newButton->hide();
 		}
 	});
-	connect(newAlbum, &QAction::triggered, itemForm, &NewItemForm::initializeAlbumForm);
-	connect(newBook, &QAction::triggered, itemForm, &NewItemForm::initializeBookForm);
-	connect(newComic, &QAction::triggered, itemForm, &NewItemForm::initializeComicForm);
-	connect(newMovie, &QAction::triggered, itemForm, &NewItemForm::initializeMovieForm);
-	connect(newVideogame, &QAction::triggered, itemForm, &NewItemForm::initializeVideogameForm);
+	connect(newAlbum, &QAction::triggered, []() {
+		AlbumForm albumForm;
+		albumForm.exec();
+		});
+	connect(newBook, &QAction::triggered, []() {
+		BookForm bookForm;
+		bookForm.exec();
+		});
+	connect(newComic, &QAction::triggered, []() {
+		ComicForm comicForm;
+		comicForm.exec();
+		});
+	connect(newMovie, &QAction::triggered, []() {
+		MovieForm movieForm;
+		movieForm.exec();
+		});
+	connect(newVideogame, &QAction::triggered, []() {
+		VideogameForm videogameForm;
+		videogameForm.exec();
+		});
 }
 
 

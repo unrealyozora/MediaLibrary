@@ -34,6 +34,13 @@ QList<std::shared_ptr<AbstractItem>> Library::getList() const {
 
 void Library::addItem(std::shared_ptr<AbstractItem> item) {
 	media.append(item);
+	if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
+		toJson(filePath.c_str());
+	}
+	else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
+		toXml(filePath.c_str());
+	}
+	emit updateList(media);
 }
 
 void Library::removeItem(const std::string& title, unsigned int year) {

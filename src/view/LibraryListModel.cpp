@@ -26,14 +26,13 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
         return QVariant();
 
     if (role == Qt::DecorationRole) {  // Usa DecorationRole per mostrare l'immagine
-        if (dynamic_cast<Movie*>(const_cast<AbstractItem*>((items.at(index.row())).get()))){
-            return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
-            .scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        }else{ //aggiungere gli altri tipi se funziona
-            return QPixmap(LibraryListModel::items.at(index.row())->getImage().c_str())
-            .scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        }
-        
+        QPixmap image(LibraryListModel::items.at(index.row())->getImage().c_str());
+            if (image.isNull()) {
+                return QPixmap("assets/noImage.jpg").scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            }
+            else{
+                return image.scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            }
     }
     else if (role == Qt::DisplayRole) {
         return items.at(index.row())->getTitle().c_str();

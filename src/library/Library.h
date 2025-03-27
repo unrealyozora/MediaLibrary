@@ -1,8 +1,7 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 #include <memory>
-#include 
-"../items/AbstractItem.h"
+#include "../items/AbstractItem.h"
 #include <QList>
 #include <QObject>
 class Library: public QObject {
