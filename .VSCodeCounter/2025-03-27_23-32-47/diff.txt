@@ -1,0 +1,53 @@
+Date : 2025-03-27 23:32:47
+Directory : c:\Users\tomma\Dev\MediaLibrary\src
+Total : 23 files,  640 codes, 15 comments, 42 blanks, all 697 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         23 |        640 |         15 |         42 |        697 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         23 |        640 |         15 |         42 |        697 |
+| . (Files)                                                                    |          1 |          1 |          0 |         -1 |          0 |
+| items                                                                        |          4 |          3 |          0 |         -1 |          2 |
+| library                                                                      |          4 |         79 |          0 |          9 |         88 |
+| view                                                                         |         14 |        557 |         15 |         35 |        607 |
+| view (Files)                                                                 |          2 |         51 |          2 |         -1 |         52 |
+| view\NewItemForms                                                            |         12 |        506 |         13 |         36 |        555 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                     | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\tomma\Dev\MediaLibrary\src\items\AbstractItem.h                     | C++      |          2 |          0 |         -3 |         -1 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\ItemVisitor.h                      | C++      |          1 |          0 |          0 |          1 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Videogames.h                       | C++      |          0 |          0 |          1 |          1 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\movie.h                            | C++      |          0 |          0 |          1 |          1 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\ItemController.cpp               | C++      |         45 |          0 |          9 |         54 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\ItemController.h                 | C++      |         26 |          0 |          0 |         26 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\Library.cpp                      | C++      |          7 |          0 |          0 |          7 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\SaveEditsVisitor.cpp             | C++      |          1 |          0 |          0 |          1 |
+| c:\Users\tomma\Dev\MediaLibrary\src\main.cpp                                 | C++      |          1 |          0 |         -1 |          0 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryListModel.cpp                | C++      |         -3 |          0 |         -1 |         -4 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryMainWindow.cpp               | C++      |         54 |          2 |          0 |         56 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\AlbumForm.cpp          | C++      |         54 |          2 |          2 |         58 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\AlbumForm.h            | C++      |         12 |          0 |          2 |         14 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\BookForm.cpp           | C++      |         55 |          2 |          4 |         61 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\BookForm.h             | C++      |         12 |          0 |          0 |         12 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\ComicForm.cpp          | C++      |         52 |          2 |          3 |         57 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\ComicForm.h            | C++      |         10 |          0 |          1 |         11 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\MovieForm.cpp          | C++      |         58 |          2 |          4 |         64 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\MovieForm.h            | C++      |         13 |          0 |          1 |         14 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\NewItemForm.h          | C++      |         23 |          0 |          1 |         24 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\NewItemForm_delete.cpp | C++      |        153 |          3 |         14 |        170 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\VideogameForm.cpp      | C++      |         52 |          2 |          2 |         56 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\VideogameForm.h        | C++      |         12 |          0 |          2 |         14 |
+| Total                                                                        |          |        640 |         15 |         42 |        697 |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

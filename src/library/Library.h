@@ -34,5 +34,6 @@ public:
 
 signals:
 	void updateList(const QList<std::shared_ptr<AbstractItem>>& newList);  // Notifica quando la lista cambia
+	void updateOnDelete(const QList<std::shared_ptr<AbstractItem>>& newList); //Simile alla precedente ma emessa quando un item viene eliminato (venogno fatte alcune operazioni in più)
 };
 #endif

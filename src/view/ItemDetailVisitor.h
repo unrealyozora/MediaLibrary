@@ -28,6 +28,7 @@ public:
     void setYearValidator(QLineEdit* yearEdit);
 public slots:
     void setLineEditWrite(QList<QLineEdit*>* editList);
+    void deleteItem(const QString& title, const unsigned int year);
 };
 
 #endif

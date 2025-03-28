@@ -23,7 +23,7 @@ private:
 protected:
 	bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
 public:
-	LibraryQueryFilter(QObject* parent = nullptr);
+	explicit LibraryQueryFilter(QObject* parent = nullptr);
 	void setQuery(const QString& newQuery);
 };
 #endif

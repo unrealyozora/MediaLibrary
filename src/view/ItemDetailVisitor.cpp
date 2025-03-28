@@ -1,6 +1,7 @@
 #include "ItemDetailVisitor.h" 
 #include "../library/SaveEditsVisitor.h"
 #include "LengthEdit.h"
+#include "../library/Library.h"
 #include <QString>  
 #include <QLayout>  
 #include <QFont>  
@@ -9,7 +10,7 @@
 #include <QFormLayout>
 #include <QScrollArea>
 #include <QValidator>
-
+#include <QMessageBox>
 
 void ItemDetailVisitor::visit(Album& album) {
     if (widget->layout() != nullptr) {
@@ -146,6 +147,20 @@ void ItemDetailVisitor::visit(Album& album) {
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
 
+    QPushButton* deleteButton = new QPushButton("Delete");
+    deleteButton->setFixedSize(150, 40);
+    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
+        QMessageBox confirmDelete;
+        confirmDelete.setText("The selected item is being removed");
+        confirmDelete.setInformativeText("Do you want to remove this item?");
+        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        confirmDelete.setDefaultButton(QMessageBox::Ok);
+        if (confirmDelete.exec() == QMessageBox::Ok) {
+            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        }
+        });
+
+    buttonLayout->addWidget(deleteButton,0,Qt::AlignLeft);
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
     buttonLayout->addStretch();
@@ -744,6 +759,11 @@ void ItemDetailVisitor::saveChanges(AbstractItem& item, QList<QLineEdit*>* editL
 
 void ItemDetailVisitor::setYearValidator(QLineEdit* yearEdit){
     yearEdit->setValidator(new QIntValidator(0, 2100));
+}
+
+void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year){
+    qDebug() << year;
+    Library::getInstance()->removeItem(title.toStdString(), year);
 }
 
 //solo per test, poi l'estetica finale sarà da cambiare

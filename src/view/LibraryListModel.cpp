@@ -54,9 +54,6 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
     else if (role == Qt::UserRole) {
         return QVariant::fromValue(((items.at(index.row())).get()));
     }
-    else if (role == Qt::DisplayRole) {
-        return items.at(index.row())->getTitle().c_str();
-    }
 
     return QVariant();
 }

@@ -1,0 +1,91 @@
+Date : 2025-03-27 23:32:47
+Directory : c:\Users\tomma\Dev\MediaLibrary\src
+Total : 60 files,  2727 codes, 74 comments, 481 blanks, all 3282 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         60 |      2,727 |         74 |        481 |      3,282 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         60 |      2,727 |         74 |        481 |      3,282 |
+| . (Files)                                                                    |          1 |         15 |          4 |         15 |         34 |
+| items                                                                        |         13 |        298 |          0 |         68 |        366 |
+| jsonXml                                                                      |         12 |        409 |          0 |         55 |        464 |
+| library                                                                      |          6 |        339 |          3 |         47 |        389 |
+| view                                                                         |         28 |      1,666 |         67 |        296 |      2,029 |
+| view (Files)                                                                 |         16 |      1,160 |         54 |        260 |      1,474 |
+| view\NewItemForms                                                            |         12 |        506 |         13 |         36 |        555 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                     | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\tomma\Dev\MediaLibrary\src\items\AbstractItem.cpp                   | C++      |         40 |          0 |          8 |         48 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\AbstractItem.h                     | C++      |         33 |          0 |          1 |         34 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Books.cpp                          | C++      |         24 |          0 |          5 |         29 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Books.h                            | C++      |         19 |          0 |          1 |         20 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Comic.cpp                          | C++      |         18 |          0 |          5 |         23 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Comic.h                            | C++      |         16 |          0 |          3 |         19 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\ItemVisitor.h                      | C++      |         18 |          0 |          2 |         20 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Videogames.cpp                     | C++      |         18 |          0 |          8 |         26 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\Videogames.h                       | C++      |         16 |          0 |          2 |         18 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\album.cpp                          | C++      |         24 |          0 |         14 |         38 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\album.h                            | C++      |         19 |          0 |          2 |         21 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\movie.cpp                          | C++      |         31 |          0 |         14 |         45 |
+| c:\Users\tomma\Dev\MediaLibrary\src\items\movie.h                            | C++      |         22 |          0 |          3 |         25 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\JsonReader.cpp                   | C++      |         27 |          0 |          5 |         32 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\JsonReader.h                     | C++      |         20 |          0 |          1 |         21 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\JsonVisitor.cpp                  | C++      |         75 |          0 |          6 |         81 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\JsonVisitor.h                    | C++      |         21 |          0 |          2 |         23 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\JsonWriter.cpp                   | C++      |         18 |          0 |          3 |         21 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\JsonWriter.h                     | C++      |         11 |          0 |          0 |         11 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\XmlParser.cpp                    | C++      |        102 |          0 |         12 |        114 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\XmlParser.h                      | C++      |         14 |          0 |          4 |         18 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\XmlVisitor.cpp                   | C++      |         71 |          0 |          6 |         77 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\XmlVisitor.h                     | C++      |         21 |          0 |          6 |         27 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\XmlWriter.cpp                    | C++      |         19 |          0 |          5 |         24 |
+| c:\Users\tomma\Dev\MediaLibrary\src\jsonXml\XmlWriter.h                      | C++      |         10 |          0 |          5 |         15 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\ItemController.cpp               | C++      |         45 |          0 |          9 |         54 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\ItemController.h                 | C++      |         26 |          0 |          0 |         26 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\Library.cpp                      | C++      |        162 |          0 |         24 |        186 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\Library.h                        | C++      |         31 |          3 |          5 |         39 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\SaveEditsVisitor.cpp             | C++      |         58 |          0 |          9 |         67 |
+| c:\Users\tomma\Dev\MediaLibrary\src\library\SaveEditsVisitor.h               | C++      |         17 |          0 |          0 |         17 |
+| c:\Users\tomma\Dev\MediaLibrary\src\main.cpp                                 | C++      |         15 |          4 |         15 |         34 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\ItemDetailVisitor.cpp               | C++      |        540 |         35 |        183 |        758 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\ItemDetailVisitor.h                 | C++      |         29 |          0 |          4 |         33 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\ItemDetailWidget.cpp                | C++      |         15 |          4 |          8 |         27 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\ItemDetailWidget.h                  | C++      |         17 |          3 |          2 |         22 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LengthEdit.cpp                      | C++      |         33 |          0 |          8 |         41 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LengthEdit.h                        | C++      |         17 |          0 |          4 |         21 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryListModel.cpp                | C++      |         49 |          1 |         10 |         60 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryListModel.h                  | C++      |         23 |          0 |          3 |         26 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryMainWindow.cpp               | C++      |        233 |          9 |         17 |        259 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryMainWindow.h                 | C++      |         25 |          0 |          1 |         26 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryModelFilter.cpp              | C++      |         39 |          0 |          9 |         48 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\LibraryModelFilter.h                | C++      |         27 |          0 |          3 |         30 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\AlbumForm.cpp          | C++      |         54 |          2 |          2 |         58 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\AlbumForm.h            | C++      |         12 |          0 |          2 |         14 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\BookForm.cpp           | C++      |         55 |          2 |          4 |         61 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\BookForm.h             | C++      |         12 |          0 |          0 |         12 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\ComicForm.cpp          | C++      |         52 |          2 |          3 |         57 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\ComicForm.h            | C++      |         10 |          0 |          1 |         11 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\MovieForm.cpp          | C++      |         58 |          2 |          4 |         64 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\MovieForm.h            | C++      |         13 |          0 |          1 |         14 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\NewItemForm.h          | C++      |         23 |          0 |          1 |         24 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\NewItemForm_delete.cpp | C++      |        153 |          3 |         14 |        170 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\VideogameForm.cpp      | C++      |         52 |          2 |          2 |         56 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\NewItemForms\VideogameForm.h        | C++      |         12 |          0 |          2 |         14 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\SideMenu.cpp                        | C++      |         43 |          0 |          1 |         44 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\SideMenu.h                          | C++      |         29 |          2 |          2 |         33 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\ThumbnailDelegate.cpp               | C++      |         30 |          0 |          4 |         34 |
+| c:\Users\tomma\Dev\MediaLibrary\src\view\ThumbnailDelegate.h                 | C++      |         11 |          0 |          1 |         12 |
+| Total                                                                        |          |      2,727 |         74 |        481 |      3,282 |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

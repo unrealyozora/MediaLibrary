@@ -85,6 +85,10 @@ LibraryMainWindow::LibraryMainWindow(){
     connect(openAction, &QAction::triggered, this, &LibraryMainWindow::OpenFile); //Finestra di dialogo apertura file
 	connect(saveAction, &QAction::triggered, this, &LibraryMainWindow::SaveFile);
 	connect(exitAction, &QAction::triggered, this, &QApplication::quit); // Uscita dall' applicazione
+	connect(Library::getInstance(), &Library::updateOnDelete, [this](const QList<std::shared_ptr<AbstractItem>>& media) {
+		stackedWidget->setCurrentIndex(0);
+		model->setItems(media);
+		});
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
 	connect(listview, &QListView::clicked, this, &LibraryMainWindow::itemSelected);
 	connect(detailWidget, &ItemDetailsWidget::backToHome, this, &LibraryMainWindow::backHome);

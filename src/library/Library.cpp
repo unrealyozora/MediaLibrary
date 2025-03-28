@@ -47,6 +47,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 	for (int x = 0; x < media.size(); x++) {
 		if (media[x]->getTitle() == title && media[x]->getYear() == year) {
 			media.removeAt(x);
+			emit updateOnDelete(media);
 		}
 	}
 }
@@ -111,7 +112,7 @@ void Library::toJson(const QString& path) const {
 			JsonWriter::writeJson(path, this->getList());
 		}
 		catch (const std::runtime_error& e) {	//errore nel file
-			throw e;
+			throw;
 		}
 	}
 	
@@ -177,7 +178,7 @@ void Library::toXml(const QString& path) const {
 			XmlWriter::writeXml(path, media);
 		}
 		catch (const std::runtime_error& e) {
-			throw e;
+			throw;
 		}
 	}
 	
