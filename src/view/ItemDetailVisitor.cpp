@@ -11,6 +11,7 @@
 #include <QScrollArea>
 #include <QValidator>
 #include <QMessageBox>
+#include <QComboBox>
 
 void ItemDetailVisitor::visit(Album& album) {
     if (widget->layout() != nullptr) {
@@ -38,14 +39,28 @@ void ItemDetailVisitor::visit(Album& album) {
     QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
     infoLayout->setContentsMargins(20, 0, 40, 0); // Margini laterali
 
-    QLabel* titleLabel = new QLabel(QString::fromStdString(album.getTitle()));
+    QHBoxLayout* titleLayout = new QHBoxLayout();
+    QLineEdit* titleLabel = new QLineEdit(QString::fromStdString(album.getTitle()));
+    titleLabel->setReadOnly(true);
+    //QLabel* titleLabel = new QLabel(QString::fromStdString(album.getTitle()));
     QFont titleFont = titleLabel->font();
     titleFont.setPointSize(20);
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
-    titleLabel->setAlignment(Qt::AlignCenter);
+    //titleLabel->setAlignment(Qt::AlignLeft);
+    titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+    QIcon editTitleIcon(":/icons/edit");
+    QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton->setFixedSize(50, 50);
+    editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    editTitleButton->setFlat(true);
+    
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(editTitleButton);
+    titleLayout->addStretch();
     infoLayout->addSpacing(65); // Spazio prima del titolo
-    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addLayout(titleLayout);
+    //infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
     infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
@@ -56,7 +71,7 @@ void ItemDetailVisitor::visit(Album& album) {
     yearEdit->setReadOnly(true);
     infoLayout->addWidget(yearLabel);
     infoLayout->addWidget(yearEdit);
-    editList->append(yearEdit);
+    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -66,7 +81,7 @@ void ItemDetailVisitor::visit(Album& album) {
     descriptionEdit->setReadOnly(true);
     infoLayout->addWidget(descriptionLabel);
     infoLayout->addWidget(descriptionEdit);
-    editList->append(descriptionEdit);
+    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -76,7 +91,7 @@ void ItemDetailVisitor::visit(Album& album) {
     genreEdit->setReadOnly(true);
     infoLayout->addWidget(genreLabel);
     infoLayout->addWidget(genreEdit);
-    editList->append(genreEdit);
+    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -86,7 +101,7 @@ void ItemDetailVisitor::visit(Album& album) {
     countryEdit->setReadOnly(true);
     infoLayout->addWidget(countryLabel);
     infoLayout->addWidget(countryEdit);
-    editList->append(countryEdit);
+    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -96,7 +111,7 @@ void ItemDetailVisitor::visit(Album& album) {
     authorEdit->setReadOnly(true);
     infoLayout->addWidget(authorLabel);
     infoLayout->addWidget(authorEdit);
-    editList->append(authorEdit);
+    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -106,7 +121,7 @@ void ItemDetailVisitor::visit(Album& album) {
     songsEdit->setReadOnly(true);
     infoLayout->addWidget(songsLabel);
     infoLayout->addWidget(songsEdit);
-    editList->append(songsEdit);
+    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -119,13 +134,29 @@ void ItemDetailVisitor::visit(Album& album) {
     lengthEdit->setReadOnly(true);
     infoLayout->addWidget(lengthLabel);
     infoLayout->addWidget(lengthEdit);
+    editList->append(yearEdit);
+    editList->append(descriptionEdit);
+    editList->append(genreEdit);
+    editList->append(countryEdit);
+    editList->append(authorEdit);
+    editList->append(songsEdit);
     editList->append(lengthEdit);
-
     setLineEditFlat(editList);
+    // *** SCROLL AREA ***
+    QScrollArea* scrollArea = new QScrollArea();
+    QWidget* scrollContent = new QWidget();
+    QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
+    //scrollLayout->addWidget(imageLabel);
+    scrollLayout->addWidget(infoWidget);
+    scrollContent->setLayout(scrollLayout);
+    scrollArea->setWidget(scrollContent);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     infoLayout->addStretch(); // Spinge tutto in alto
     infoWidget->setLayout(infoLayout);
     infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
+    
     // *** WIDGET CONTENITORE PULSANTE ***
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
@@ -146,13 +177,19 @@ void ItemDetailVisitor::visit(Album& album) {
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
+    QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setFixedSize(150, 40);
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditFlat(editList);
+        });
 
     QPushButton* deleteButton = new QPushButton("Delete");
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
         QMessageBox confirmDelete;
-        confirmDelete.setText("The selected item is being removed");
-        confirmDelete.setInformativeText("Do you want to remove this item?");
+        confirmDelete.setWindowTitle("The selected item is being removed");
+        confirmDelete.setText("Do you want to remove this item?");
+        confirmDelete.setIcon(QMessageBox::Question);
         confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         confirmDelete.setDefaultButton(QMessageBox::Ok);
         if (confirmDelete.exec() == QMessageBox::Ok) {
@@ -163,6 +200,7 @@ void ItemDetailVisitor::visit(Album& album) {
     buttonLayout->addWidget(deleteButton,0,Qt::AlignLeft);
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(cancelButton,0,Qt::AlignLeft);
     buttonLayout->addStretch();
     buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
 
@@ -171,7 +209,7 @@ void ItemDetailVisitor::visit(Album& album) {
 
     // *** CONTENITORE DESTRO ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(infoWidget, 1);
+    rightLayout->addWidget(scrollArea, 1);
     rightLayout->addWidget(buttonWidget, 0);
     rightLayout->setSpacing(0);
 
@@ -191,7 +229,7 @@ void ItemDetailVisitor::visit(Books& book) {
         }
         delete widget->layout();
     }
-
+    QList<QLineEdit*>* editList = new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
 
@@ -245,7 +283,7 @@ void ItemDetailVisitor::visit(Books& book) {
     infoLayout->addWidget(genreLabel);
     infoLayout->addWidget(genreEdit);
 
-    infoLayout->addSpacing(60); // Spazio tra coppie di label e line edit
+    infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* countryLabel = new QLabel("Country:");
     QLineEdit* countryEdit = new QLineEdit(QString::fromStdString(book.getCountry()));
@@ -280,6 +318,24 @@ void ItemDetailVisitor::visit(Books& book) {
     publHouseEdit->setReadOnly(true);
     infoLayout->addWidget(publHouseLabel);
     infoLayout->addWidget(publHouseEdit);
+    editList->append(yearEdit);
+    editList->append(descriptionEdit);
+    editList->append(genreEdit);
+    editList->append(countryEdit);
+    editList->append(authorEdit);
+    editList->append(pagesEdit);
+    editList->append(publHouseEdit);
+    setLineEditFlat(editList);
+    // *** SCROLL AREA ***
+    QScrollArea* scrollArea = new QScrollArea();
+    QWidget* scrollContent = new QWidget();
+    QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
+    //scrollLayout->addWidget(imageLabel);
+    scrollLayout->addWidget(infoWidget);
+    scrollContent->setLayout(scrollLayout);
+    scrollArea->setWidget(scrollContent);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     infoLayout->addStretch(); // Spinge tutto in alto
     infoWidget->setLayout(infoLayout);
@@ -288,10 +344,27 @@ void ItemDetailVisitor::visit(Books& book) {
     // *** WIDGET CONTENITORE PULSANTE ***
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+    QPushButton* deleteButton = new QPushButton("Delete");
+    deleteButton->setFixedSize(150, 40);
+    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
+        QMessageBox confirmDelete;
+        confirmDelete.setWindowTitle("The selected item is being removed");
+        confirmDelete.setText("Do you want to remove this item?");
+        confirmDelete.setIcon(QMessageBox::Question);
+        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        confirmDelete.setDefaultButton(QMessageBox::Ok);
+        if (confirmDelete.exec() == QMessageBox::Ok) {
+            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        }
+        });
+
+    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
 
     QPushButton* modifyButton = new QPushButton("Modify");
     modifyButton->setFixedSize(150, 40);
-    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditWrite(editList);
+        });
 
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
@@ -301,8 +374,15 @@ void ItemDetailVisitor::visit(Books& book) {
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
 
+    QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setFixedSize(150, 40);
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditFlat(editList);
+        });
+
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(cancelButton, 0, Qt::AlignLeft);
     buttonLayout->addStretch();
     buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
 
@@ -311,7 +391,7 @@ void ItemDetailVisitor::visit(Books& book) {
 
     // *** CONTENITORE DESTRO ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(infoWidget, 1);
+    rightLayout->addWidget(scrollArea, 1);
     rightLayout->addWidget(buttonWidget, 0);
     rightLayout->setSpacing(0);
 
@@ -330,7 +410,7 @@ void ItemDetailVisitor::visit(Comic& comic) {
         }
         delete widget->layout();
     }
-
+    QList<QLineEdit*>* editList= new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
 
@@ -414,18 +494,42 @@ void ItemDetailVisitor::visit(Comic& comic) {
     infoLayout->addStretch(); // Spinge tutto in alto
     infoWidget->setLayout(infoLayout);
     infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-
+    editList->append(yearEdit);
+    editList->append(descriptionEdit);
+    editList->append(genreEdit);
+    editList->append(countryEdit);
+    editList->append(authorEdit);
+    editList->append(chaptersEdit);
+    setLineEditFlat(editList);
+    // *** SCROLL AREA ***
+    QScrollArea* scrollArea = new QScrollArea();
+    QWidget* scrollContent = new QWidget();
+    QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
+    //scrollLayout->addWidget(imageLabel);
+    scrollLayout->addWidget(infoWidget);
+    scrollContent->setLayout(scrollLayout);
+    scrollArea->setWidget(scrollContent);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     // *** WIDGET CONTENITORE PULSANTE ***
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
 
     QPushButton* modifyButton = new QPushButton("Modify");
     modifyButton->setFixedSize(150, 40);
-    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditWrite(editList);
+        });
 
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
+
+    QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setFixedSize(150, 40);
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditFlat(editList);
+        });
 
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
@@ -433,15 +537,31 @@ void ItemDetailVisitor::visit(Comic& comic) {
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(cancelButton, 0, Qt::AlignLeft);
     buttonLayout->addStretch();
     buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
 
     buttonWidget->setLayout(buttonLayout);
     buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    QPushButton* deleteButton = new QPushButton("Delete");
+    deleteButton->setFixedSize(150, 40);
+    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
+        QMessageBox confirmDelete;
+        confirmDelete.setWindowTitle("The selected item is being removed");
+        confirmDelete.setText("Do you want to remove this item?");
+        confirmDelete.setIcon(QMessageBox::Question);
+        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        confirmDelete.setDefaultButton(QMessageBox::Ok);
+        if (confirmDelete.exec() == QMessageBox::Ok) {
+            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        }
+        });
+
+    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
 
     // *** CONTENITORE DESTRO ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(infoWidget, 1);
+    rightLayout->addWidget(scrollArea, 1);
     rightLayout->addWidget(buttonWidget, 0);
     rightLayout->setSpacing(0);
 
@@ -460,7 +580,7 @@ void ItemDetailVisitor::visit(Movie& movie) {
         }
         delete widget->layout();
     }
-
+    QList<QLineEdit*>* editList = new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
 
@@ -563,7 +683,16 @@ void ItemDetailVisitor::visit(Movie& movie) {
     infoLayout->addStretch(); // Spinge tutto in alto
     infoWidget->setLayout(infoLayout);
     infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-
+    editList->append(yearEdit);
+    editList->append(descriptionEdit);
+    editList->append(genreEdit);
+    editList->append(countryEdit);
+    editList->append(directorEdit);
+    editList->append(screenwriterEdit);
+    editList->append(lengthEdit);
+    editList->append(prodCompanyEdit);
+    setLineEditFlat(editList);
+    
     // *** SCROLL AREA ***
     QScrollArea* scrollArea = new QScrollArea();
     QWidget* scrollContent = new QWidget();
@@ -579,13 +708,36 @@ void ItemDetailVisitor::visit(Movie& movie) {
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
 
+    QPushButton* deleteButton = new QPushButton("Delete");
+    deleteButton->setFixedSize(150, 40);
+    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
+        QMessageBox confirmDelete;
+        confirmDelete.setWindowTitle("The selected item is being removed");
+        confirmDelete.setText("Do you want to remove this item?");
+        confirmDelete.setIcon(QMessageBox::Question);
+        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        confirmDelete.setDefaultButton(QMessageBox::Ok);
+        if (confirmDelete.exec() == QMessageBox::Ok) {
+            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        }
+        });
+
+    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
     QPushButton* modifyButton = new QPushButton("Modify");
     modifyButton->setFixedSize(150, 40);
-    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditWrite(editList);
+        });
 
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
+
+    QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setFixedSize(150, 40);
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+        setLineEditFlat(editList);
+        });
 
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
@@ -593,6 +745,7 @@ void ItemDetailVisitor::visit(Movie& movie) {
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(cancelButton, 0, Qt::AlignLeft);
     buttonLayout->addStretch();
     buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
 
@@ -620,7 +773,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
         }
         delete widget->layout();
     }
-
+    QList<QLineEdit*>* editList = new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
 
@@ -695,35 +848,86 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* multiplayerLabel = new QLabel("Multiplayer:");
-    QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");
-    
-    multiplayerEdit->setReadOnly(true);
+    //QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");
+    QComboBox* multiplayerEdit = new QComboBox();
+    multiplayerEdit->setEnabled(false);
+    multiplayerEdit->setPlaceholderText(videogame.getMultiplayer() ? "Yes" : "No");
+    multiplayerEdit->addItem("Yes");
+    multiplayerEdit->addItem("No");
+    //multiplayerEdit->setReadOnly(true);
     infoLayout->addWidget(multiplayerLabel);
     infoLayout->addWidget(multiplayerEdit);
 
     infoLayout->addStretch(); // Spinge tutto in alto
     infoWidget->setLayout(infoLayout);
     infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    editList->append(yearEdit);
+    editList->append(descriptionEdit);
+    editList->append(genreEdit);
+    editList->append(countryEdit);
+    editList->append(developerEdit);
+    setLineEditFlat(editList);
+    // *** SCROLL AREA ***
+    QScrollArea* scrollArea = new QScrollArea();
+    QWidget* scrollContent = new QWidget();
+    QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
+    //scrollLayout->addWidget(imageLabel);
+    scrollLayout->addWidget(infoWidget);
+    scrollContent->setLayout(scrollLayout);
+    scrollArea->setWidget(scrollContent);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
 
     // *** WIDGET CONTENITORE PULSANTE ***
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
+    QPushButton* deleteButton = new QPushButton("Delete");
+    deleteButton->setFixedSize(150, 40);
+    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
+        QMessageBox confirmDelete;
+        confirmDelete.setWindowTitle("The selected item is being removed");
+        confirmDelete.setText("Do you want to remove this item?");
+        confirmDelete.setIcon(QMessageBox::Question);
+        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        confirmDelete.setDefaultButton(QMessageBox::Ok);
+        if (confirmDelete.exec() == QMessageBox::Ok) {
+            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        }
+        });
+
+    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
 
     QPushButton* modifyButton = new QPushButton("Modify");
     modifyButton->setFixedSize(150, 40);
-    //QObject::connect(modifyButton, &QPushButton::clicked, widget, &ItemDetailsWidget::modifyItem);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList, multiplayerEdit]() {
+        multiplayerEdit->setEnabled(true);
+        multiplayerEdit->setStyleSheet(
+            "QComboBox:enabled { color: #000000; background-color: #FFFFFF; border: 1px solid #C0C0C0; }"
+        );
+        setLineEditWrite(editList);
+        });
 
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
 
+    QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setFixedSize(150, 40);
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, multiplayerEdit]() {
+        setLineEditFlat(editList);
+        multiplayerEdit->setEnabled(false);
+        multiplayerEdit->setStyleSheet(
+            "QComboBox:enabled { color: #000000; background-color: #FFFFFF; border: 1px solid #C0C0C0;}"
+        );
+        });
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
+    buttonLayout->addWidget(cancelButton, 0, Qt::AlignLeft);
     buttonLayout->addStretch();
     buttonLayout->addWidget(backButton, 0, Qt::AlignRight);
 
@@ -732,8 +936,8 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     
     // *** CONTENITORE DESTRO ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(infoWidget, Qt::AlignTop);
-    rightLayout->addWidget(buttonWidget, Qt::AlignCenter);
+    rightLayout->addWidget(scrollArea, 1);
+    rightLayout->addWidget(buttonWidget,0);
     rightLayout->setSpacing(0);
 
     topLayout->addLayout(rightLayout);
@@ -744,6 +948,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
 
 void ItemDetailVisitor::setLineEditFlat(QList<QLineEdit*>* editList){
     for (auto item : *editList) {
+        item->setReadOnly(true);
         item->setStyleSheet(
             "QLineEdit[readOnly=\"true\"] { border: none; }"
         );
@@ -767,11 +972,11 @@ void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year
 }
 
 //solo per test, poi l'estetica finale sarà da cambiare
-void ItemDetailVisitor::setLineEditWrite(QList<QLineEdit*>* editList){
+void ItemDetailVisitor::setLineEditWrite(QList<QLineEdit*>* editList) {
     for (auto item : *editList) {
         item->setReadOnly(false);
         item->setStyleSheet(
-            "QLineEdit[readOnly=\"false\"] { color: #000000; background-color: #FFFFFF; border: 1px solid #C0C0C0; }"
+            "QLineEdit[readOnly=\"false\"] { color: #000000; background-color: #FFFFFF; border: none; }"
         );
     }
 }

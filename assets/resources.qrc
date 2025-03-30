@@ -6,5 +6,6 @@
         <file alias="comic">icons/comic.png</file>
         <file alias="movie">icons/movie.png</file>
         <file alias="videogame">icons/videogame.png</file>
+        <file alias="edit">icons/edit.png</file>
     </qresource>
 </RCC>

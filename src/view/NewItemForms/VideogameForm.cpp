@@ -21,7 +21,7 @@ VideogameForm::VideogameForm(QWidget* parent):NewItemForm(parent){
 	author = new QLineEdit();
 	length = new QLineEdit();
 	connect(imageButton, &QPushButton::clicked, this, [this]() {
-		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png);;Tutti i file (*.*)");
+		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png)");
 		image->setText(path);
 		});
 	QFormLayout* formLayout = new QFormLayout(this);
@@ -32,7 +32,9 @@ VideogameForm::VideogameForm(QWidget* parent):NewItemForm(parent){
 	formLayout->addRow("Country: ", country);
 	formLayout->addRow("Image:", imageLayout);
 	formLayout->addRow("Developer: ", author);
-	multiplayer = new QLineEdit(this);
+	multiplayer = new QComboBox(this);
+	multiplayer->addItem("Yes");
+	multiplayer->addItem("No");
 	QDialogButtonBox* buttonBox = new QDialogButtonBox(
 		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
@@ -50,6 +52,6 @@ void VideogameForm::onAccepted(){
 	std::string _country = country->text().toStdString();
 	std::string _image = image->text().toStdString();
 	std::string _developer = author->text().toStdString(); // "author" qui è lo sviluppatore
-	bool _multiplayer = (multiplayer->text().toLower() == "yes" || multiplayer->text().toLower() == "true");
+	bool _multiplayer = (multiplayer->currentText() == "Yes");
 	ItemController::passVideogame(_title, _year, _description, _genre, _country, _image, _developer, _multiplayer);
 }

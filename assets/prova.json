@@ -13,18 +13,6 @@
         "year": 2010
     },
     {
-        "author": "Pink Floyd",
-        "country": "UK",
-        "description": "An iconic progressive rock album by Pink Floyd.",
-        "genre": "Rock",
-        "image": "assets/kaisa.jpg",
-        "length": 20,
-        "songs": 10,
-        "tipo": "Album",
-        "title": "The Dark Side of the Moon",
-        "year": 2023
-    },
-    {
         "country": "Poland",
         "description": "An open-world RPG set in a fantasy universe.",
         "developer": "CD Projekt Red",
@@ -68,5 +56,39 @@
         "tipo": "Comic",
         "title": "Maus",
         "year": 1975
+    },
+    {
+        "author": "Rick",
+        "country": "UK",
+        "description": "Sdgfass",
+        "genre": "Rock",
+        "image": "path/to/nowhere.jpg",
+        "length": 12,
+        "songs": 12,
+        "tipo": "Album",
+        "title": "Pink Floyd Last Album",
+        "year": 2013
+    },
+    {
+        "country": "USA",
+        "description": "Bel gioco",
+        "developer": "Edward McMillen",
+        "genre": "Roguelike",
+        "image": "",
+        "multiplayer": true,
+        "tipo": "Videogame",
+        "title": "The Binding of Isaac",
+        "year": 2011
+    },
+    {
+        "country": "adgadfg",
+        "description": "CViaodf",
+        "developer": "ag",
+        "genre": "adfag",
+        "image": "adg",
+        "multiplayer": true,
+        "tipo": "Videogame",
+        "title": "Gta V",
+        "year": 2013
     }
 ]

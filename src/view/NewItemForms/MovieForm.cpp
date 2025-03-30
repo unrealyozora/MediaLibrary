@@ -21,7 +21,7 @@ MovieForm::MovieForm(QWidget* parent):NewItemForm(parent){
 	author = new QLineEdit();
 	length = new QLineEdit();
 	connect(imageButton, &QPushButton::clicked, this, [this]() {
-		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png);;Tutti i file (*.*)");
+		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png)");
 		image->setText(path);
 		});
 	QFormLayout* formLayout = new QFormLayout(this);

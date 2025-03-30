@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QDialogButtonBox>
 AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
+	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 	setWindowTitle("Add new item");
 	title = new QLineEdit();
 	year = new QLineEdit();
@@ -21,7 +22,7 @@ AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
 	author = new QLineEdit();
 	length = new QLineEdit();
 	connect(imageButton, &QPushButton::clicked, this, [this]() {
-		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png);;Tutti i file (*.*)");
+		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png)");
 		image->setText(path);
 		});
 	QFormLayout* formLayout = new QFormLayout(this);
