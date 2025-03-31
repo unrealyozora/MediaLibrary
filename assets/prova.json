@@ -5,7 +5,7 @@
         "director": "Christopher Nolan",
         "genre": "Sci-Fi",
         "image": "assets/inception.jpg",
-        "length": 148,
+        "length": 150,
         "production_comp": "Warner Bros",
         "screenwriter": "Christopher Nolan",
         "tipo": "Movie",
@@ -58,16 +58,16 @@
         "year": 1975
     },
     {
-        "author": "Rick",
-        "country": "UK",
-        "description": "adg",
-        "genre": "Rock",
+        "author": "Rickdfgadfg",
+        "country": "IT",
+        "description": "ciao ",
+        "genre": "sedf",
         "image": "path/to/nowhere.jpg",
-        "length": 0,
-        "songs": 12,
+        "length": 150,
+        "songs": 20,
         "tipo": "Album",
         "title": "Pink Floyd Last Album",
-        "year": 2013
+        "year": 2134
     },
     {
         "country": "USA",

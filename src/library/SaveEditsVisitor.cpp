@@ -15,7 +15,8 @@ void SaveEditsVisitor::visit(Album& album){
     album.setSongs(editList->at(5)->text().toUInt());
     qDebug() << editList->at(6)->text();
     qDebug() << editList->at(6)->text().toUInt();
-    album.setLength(editList->at(6)->text().toUInt());
+    QStringList lengthString = editList->at(6)->text().split(" ");
+    album.setLength(lengthString[0].toUInt());
 
     Library::getInstance()->updateItem(album);
 }
@@ -48,7 +49,8 @@ void SaveEditsVisitor::visit(Movie& movie) {
     movie.setCountry(editList->at(3)->text().toStdString());
     movie.setDirector(editList->at(4)->text().toStdString());
     movie.setScreenwriter(editList->at(5)->text().toStdString());
-    movie.setLength(editList->at(6)->text().toUInt());
+    QStringList lengthString = editList->at(6)->text().split(" ");
+    movie.setLength(lengthString[0].toUInt());
     movie.setProd(editList->at(7)->text().toStdString());
 
     Library::getInstance()->updateItem(movie);

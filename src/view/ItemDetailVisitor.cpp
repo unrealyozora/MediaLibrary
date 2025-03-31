@@ -162,25 +162,27 @@ void ItemDetailVisitor::visit(Album& album) {
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
 
-    QPushButton* modifyButton = new QPushButton("Modify");
-    modifyButton->setFixedSize(150, 40);
-    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
-        setLineEditWrite(editList);
-        });
-
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
-    saveButton->setEnabled(true);
+    saveButton->setEnabled(false);
     QObject::connect(saveButton, &QPushButton::clicked, [this, &album, editList]() {
         saveChanges(album, editList);
+        });
+
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList, saveButton]() {
+        setLineEditWrite(editList);
+        saveButton->setEnabled(true);
         });
 
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
+
     QPushButton* cancelButton = new QPushButton("Cancel");
     cancelButton->setFixedSize(150, 40);
-    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, saveButton]() {
         for (QLineEdit* edit : *editList) {
             LengthEdit* lengthEdit = qobject_cast<LengthEdit*>(edit);
             if (lengthEdit) {
@@ -188,21 +190,14 @@ void ItemDetailVisitor::visit(Album& album) {
             }
         }
         setLineEditFlat(editList);  // Rimetti i campi in sola lettura
+        saveButton->setEnabled(false);
         });
 
 
     QPushButton* deleteButton = new QPushButton("Delete");
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
-        QMessageBox confirmDelete;
-        confirmDelete.setWindowTitle("The selected item is being removed");
-        confirmDelete.setText("Do you want to remove this item?");
-        confirmDelete.setIcon(QMessageBox::Question);
-        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        confirmDelete.setDefaultButton(QMessageBox::Ok);
-        if (confirmDelete.exec() == QMessageBox::Ok) {
-            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
-        }
+        deleteItem(titleLabel->text(), yearEdit->text().toUInt());
         });
 
     buttonLayout->addWidget(deleteButton,0,Qt::AlignLeft);
@@ -355,28 +350,26 @@ void ItemDetailVisitor::visit(Books& book) {
     QPushButton* deleteButton = new QPushButton("Delete");
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
-        QMessageBox confirmDelete;
-        confirmDelete.setWindowTitle("The selected item is being removed");
-        confirmDelete.setText("Do you want to remove this item?");
-        confirmDelete.setIcon(QMessageBox::Question);
-        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        confirmDelete.setDefaultButton(QMessageBox::Ok);
-        if (confirmDelete.exec() == QMessageBox::Ok) {
-            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
-        }
+        deleteItem(titleLabel->text(), yearEdit->text().toUInt());
         });
 
     buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
 
-    QPushButton* modifyButton = new QPushButton("Modify");
-    modifyButton->setFixedSize(150, 40);
-    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
-        setLineEditWrite(editList);
-        });
-
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &book, editList]() {
+        saveChanges(book, editList);
+        });
+
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList, saveButton]() {
+        setLineEditWrite(editList);
+        saveButton->setEnabled(true);
+        });
+
+    
 
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
@@ -384,8 +377,9 @@ void ItemDetailVisitor::visit(Books& book) {
 
     QPushButton* cancelButton = new QPushButton("Cancel");
     cancelButton->setFixedSize(150, 40);
-    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, saveButton]() {
         setLineEditFlat(editList);
+        saveButton->setEnabled(false);
         });
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
@@ -523,26 +517,38 @@ void ItemDetailVisitor::visit(Comic& comic) {
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
 
-    QPushButton* modifyButton = new QPushButton("Modify");
-    modifyButton->setFixedSize(150, 40);
-    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
-        setLineEditWrite(editList);
-        });
-
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &comic, editList]() {
+        saveChanges(comic, editList);
+        });
+
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList,saveButton]() {
+        setLineEditWrite(editList);
+        saveButton->setEnabled(true);
+        });
+
 
     QPushButton* cancelButton = new QPushButton("Cancel");
     cancelButton->setFixedSize(150, 40);
-    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList,saveButton]() {
         setLineEditFlat(editList);
+        saveButton->setEnabled(false);
         });
 
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
 
+    QPushButton* deleteButton = new QPushButton("Delete");
+    deleteButton->setFixedSize(150, 40);
+    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
+        deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        });
+    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(cancelButton, 0, Qt::AlignLeft);
@@ -551,21 +557,6 @@ void ItemDetailVisitor::visit(Comic& comic) {
 
     buttonWidget->setLayout(buttonLayout);
     buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-    QPushButton* deleteButton = new QPushButton("Delete");
-    deleteButton->setFixedSize(150, 40);
-    QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
-        QMessageBox confirmDelete;
-        confirmDelete.setWindowTitle("The selected item is being removed");
-        confirmDelete.setText("Do you want to remove this item?");
-        confirmDelete.setIcon(QMessageBox::Question);
-        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        confirmDelete.setDefaultButton(QMessageBox::Ok);
-        if (confirmDelete.exec() == QMessageBox::Ok) {
-            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
-        }
-        });
-
-    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
 
     // *** CONTENITORE DESTRO ***
     QVBoxLayout* rightLayout = new QVBoxLayout();
@@ -673,7 +664,7 @@ void ItemDetailVisitor::visit(Movie& movie) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* lengthLabel = new QLabel("Length:");
-    QLineEdit* lengthEdit = new QLineEdit(QString::number(movie.getLength()) + " Minutes");
+    QLineEdit* lengthEdit = new LengthEdit(widget,movie.getLength());
     
     lengthEdit->setReadOnly(true);
     infoLayout->addWidget(lengthLabel);
@@ -719,32 +710,36 @@ void ItemDetailVisitor::visit(Movie& movie) {
     QPushButton* deleteButton = new QPushButton("Delete");
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
-        QMessageBox confirmDelete;
-        confirmDelete.setWindowTitle("The selected item is being removed");
-        confirmDelete.setText("Do you want to remove this item?");
-        confirmDelete.setIcon(QMessageBox::Question);
-        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        confirmDelete.setDefaultButton(QMessageBox::Ok);
-        if (confirmDelete.exec() == QMessageBox::Ok) {
-            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
-        }
-        });
-
-    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
-    QPushButton* modifyButton = new QPushButton("Modify");
-    modifyButton->setFixedSize(150, 40);
-    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList]() {
-        setLineEditWrite(editList);
+        deleteItem(titleLabel->text(), yearEdit->text().toUInt());
         });
 
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &movie, editList]() {
+        saveChanges(movie, editList);
+        });
+
+    buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
+    QPushButton* modifyButton = new QPushButton("Modify");
+    modifyButton->setFixedSize(150, 40);
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList,saveButton]() {
+        setLineEditWrite(editList);
+        saveButton->setEnabled(true);
+        });
+
 
     QPushButton* cancelButton = new QPushButton("Cancel");
     cancelButton->setFixedSize(150, 40);
-    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
-        setLineEditFlat(editList);
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList,saveButton]() {
+        for (QLineEdit* edit : *editList) {
+            LengthEdit* lengthEdit = qobject_cast<LengthEdit*>(edit);
+            if (lengthEdit) {
+                lengthEdit->undo();  // Ripristina il valore originale con "Minuti"
+            }
+        }
+        setLineEditFlat(editList);  // Rimetti i campi in sola lettura
+        saveButton->setEnabled(false);
         });
 
     QPushButton* backButton = new QPushButton("Back");
@@ -893,22 +888,22 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     QPushButton* deleteButton = new QPushButton("Delete");
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
-        QMessageBox confirmDelete;
-        confirmDelete.setWindowTitle("The selected item is being removed");
-        confirmDelete.setText("Do you want to remove this item?");
-        confirmDelete.setIcon(QMessageBox::Question);
-        confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        confirmDelete.setDefaultButton(QMessageBox::Ok);
-        if (confirmDelete.exec() == QMessageBox::Ok) {
-            deleteItem(titleLabel->text(), yearEdit->text().toUInt());
-        }
+        deleteItem(titleLabel->text(), yearEdit->text().toUInt());
         });
 
     buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
 
+    QPushButton* saveButton = new QPushButton("Save");
+    saveButton->setFixedSize(150, 40);
+    saveButton->setEnabled(false);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &videogame, editList]() {
+        saveChanges(videogame, editList);
+        });
+
     QPushButton* modifyButton = new QPushButton("Modify");
     modifyButton->setFixedSize(150, 40);
-    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList, multiplayerEdit]() {
+    QObject::connect(modifyButton, &QPushButton::clicked, [this, editList, multiplayerEdit,saveButton]() {
+        saveButton->setEnabled(true);
         multiplayerEdit->setEnabled(true);
         multiplayerEdit->setStyleSheet(
             "QComboBox:enabled { color: #000000; background-color: #FFFFFF; border: 1px solid #C0C0C0; }"
@@ -916,19 +911,20 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
         setLineEditWrite(editList);
         });
 
-    QPushButton* saveButton = new QPushButton("Save");
-    saveButton->setFixedSize(150, 40);
-    saveButton->setEnabled(false);
+    
 
     QPushButton* cancelButton = new QPushButton("Cancel");
     cancelButton->setFixedSize(150, 40);
-    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, multiplayerEdit]() {
+    QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, multiplayerEdit,saveButton]() {
+        saveButton->setEnabled(false);
         setLineEditFlat(editList);
         multiplayerEdit->setEnabled(false);
         multiplayerEdit->setStyleSheet(
             "QComboBox:enabled { color: #000000; background-color: #FFFFFF; border: 1px solid #C0C0C0;}"
         );
         });
+
+
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
@@ -975,10 +971,19 @@ void ItemDetailVisitor::setYearValidator(QLineEdit* yearEdit){
 }
 
 void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year){
-    Library::getInstance()->removeItem(title.toStdString(), year);
+    QMessageBox confirmDelete;
+    confirmDelete.setWindowTitle("The selected item is being removed");
+    confirmDelete.setText("Do you want to remove this item?");
+    confirmDelete.setIcon(QMessageBox::Question);
+    confirmDelete.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    confirmDelete.setDefaultButton(QMessageBox::Ok);
+    if (confirmDelete.exec() == QMessageBox::Ok) {
+        Library::getInstance()->removeItem(title.toStdString(), year);
+    }
+    
 }
 
-//solo per test, poi l'estetica finale sar� da cambiare
+//solo per test, poi l'estetica finale sarà da cambiare
 void ItemDetailVisitor::setLineEditWrite(QList<QLineEdit*>* editList) {
     for (auto item : *editList) {
         item->setReadOnly(false);
