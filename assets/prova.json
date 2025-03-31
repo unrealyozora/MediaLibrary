@@ -63,7 +63,7 @@
         "description": "adg",
         "genre": "Rock",
         "image": "path/to/nowhere.jpg",
-        "length": 145,
+        "length": 0,
         "songs": 12,
         "tipo": "Album",
         "title": "Pink Floyd Last Album",

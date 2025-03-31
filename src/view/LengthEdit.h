@@ -8,9 +8,10 @@ class LengthEdit : public QLineEdit {
 private slots:
 	void textChanged(const QString& text);
 public slots:
-	void undo() override;
+	void undo();
 private:
 	int savedMinutes;
+	int lastValidMinutes;
 public:
 	LengthEdit(QWidget* parent = nullptr, unsigned int initialminutes=0);
 	void setMinutes(unsigned int minutes);

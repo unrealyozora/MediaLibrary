@@ -103,7 +103,6 @@ void ItemDetailVisitor::visit(Album& album) {
     countryEdit->setReadOnly(true);
     infoLayout->addWidget(countryLabel);
     infoLayout->addWidget(countryEdit);
-    
 
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
@@ -182,7 +181,13 @@ void ItemDetailVisitor::visit(Album& album) {
     QPushButton* cancelButton = new QPushButton("Cancel");
     cancelButton->setFixedSize(150, 40);
     QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
-        setLineEditFlat(editList);
+        for (QLineEdit* edit : *editList) {
+            LengthEdit* lengthEdit = qobject_cast<LengthEdit*>(edit);
+            if (lengthEdit) {
+                lengthEdit->undo();  // Ripristina il valore originale con "Minuti"
+            }
+        }
+        setLineEditFlat(editList);  // Rimetti i campi in sola lettura
         });
 
 
