@@ -8,8 +8,9 @@ LengthEdit::LengthEdit(QWidget* parent, unsigned int initialminutes):QLineEdit(p
 }
 
 void LengthEdit::setMinutes(unsigned int minutes) {
+	savedMinutes=minutes;
 	QString text = QString::number(minutes) + " Minuti";
-	setText(QString::number(minutes) + " Minuti");
+	setText(text);
 }
 
 int LengthEdit::minutes() const{
@@ -28,13 +29,27 @@ void LengthEdit::focusInEvent(QFocusEvent* event){
 void LengthEdit::focusOutEvent(QFocusEvent* event){
 	QLineEdit::focusOutEvent(event);
 	QString text = this->text();
-	setText(text + " Minuti");
+	bool ok;
+	int value = text.split(" ").first().toInt(&ok);
+    if (ok && value >= 0 && value <= 3000) {
+		savedMinutes=value;
+        setText(QString::number(value) + " Minuti");  // Aggiungi "Minuti" solo se il valore è valido
+    }else {
+		// Se il numero non è valido, rimuovi " Minuti" per non avere un formato errato
+        setText(QString::number(savedMinutes) + " Minuti"); // Per esempio, metti 0 se il numero è fuori dal range
+	}
 }
 
 void LengthEdit::textChanged(const QString& text) {
 	bool ok;
-	text.toInt(&ok);
-	if (!ok) {
-		setText(text.split(" ").first());
-	}
+	int value = text.split(" ").first().toInt(&ok);
+	if (!ok || value < 0 || value > 3000) {  // Valida il numero dei minuti
+		// Se il testo non è valido, ripristina il testo precedente
+        setText(text.split(" ").first());
+    }
+}
+
+void LengthEdit::undo() {
+    QLineEdit::undo();  // Chiama il comportamento standard
+    setText(QString::number(savedMinutes) + " Minuti");  // Ripristina il formato
 }

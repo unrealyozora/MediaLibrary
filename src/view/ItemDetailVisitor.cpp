@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <QComboBox>
 
+
+#include <QDebug>
 void ItemDetailVisitor::visit(Album& album) {
     if (widget->layout() != nullptr) {
         QLayoutItem* item;
@@ -182,6 +184,7 @@ void ItemDetailVisitor::visit(Album& album) {
     QObject::connect(cancelButton, &QPushButton::clicked, [this, editList]() {
         setLineEditFlat(editList);
         });
+
 
     QPushButton* deleteButton = new QPushButton("Delete");
     deleteButton->setFixedSize(150, 40);
@@ -947,14 +950,14 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
 }
 
 void ItemDetailVisitor::setLineEditFlat(QList<QLineEdit*>* editList){
-    for (auto item : *editList) {
+    for (auto item : *editList){
+        item->undo();
         item->setReadOnly(true);
         item->setStyleSheet(
             "QLineEdit[readOnly=\"true\"] { border: none; }"
         );
         item->update();
     }
-    
 }
 
 void ItemDetailVisitor::saveChanges(AbstractItem& item, QList<QLineEdit*>* editList){
@@ -967,16 +970,17 @@ void ItemDetailVisitor::setYearValidator(QLineEdit* yearEdit){
 }
 
 void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year){
-    qDebug() << year;
     Library::getInstance()->removeItem(title.toStdString(), year);
 }
 
-//solo per test, poi l'estetica finale sarà da cambiare
+//solo per test, poi l'estetica finale sarï¿½ da cambiare
 void ItemDetailVisitor::setLineEditWrite(QList<QLineEdit*>* editList) {
     for (auto item : *editList) {
         item->setReadOnly(false);
         item->setStyleSheet(
             "QLineEdit[readOnly=\"false\"] { color: #000000; background-color: #FFFFFF; border: none; }"
         );
+        item->setText(item->text());
     }
 }
+
