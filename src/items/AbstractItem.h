@@ -17,7 +17,7 @@ public:
 	virtual ~AbstractItem();
 	const std::string& getTitle() const;
 	void setTitle(const std::string& s);
-	const unsigned int getYear() const;
+	const unsigned int& getYear() const;
 	void setYear(const unsigned int& y);
 	const std::string& getDescription() const;
 	void setDescription(const std::string& s);

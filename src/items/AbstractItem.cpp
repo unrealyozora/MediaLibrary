@@ -2,7 +2,7 @@
 
 AbstractItem::AbstractItem(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image) :
 	title(_title), year(_year), description(_description), genre(_genre), country(_country), image(_image) {}
-AbstractItem::~AbstractItem() {}
+AbstractItem::~AbstractItem() = default;
 
 const std::string& AbstractItem::getTitle() const {
 	return title;
@@ -10,7 +10,7 @@ const std::string& AbstractItem::getTitle() const {
 void AbstractItem::setTitle(const std::string& s) {
 	this->title = s;
 }
-const unsigned int AbstractItem::getYear() const {
+const unsigned int& AbstractItem::getYear() const {
 	return year;
 }
 void AbstractItem::setYear(const unsigned int& y) {
