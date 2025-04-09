@@ -15,8 +15,8 @@ private:
 	std::string filePath;
 public:
 	static Library* getInstance();
-	const unsigned int& getSize() const;
-	const bool& is_empty() const;
+	unsigned int getSize() const;
+	bool is_empty() const;
 	QList<std::shared_ptr<AbstractItem>> getList() const;
 
 	//Metodi per aggiungere e rimuovere un oggetto alla libreria
