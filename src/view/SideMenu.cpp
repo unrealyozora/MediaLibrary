@@ -33,11 +33,11 @@ SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* que
 		layout->addWidget(button);
 	}
 	all->setChecked(true);
-	connect(all, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterEnabled(false); stackedWidget->setCurrentIndex(0); });
-	connect(album, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Album"); stackedWidget->setCurrentIndex(0); });
-	connect(book, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Book"); stackedWidget->setCurrentIndex(0); });
-	connect(comic, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Comic"); stackedWidget->setCurrentIndex(0); });
-	connect(movie, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Movie"); stackedWidget->setCurrentIndex(0); });
-	connect(videogame, &QPushButton::clicked, this, [this, categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Videogame"); stackedWidget->setCurrentIndex(0); });
+	connect(all, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterEnabled(false); stackedWidget->setCurrentIndex(0); });
+	connect(album, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Album"); stackedWidget->setCurrentIndex(0); });
+	connect(book, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Book"); stackedWidget->setCurrentIndex(0); });
+	connect(comic, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Comic"); stackedWidget->setCurrentIndex(0); });
+	connect(movie, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Movie"); stackedWidget->setCurrentIndex(0); });
+	connect(videogame, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Videogame"); stackedWidget->setCurrentIndex(0); });
     connect(searchbar, &QLineEdit::textChanged, queryProxy, &LibraryQueryFilter::setQuery);
 }

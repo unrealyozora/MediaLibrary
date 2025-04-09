@@ -52,7 +52,7 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
         }
     }
     else if (role == Qt::UserRole) {
-        return QVariant::fromValue(((items.at(index.row())).get()));
+        return QVariant::fromValue((items.at(index.row())).get());
     }
 
     return QVariant();

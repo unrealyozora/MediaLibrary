@@ -7,8 +7,6 @@
 #include "../items/AbstractItem.h"
 class ItemDetailsWidget :public QWidget {
 	Q_OBJECT
-private:
-	//QVBoxLayout* layout;
 public:
 	explicit ItemDetailsWidget(QWidget* parent = nullptr);
 	void showDetails(AbstractItem* item);

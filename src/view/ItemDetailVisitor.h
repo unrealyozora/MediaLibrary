@@ -23,11 +23,11 @@ public:
     void visit(Movie& movie) override;
     void visit(Videogames& videogame) override;
 
-    void setLineEditFlat(QList<QLineEdit*>* editList);
+    void setLineEditFlat(const QList<QLineEdit*>* editList);
     void saveChanges(AbstractItem& item, QList<QLineEdit*>* editList);
     void setYearValidator(QLineEdit* yearEdit);
 public slots:
-    void setLineEditWrite(QList<QLineEdit*>* editList);
+    void setLineEditWrite(const QList<QLineEdit*>* editList);
     void deleteItem(const QString& title, const unsigned int year);
 };
 

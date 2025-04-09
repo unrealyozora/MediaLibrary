@@ -20,7 +20,7 @@ void Movie::setScreenwriter(const std::string& s) {
 	this->screenwriter = s;
 }
 
-const unsigned int Movie::getLength() const {
+const unsigned int& Movie::getLength() const {
 	return length;
 }
 

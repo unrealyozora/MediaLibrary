@@ -11,7 +11,7 @@ void Album::setAuthor(const std::string& a){
 	this->author = a;
 }
 
-const unsigned int Album::getLength() const {
+const unsigned int& Album::getLength() const {
 	return length;
 }
 
@@ -19,7 +19,7 @@ void Album::setLength(const unsigned int l) {
 	this->length = l;
 }
 
-const unsigned int Album::getSongs() const {
+const unsigned int& Album::getSongs() const {
 	return songs;
 }
 

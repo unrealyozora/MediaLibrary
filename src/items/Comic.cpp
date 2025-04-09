@@ -10,7 +10,7 @@ const std::string& Comic::getAuthor() const{
 void Comic::setAuthor(const std::string& dir) {
 	this->author = dir;
 }
-const unsigned int Comic::getChapters() const {
+const unsigned int& Comic::getChapters() const {
 	return chapters;
 }
 void Comic::setChapters(const unsigned int& len) {

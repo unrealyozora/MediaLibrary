@@ -13,11 +13,11 @@ public:
 	void setDirector(const std::string& d);
 	const std::string& getScreenwriter() const;
 	void setScreenwriter(const std::string& s);
-	const unsigned int getLength() const;
+	const unsigned int& getLength() const;
 	void setLength(const unsigned int l);
 	const std::string& getProd() const;
 	void setProd(const std::string& p);
-	virtual void accept(ItemVisitor& iv) override;
+	void accept(ItemVisitor& iv) override;
 };
 
 #endif

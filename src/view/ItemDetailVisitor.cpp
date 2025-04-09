@@ -950,7 +950,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     widget->setLayout(mainLayout);
 }
 
-void ItemDetailVisitor::setLineEditFlat(QList<QLineEdit*>* editList){
+void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList){
     for (auto item : *editList){
         item->undo();
         item->setReadOnly(true);
@@ -984,7 +984,7 @@ void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year
 }
 
 //solo per test, poi l'estetica finale sarà da cambiare
-void ItemDetailVisitor::setLineEditWrite(QList<QLineEdit*>* editList) {
+void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) {
     for (auto item : *editList) {
         item->setReadOnly(false);
         item->setStyleSheet(

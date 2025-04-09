@@ -10,7 +10,7 @@ const std::string& Books::getAuthor() const {
 void Books::setAuthor(const std::string& auth) {
 	this->author = auth;
 }
-const unsigned int Books::getPages() const {
+const unsigned int& Books::getPages() const {
 	return pages;
 }
 void Books::setPages(const unsigned int& pag) {

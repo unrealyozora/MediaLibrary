@@ -10,11 +10,11 @@ class Books: public AbstractItem{
 		Books(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _pages, const std::string& _publ_house);
 		const std::string& getAuthor() const;
 		void setAuthor(const std::string& auth);
-		const unsigned int getPages() const;
+		const unsigned int& getPages() const;
 		void setPages(const unsigned int& pag);
 		const std::string& getPub() const;
 		void setPub(const std::string& pub);
-		virtual void accept(ItemVisitor& iv) override;
+		void accept(ItemVisitor& iv) override;
 };
 
 #endif

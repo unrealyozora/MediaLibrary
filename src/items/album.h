@@ -10,11 +10,11 @@ public:
 	Album(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image, const std::string& _author, unsigned int _songs, unsigned int _length);
 	const std::string& getAuthor() const ;
 	void setAuthor(const std::string& a);
-	const unsigned int getLength() const;
+	const unsigned int& getLength() const;
 	void setLength(const unsigned int l);
-	const unsigned int getSongs() const ;
+	const unsigned int& getSongs() const ;
 	void setSongs(const unsigned int s);
-	virtual void accept(ItemVisitor& iv) override;
+	void accept(ItemVisitor& iv) override;
 };
 
 #endif

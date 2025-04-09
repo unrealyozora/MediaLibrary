@@ -20,11 +20,11 @@ Library* Library::getInstance() {
 	
 }
 
-const unsigned int Library::getSize() const {
+const unsigned int& Library::getSize() const {
 	return media.size();
 }
 
-const bool Library::is_empty() const {
+const bool& Library::is_empty() const {
 	return media.empty();
 }
 
@@ -53,7 +53,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 }
 
 void Library::updateItem(const AbstractItem& item){
-	for (auto& mediaItem : media) {
+	for (const auto& mediaItem : media) {
 		if (mediaItem->getTitle() == item.getTitle() && mediaItem->getYear() == item.getYear()) {
 			*mediaItem = item;
 			emit updateList(media);
