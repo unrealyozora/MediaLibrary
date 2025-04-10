@@ -10,7 +10,7 @@ class Videogames;
 
 class ItemVisitor{
 public:
-    virtual ~ItemVisitor(){};
+    virtual ~ItemVisitor()=default;
     virtual void visit(Album& album)=0;
     virtual void visit(Books& book)=0;
     virtual void visit(Comic& comic)=0;

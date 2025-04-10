@@ -6,7 +6,7 @@ class LibraryCategoryFilter : public QSortFilterProxyModel {
 	Q_OBJECT
 private:
 	QString filterCategory;
-	bool isEnabled;
+	bool isEnabled=false;
 public:
 	explicit LibraryCategoryFilter(QObject* parent = nullptr);
 	void setFilterCategory(const QString& category);

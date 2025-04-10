@@ -44,12 +44,10 @@ void ItemDetailVisitor::visit(Album& album) {
     QHBoxLayout* titleLayout = new QHBoxLayout();
     QLineEdit* titleLabel = new QLineEdit(QString::fromStdString(album.getTitle()));
     titleLabel->setReadOnly(true);
-    //QLabel* titleLabel = new QLabel(QString::fromStdString(album.getTitle()));
     QFont titleFont = titleLabel->font();
     titleFont.setPointSize(20);
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
-    //titleLabel->setAlignment(Qt::AlignLeft);
     titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     QIcon editTitleIcon(":/icons/edit");
     QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
@@ -62,7 +60,6 @@ void ItemDetailVisitor::visit(Album& album) {
     titleLayout->addStretch();
     infoLayout->addSpacing(65); // Spazio prima del titolo
     infoLayout->addLayout(titleLayout);
-    //infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
     infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
@@ -127,7 +124,6 @@ void ItemDetailVisitor::visit(Album& album) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* lengthLabel = new QLabel("Length:");
-    //QLineEdit* lengthEdit = new QLineEdit(QString::number(album.getLength()));
     QLineEdit* lengthEdit = new LengthEdit(nullptr, album.getLength()); //nullptr va cambiato
     
     
@@ -147,7 +143,6 @@ void ItemDetailVisitor::visit(Album& album) {
     QScrollArea* scrollArea = new QScrollArea();
     QWidget* scrollContent = new QWidget();
     QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
-    //scrollLayout->addWidget(imageLabel);
     scrollLayout->addWidget(infoWidget);
     scrollContent->setLayout(scrollLayout);
     scrollArea->setWidget(scrollContent);
@@ -184,9 +179,8 @@ void ItemDetailVisitor::visit(Album& album) {
     cancelButton->setFixedSize(150, 40);
     QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, saveButton]() {
         for (QLineEdit* edit : *editList) {
-            LengthEdit* lengthEdit = qobject_cast<LengthEdit*>(edit);
-            if (lengthEdit) {
-                lengthEdit->undo();  // Ripristina il valore originale con "Minuti"
+            if (qobject_cast<LengthEdit*>(edit)) {
+                qobject_cast<LengthEdit*>(edit)->undo();  // Ripristina il valore originale con "Minuti"
             }
         }
         setLineEditFlat(editList);  // Rimetti i campi in sola lettura
@@ -586,10 +580,7 @@ void ItemDetailVisitor::visit(Movie& movie) {
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
     QPixmap pixmap(QString::fromStdString(movie.getImage()));
-    int imageHeight = widget->parentWidget()->height();
-    //imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
     imageLabel->setPixmap(pixmap.scaled(400,400, Qt::KeepAspectRatio));
-    //imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
     topLayout->addWidget(imageLabel, 0, Qt::AlignTop|Qt::AlignLeft);
 
     // *** WIDGET CONTENITORE INFO ***
@@ -733,9 +724,8 @@ void ItemDetailVisitor::visit(Movie& movie) {
     cancelButton->setFixedSize(150, 40);
     QObject::connect(cancelButton, &QPushButton::clicked, [this, editList,saveButton]() {
         for (QLineEdit* edit : *editList) {
-            LengthEdit* lengthEdit = qobject_cast<LengthEdit*>(edit);
-            if (lengthEdit) {
-                lengthEdit->undo();  // Ripristina il valore originale con "Minuti"
+            if (qobject_cast<LengthEdit*>(edit)) {
+                qobject_cast<LengthEdit*>(edit)->undo();  // Ripristina il valore originale con "Minuti"
             }
         }
         setLineEditFlat(editList);  // Rimetti i campi in sola lettura
@@ -851,13 +841,11 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* multiplayerLabel = new QLabel("Multiplayer:");
-    //QLineEdit* multiplayerEdit = new QLineEdit(videogame.getMultiplayer() ? "Yes" : "No");
     QComboBox* multiplayerEdit = new QComboBox();
     multiplayerEdit->setEnabled(false);
     multiplayerEdit->setPlaceholderText(videogame.getMultiplayer() ? "Yes" : "No");
     multiplayerEdit->addItem("Yes");
     multiplayerEdit->addItem("No");
-    //multiplayerEdit->setReadOnly(true);
     infoLayout->addWidget(multiplayerLabel);
     infoLayout->addWidget(multiplayerEdit);
 
@@ -874,7 +862,6 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     QScrollArea* scrollArea = new QScrollArea();
     QWidget* scrollContent = new QWidget();
     QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
-    //scrollLayout->addWidget(imageLabel);
     scrollLayout->addWidget(infoWidget);
     scrollContent->setLayout(scrollLayout);
     scrollArea->setWidget(scrollContent);
@@ -950,7 +937,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     widget->setLayout(mainLayout);
 }
 
-void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList){
+void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const{
     for (auto item : *editList){
         item->undo();
         item->setReadOnly(true);
@@ -961,16 +948,16 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList){
     }
 }
 
-void ItemDetailVisitor::saveChanges(AbstractItem& item, QList<QLineEdit*>* editList){
+void ItemDetailVisitor::saveChanges(AbstractItem& item, QList<QLineEdit*>* editList) const{
     SaveEditsVisitor editsVisitor(editList);
     item.accept(editsVisitor);
 }
 
-void ItemDetailVisitor::setYearValidator(QLineEdit* yearEdit){
+void ItemDetailVisitor::setYearValidator(QLineEdit* yearEdit) const{
     yearEdit->setValidator(new QIntValidator(0, 2100));
 }
 
-void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year){
+void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year) const{
     QMessageBox confirmDelete;
     confirmDelete.setWindowTitle("The selected item is being removed");
     confirmDelete.setText("Do you want to remove this item?");
@@ -984,7 +971,7 @@ void ItemDetailVisitor::deleteItem(const QString& title, const unsigned int year
 }
 
 //solo per test, poi l'estetica finale sarà da cambiare
-void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) {
+void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) const{
     for (auto item : *editList) {
         item->setReadOnly(false);
         item->setStyleSheet(

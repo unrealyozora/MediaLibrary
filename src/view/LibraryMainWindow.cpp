@@ -182,7 +182,6 @@ void LibraryMainWindow::SaveFile(){
 					Library::getInstance()->toJson(filepath);
 				}
 				catch (std::string& s) {
-					qDebug() << "catch savefile entrato";//debug only
 					QMessageBox warning;
 					warning.setWindowTitle("Warning");
 					warning.setText(s.c_str());
@@ -201,7 +200,6 @@ void LibraryMainWindow::SaveFile(){
 					Library::getInstance()->toXml(filepath);
 				}
 				catch (std::string& s) {
-					qDebug() << "catch savefile entrato";//debug only
 					QMessageBox warning;
 					warning.setWindowTitle("Warning");
 					warning.setText(s.c_str());
@@ -248,10 +246,8 @@ void LibraryMainWindow::SaveFile(){
 }
 
 void LibraryMainWindow::itemSelected(const QModelIndex& index) {
-	qDebug("elemento cliccato");//debug only
 	AbstractItem* selectedItem = index.data(Qt::UserRole).value<AbstractItem*>();
 	if (selectedItem) {
-		qDebug("itemSelected entrato");//debug only
 		detailWidget->showDetails(selectedItem);
 		stackedWidget->setCurrentIndex(1);
 	}

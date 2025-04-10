@@ -1,6 +1,7 @@
 #include "LibraryModelFilter.h"
 #include "LibraryListModel.h"
-LibraryCategoryFilter::LibraryCategoryFilter(QObject* parent) : QSortFilterProxyModel(parent), isEnabled(false) {}
+LibraryCategoryFilter::LibraryCategoryFilter(QObject* parent) : QSortFilterProxyModel(parent){
+}
 void LibraryCategoryFilter::setFilterCategory(const QString& category){
 		setFilterEnabled(true);
 		filterCategory = category;

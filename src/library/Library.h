@@ -8,7 +8,7 @@ class Library: public QObject {
 	Q_OBJECT
 private:
 	static Library* instance;
-	Library() {};
+	Library()=default;
 	Library(const Library&) = delete;
 	Library& operator=(const Library&) = delete;
 	QList<std::shared_ptr<AbstractItem>> media;
@@ -34,6 +34,6 @@ public:
 
 signals:
 	void updateList(const QList<std::shared_ptr<AbstractItem>>& newList);  // Notifica quando la lista cambia
-	void updateOnDelete(const QList<std::shared_ptr<AbstractItem>>& newList); //Simile alla precedente ma emessa quando un item viene eliminato (venogno fatte alcune operazioni in più)
+	void updateOnDelete(const QList<std::shared_ptr<AbstractItem>>& newList); //Simile alla precedente ma emessa quando un item viene eliminato (venogno fatte alcune operazioni in piï¿½)
 };
 #endif

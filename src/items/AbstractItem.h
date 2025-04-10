@@ -5,7 +5,7 @@
 #include <QMetaType>
 #include "ItemVisitor.h"
 class AbstractItem {
-protected:
+private:
 	std::string title;
 	unsigned int year;
 	std::string description;
@@ -30,5 +30,5 @@ public:
 
 	virtual void accept(ItemVisitor& iv) = 0;
 };
-Q_DECLARE_METATYPE(AbstractItem*) //necessario affinchè LibraryListModel possa restituire un QVariant con il puntatore ad un AbstractItem
+Q_DECLARE_METATYPE(AbstractItem*) //necessario affinchï¿½ LibraryListModel possa restituire un QVariant con il puntatore ad un AbstractItem
 #endif // !ITEM_ABSTRACT_ITEM_H
