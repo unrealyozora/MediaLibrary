@@ -7,15 +7,19 @@
 #include "../items/movie.h"
 #include "../items/Videogames.h"
 
-#include <iostream> //debug only
+
+#include <iostream>
+#include <QDebug>//debug only
 ItemController::ItemController(QObject *parent):QObject(parent){}
 
 void ItemController::passAlbum(const std::string& _title, unsigned int _year, const std::string& _description, 
                                const std::string& _genre, const std::string& _country, const std::string& _image, 
-                               const std::string& _author, unsigned int _songs, unsigned int _length){
+                               const std::string& _author, unsigned int _songs, unsigned int _length){   
+
+    qDebug()<<"pass completed";
     std::shared_ptr<AbstractItem> album =std::make_shared<Album>(_title, _year, _description, _genre, _country, _image, _author, _songs, _length);
     Library::getInstance()->addItem(album);
-    std::cout << "passAlbum" << std::endl;
+    
 }
 
 void ItemController::passBook(const std::string& _title, unsigned int _year, const std::string& _description, 

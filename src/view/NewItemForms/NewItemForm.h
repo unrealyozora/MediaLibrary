@@ -4,6 +4,7 @@
 #include <QLineEdit>
 #include <QTabWidget>
 #include <QHBoxLayout>
+#include <QFormLayout>
 class NewItemForm : public QDialog {
 Q_OBJECT
 protected:
@@ -16,8 +17,9 @@ protected:
 	QLineEdit* author = nullptr;
 	QLineEdit* length = nullptr;
 	QHBoxLayout* imageLayout = nullptr;
+	QFormLayout* formLayout = new QFormLayout(this);
 public:
-	explicit NewItemForm(QWidget* parent = nullptr) :QDialog(parent) {};
+	explicit NewItemForm(QWidget* parent = nullptr);
 	virtual void onAccepted() = 0;
 };
 #endif // VIEW_NEWITEM_FORM_H

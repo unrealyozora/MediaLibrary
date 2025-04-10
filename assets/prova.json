@@ -90,5 +90,53 @@
         "tipo": "Videogame",
         "title": "Gta V",
         "year": 2013
+    },
+    {
+        "author": "sdfasdf",
+        "country": "sdf",
+        "description": "asdf",
+        "genre": "adf",
+        "image": "sdfasdf",
+        "length": 13,
+        "songs": 12,
+        "tipo": "Album",
+        "title": "asdg",
+        "year": 2012
+    },
+    {
+        "author": "album",
+        "country": "album",
+        "description": "album",
+        "genre": "album",
+        "image": "album",
+        "length": 0,
+        "songs": 0,
+        "tipo": "Album",
+        "title": "album",
+        "year": 0
+    },
+    {
+        "author": "",
+        "country": "",
+        "description": "",
+        "genre": "",
+        "image": "",
+        "length": 0,
+        "songs": 0,
+        "tipo": "Album",
+        "title": "asdf",
+        "year": 0
+    },
+    {
+        "author": "",
+        "country": "",
+        "description": "",
+        "genre": "",
+        "image": "",
+        "length": 0,
+        "songs": 0,
+        "tipo": "Album",
+        "title": "",
+        "year": 0
     }
 ]

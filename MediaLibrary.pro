@@ -68,6 +68,7 @@ SOURCES += src/main.cpp \
            src/view/LibraryModelFilter.cpp \
            src/view/SideMenu.cpp \
            src/view/ThumbnailDelegate.cpp \
+           src/view/NewItemForms/NewItemForm.cpp \
            src/view/NewItemForms/AlbumForm.cpp \
            src/view/NewItemForms/BookForm.cpp \
            src/view/NewItemForms/ComicForm.cpp \

@@ -9,7 +9,7 @@
 int main(int argc, char* argv[]) {
     
     QApplication app(argc, argv);
-    
+    Library* library=Library::getInstance();
     qRegisterMetaType<AbstractItem*>("AbstractItem*");
     //creazione MainWindow
     LibraryMainWindow* window = new LibraryMainWindow();

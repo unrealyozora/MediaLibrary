@@ -76,6 +76,7 @@ SOURCES       = src/main.cpp \
 		src/view/LibraryModelFilter.cpp \
 		src/view/SideMenu.cpp \
 		src/view/ThumbnailDelegate.cpp \
+		src/view/NewItemForms/NewItemForm.cpp \
 		src/view/NewItemForms/AlbumForm.cpp \
 		src/view/NewItemForms/BookForm.cpp \
 		src/view/NewItemForms/ComicForm.cpp \
@@ -120,6 +121,7 @@ OBJECTS       = main.o \
 		LibraryModelFilter.o \
 		SideMenu.o \
 		ThumbnailDelegate.o \
+		NewItemForm.o \
 		AlbumForm.o \
 		BookForm.o \
 		ComicForm.o \
@@ -210,6 +212,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -282,6 +285,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/view/LibraryModelFilter.cpp \
 		src/view/SideMenu.cpp \
 		src/view/ThumbnailDelegate.cpp \
+		src/view/NewItemForms/NewItemForm.cpp \
 		src/view/NewItemForms/AlbumForm.cpp \
 		src/view/NewItemForms/BookForm.cpp \
 		src/view/NewItemForms/ComicForm.cpp \
@@ -367,6 +371,7 @@ Makefile: MediaLibrary.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -458,6 +463,7 @@ Makefile: MediaLibrary.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -496,7 +502,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents assets/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/items/AbstractItem.h src/items/album.h src/items/Books.h src/items/Comic.h src/items/ItemVisitor.h src/items/movie.h src/items/Videogames.h src/jsonXml/JsonReader.h src/jsonXml/JsonVisitor.h src/jsonXml/JsonWriter.h src/jsonXml/XmlParser.h src/jsonXml/XmlVisitor.h src/jsonXml/XmlWriter.h src/library/ItemController.h src/library/Library.h src/library/SaveEditsVisitor.h src/view/ItemDetailVisitor.h src/view/ItemDetailWidget.h src/view/LengthEdit.h src/view/LibraryListModel.h src/view/LibraryMainWindow.h src/view/LibraryModelFilter.h src/view/SideMenu.h src/view/ThumbnailDelegate.h src/view/NewItemForms/AlbumForm.h src/view/NewItemForms/BookForm.h src/view/NewItemForms/ComicForm.h src/view/NewItemForms/MovieForm.h src/view/NewItemForms/NewItemForm.h src/view/NewItemForms/VideogameForm.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/items/AbstractItem.cpp src/items/album.cpp src/items/Books.cpp src/items/Comic.cpp src/items/movie.cpp src/items/Videogames.cpp src/jsonXml/JsonReader.cpp src/jsonXml/JsonVisitor.cpp src/jsonXml/JsonWriter.cpp src/jsonXml/XmlParser.cpp src/jsonXml/XmlVisitor.cpp src/jsonXml/XmlWriter.cpp src/library/ItemController.cpp src/library/Library.cpp src/library/SaveEditsVisitor.cpp src/view/ItemDetailVisitor.cpp src/view/ItemDetailWidget.cpp src/view/LengthEdit.cpp src/view/LibraryListModel.cpp src/view/LibraryMainWindow.cpp src/view/LibraryModelFilter.cpp src/view/SideMenu.cpp src/view/ThumbnailDelegate.cpp src/view/NewItemForms/AlbumForm.cpp src/view/NewItemForms/BookForm.cpp src/view/NewItemForms/ComicForm.cpp src/view/NewItemForms/MovieForm.cpp src/view/NewItemForms/VideogameForm.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/items/AbstractItem.cpp src/items/album.cpp src/items/Books.cpp src/items/Comic.cpp src/items/movie.cpp src/items/Videogames.cpp src/jsonXml/JsonReader.cpp src/jsonXml/JsonVisitor.cpp src/jsonXml/JsonWriter.cpp src/jsonXml/XmlParser.cpp src/jsonXml/XmlVisitor.cpp src/jsonXml/XmlWriter.cpp src/library/ItemController.cpp src/library/Library.cpp src/library/SaveEditsVisitor.cpp src/view/ItemDetailVisitor.cpp src/view/ItemDetailWidget.cpp src/view/LengthEdit.cpp src/view/LibraryListModel.cpp src/view/LibraryMainWindow.cpp src/view/LibraryModelFilter.cpp src/view/SideMenu.cpp src/view/ThumbnailDelegate.cpp src/view/NewItemForms/NewItemForm.cpp src/view/NewItemForms/AlbumForm.cpp src/view/NewItemForms/BookForm.cpp src/view/NewItemForms/ComicForm.cpp src/view/NewItemForms/MovieForm.cpp src/view/NewItemForms/VideogameForm.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -859,6 +865,9 @@ SideMenu.o: src/view/SideMenu.cpp src/view/SideMenu.h \
 
 ThumbnailDelegate.o: src/view/ThumbnailDelegate.cpp src/view/ThumbnailDelegate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ThumbnailDelegate.o src/view/ThumbnailDelegate.cpp
+
+NewItemForm.o: src/view/NewItemForms/NewItemForm.cpp src/view/NewItemForms/NewItemForm.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o NewItemForm.o src/view/NewItemForms/NewItemForm.cpp
 
 AlbumForm.o: src/view/NewItemForms/AlbumForm.cpp src/view/NewItemForms/AlbumForm.h \
 		src/view/NewItemForms/NewItemForm.h \

@@ -1,37 +1,8 @@
 #include "AlbumForm.h"
 #include "../../library/ItemController.h"
-#include <QFormLayout>
-#include <QPushButton>
-#include <QFileDialog>
 #include <QDialogButtonBox>
+#include <QDebug>
 AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
-	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-	setWindowTitle("Add new item");
-	title = new QLineEdit();
-	year = new QLineEdit();
-	description = new QLineEdit();
-	genre = new QLineEdit();
-	country = new QLineEdit();
-	//imageWidget= new QWidget(this);
-	imageLayout = new QHBoxLayout();
-	QPushButton* imageButton = new QPushButton("Browse", this);
-	image = new QLineEdit();
-	imageLayout->addWidget(image, Qt::AlignLeft);
-	imageLayout->addWidget(imageButton);
-	//imageWidget->setLayout(imageLayout);
-	author = new QLineEdit();
-	length = new QLineEdit();
-	connect(imageButton, &QPushButton::clicked, this, [this]() {
-		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png)");
-		image->setText(path);
-		});
-	QFormLayout* formLayout = new QFormLayout(this);
-	formLayout->addRow("Title: ", title);
-	formLayout->addRow("Year: ", year);
-	formLayout->addRow("Description: ", description);
-	formLayout->addRow("Genre: ", genre);
-	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image:", imageLayout);
 	formLayout->addRow("Author: ", author);
 	formLayout->addRow("Length: ", length);
 	albumsongs = new QLineEdit(this);
@@ -54,5 +25,7 @@ void AlbumForm::onAccepted(){
 	std::string _author = author->text().toStdString();
 	unsigned int _songs = albumsongs->text().toUInt();
 	unsigned int _length = length->text().toUInt();
+
+	qDebug()<<albumsongs->text();
 	ItemController::passAlbum(_title, _year, _description, _genre, _country, _image, _author, _songs, _length);
 }
