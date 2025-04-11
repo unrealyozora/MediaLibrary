@@ -7,6 +7,7 @@
 #include "../items/Videogames.h"
 #include "Library.h"
 void SaveEditsVisitor::visit(Album& album){
+    album.setTitle(title.text().toStdString());
 	album.setYear(editList->at(0)->text().toUInt());
     album.setDescription(editList->at(1)->text().toStdString());
     album.setGenre(editList->at(2)->text().toStdString());
@@ -22,6 +23,7 @@ void SaveEditsVisitor::visit(Album& album){
 }
 
 void SaveEditsVisitor::visit(Books& book){
+    book.setTitle(title.text().toStdString());
     book.setYear(editList->at(0)->text().toUInt());
     book.setDescription(editList->at(1)->text().toStdString());
     book.setGenre(editList->at(2)->text().toStdString());
@@ -32,6 +34,7 @@ void SaveEditsVisitor::visit(Books& book){
 }
 
 void SaveEditsVisitor::visit(Comic& comic) {
+    comic.setTitle(title.text().toStdString());
     comic.setYear(editList->at(0)->text().toUInt());
     comic.setDescription(editList->at(1)->text().toStdString());
     comic.setGenre(editList->at(2)->text().toStdString());
@@ -43,6 +46,7 @@ void SaveEditsVisitor::visit(Comic& comic) {
 }
 
 void SaveEditsVisitor::visit(Movie& movie) {
+    movie.setTitle(title.text().toStdString());
     movie.setYear(editList->at(0)->text().toUInt());
     movie.setDescription(editList->at(1)->text().toStdString());
     movie.setGenre(editList->at(2)->text().toStdString());
@@ -57,6 +61,7 @@ void SaveEditsVisitor::visit(Movie& movie) {
 }
 
 void SaveEditsVisitor::visit(Videogames& videogame) {
+    videogame.setTitle(title.text().toStdString());
     videogame.setYear(editList->at(0)->text().toUInt());
     videogame.setDescription(editList->at(1)->text().toStdString());
     videogame.setGenre(editList->at(2)->text().toStdString());

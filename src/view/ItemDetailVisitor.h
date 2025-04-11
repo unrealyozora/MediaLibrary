@@ -24,7 +24,7 @@ public:
     void visit(Videogames& videogame) override;
 
     void setLineEditFlat(const QList<QLineEdit*>* editList) const;
-    void saveChanges(AbstractItem& item, QList<QLineEdit*>* editList) const;
+    void saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList) const;
     void setYearValidator(QLineEdit* yearEdit) const;
 public slots:
     void setLineEditWrite(const QList<QLineEdit*>* editList) const;

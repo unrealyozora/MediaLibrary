@@ -2,6 +2,7 @@
 #include "../library/SaveEditsVisitor.h"
 #include "LengthEdit.h"
 #include "../library/Library.h"
+#include "NewTitleDialog.h"
 #include <QString>  
 #include <QLayout>  
 #include <QFont>  
@@ -30,20 +31,26 @@ void ItemDetailVisitor::visit(Album& album) {
 
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
-    QPixmap pixmap(QString::fromStdString(album.getImage()));
+    QPixmap pixmap;
+    if (album.getImage().empty()) {
+        pixmap=QPixmap("assets/noImage.jpg");
+    }
+    else {
+        qDebug() << album.getImage();
+        pixmap=QPixmap(QString::fromStdString(album.getImage()));
+    }
     int imageHeight = widget->parentWidget()->height();
-    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
-    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
-    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
-
+    imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
+    topLayout->addWidget(imageLabel, 0, Qt::AlignTop | Qt::AlignLeft);
+    QPushButton* changeImageButton = new QPushButton("Change Image");
+    topLayout->addWidget(changeImageButton);
     // *** WIDGET CONTENITORE INFO ***
     QWidget* infoWidget = new QWidget();
     QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
     infoLayout->setContentsMargins(20, 0, 40, 0); // Margini laterali
 
     QHBoxLayout* titleLayout = new QHBoxLayout();
-    QLineEdit* titleLabel = new QLineEdit(QString::fromStdString(album.getTitle()));
-    titleLabel->setReadOnly(true);
+    QLabel* titleLabel = new QLabel(QString::fromStdString(album.getTitle()));
     QFont titleFont = titleLabel->font();
     titleFont.setPointSize(20);
     titleFont.setBold(true);
@@ -54,6 +61,7 @@ void ItemDetailVisitor::visit(Album& album) {
     editTitleButton->setFixedSize(50, 50);
     editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     editTitleButton->setFlat(true);
+    
     
     titleLayout->addWidget(titleLabel);
     titleLayout->addWidget(editTitleButton);
@@ -160,8 +168,8 @@ void ItemDetailVisitor::visit(Album& album) {
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &album, editList]() {
-        saveChanges(album, editList);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &album, titleLabel, editList]() {
+        saveChanges(album, *titleLabel, editList);
         });
 
     QPushButton* modifyButton = new QPushButton("Modify");
@@ -192,6 +200,14 @@ void ItemDetailVisitor::visit(Album& album) {
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
         deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        });
+
+    QObject::connect(editTitleButton, &QPushButton::clicked, [titleLabel, saveButton]() {
+        NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
+        if (newTitleDialog->exec() == QDialog::Accepted) {
+            saveButton->setEnabled(true);
+        }
+        //aggiungere delete?
         });
 
     buttonLayout->addWidget(deleteButton,0,Qt::AlignLeft);
@@ -229,14 +245,19 @@ void ItemDetailVisitor::visit(Books& book) {
     QList<QLineEdit*>* editList = new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
-
+    QHBoxLayout* titleLayout = new QHBoxLayout();
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
-    QPixmap pixmap(QString::fromStdString(book.getImage()));
+    QPixmap pixmap;
+    if (book.getImage().empty()) {
+        pixmap = QPixmap("assets/noImage.jpg");
+    }
+    else {
+        pixmap = QPixmap(QString::fromStdString(book.getImage()));
+    }
     int imageHeight = widget->parentWidget()->height();
-    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
-    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
-    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
+    imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
+    topLayout->addWidget(imageLabel, 0, Qt::AlignTop | Qt::AlignLeft);
 
     // *** WIDGET CONTENITORE INFO ***
     QWidget* infoWidget = new QWidget();
@@ -249,8 +270,16 @@ void ItemDetailVisitor::visit(Books& book) {
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
     titleLabel->setAlignment(Qt::AlignCenter);
+    QIcon editTitleIcon(":/icons/edit");
+    QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton->setFixedSize(50, 50);
+    editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    editTitleButton->setFlat(true);
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(editTitleButton);
+    titleLayout->addStretch();
     infoLayout->addSpacing(65); // Spazio prima del titolo
-    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addLayout(titleLayout);
     infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
@@ -352,8 +381,8 @@ void ItemDetailVisitor::visit(Books& book) {
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &book, editList]() {
-        saveChanges(book, editList);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &book,titleLabel, editList]() {
+        saveChanges(book,*titleLabel, editList);
         });
 
     QPushButton* modifyButton = new QPushButton("Modify");
@@ -374,6 +403,14 @@ void ItemDetailVisitor::visit(Books& book) {
     QObject::connect(cancelButton, &QPushButton::clicked, [this, editList, saveButton]() {
         setLineEditFlat(editList);
         saveButton->setEnabled(false);
+        });
+
+    QObject::connect(editTitleButton, &QPushButton::clicked, [titleLabel, saveButton]() {
+        NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
+        if (newTitleDialog->exec() == QDialog::Accepted) {
+            saveButton->setEnabled(true);
+        }
+        //aggiungere delete?
         });
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
@@ -409,14 +446,19 @@ void ItemDetailVisitor::visit(Comic& comic) {
     QList<QLineEdit*>* editList= new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
-
+    QHBoxLayout* titleLayout = new QHBoxLayout();
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
-    QPixmap pixmap(QString::fromStdString(comic.getImage()));
+    QPixmap pixmap;
+    if (comic.getImage().empty()) {
+        pixmap = QPixmap("assets/noImage.jpg");
+    }
+    else {
+        pixmap = QPixmap(QString::fromStdString(comic.getImage()));
+    }
     int imageHeight = widget->parentWidget()->height();
-    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
-    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
-    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
+    imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
+    topLayout->addWidget(imageLabel, 0, Qt::AlignTop | Qt::AlignLeft);
 
     // *** WIDGET CONTENITORE INFO ***
     QWidget* infoWidget = new QWidget();
@@ -429,8 +471,16 @@ void ItemDetailVisitor::visit(Comic& comic) {
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
     titleLabel->setAlignment(Qt::AlignCenter);
+    QIcon editTitleIcon(":/icons/edit");
+    QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton->setFixedSize(50, 50);
+    editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    editTitleButton->setFlat(true);
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(editTitleButton);
+    titleLayout->addStretch();
     infoLayout->addSpacing(65); // Spazio prima del titolo
-    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addLayout(titleLayout);
     infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
@@ -514,8 +564,8 @@ void ItemDetailVisitor::visit(Comic& comic) {
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &comic, editList]() {
-        saveChanges(comic, editList);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &comic, titleLabel, editList]() {
+        saveChanges(comic,*titleLabel, editList);
         });
 
     QPushButton* modifyButton = new QPushButton("Modify");
@@ -541,6 +591,14 @@ void ItemDetailVisitor::visit(Comic& comic) {
     deleteButton->setFixedSize(150, 40);
     QObject::connect(deleteButton, &QPushButton::clicked, [this, titleLabel, yearEdit]() {
         deleteItem(titleLabel->text(), yearEdit->text().toUInt());
+        });
+
+    QObject::connect(editTitleButton, &QPushButton::clicked, [titleLabel, saveButton]() {
+        NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
+        if (newTitleDialog->exec() == QDialog::Accepted) {
+            saveButton->setEnabled(true);
+        }
+        //aggiungere delete?
         });
     buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
@@ -576,11 +634,18 @@ void ItemDetailVisitor::visit(Movie& movie) {
     QList<QLineEdit*>* editList = new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
-
+    QHBoxLayout* titleLayout = new QHBoxLayout();
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
-    QPixmap pixmap(QString::fromStdString(movie.getImage()));
-    imageLabel->setPixmap(pixmap.scaled(400,400, Qt::KeepAspectRatio));
+    QPixmap pixmap;
+    if (movie.getImage().empty()) {
+        pixmap = QPixmap("assets/noImage.jpg");
+    }
+    else {
+        pixmap = QPixmap(QString::fromStdString(movie.getImage()));
+    }
+    int imageHeight = widget->parentWidget()->height();
+    imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
     topLayout->addWidget(imageLabel, 0, Qt::AlignTop|Qt::AlignLeft);
 
     // *** WIDGET CONTENITORE INFO ***
@@ -594,8 +659,16 @@ void ItemDetailVisitor::visit(Movie& movie) {
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
     titleLabel->setAlignment(Qt::AlignLeft);
+    QIcon editTitleIcon(":/icons/edit");
+    QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton->setFixedSize(50, 50);
+    editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    editTitleButton->setFlat(true);
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(editTitleButton);
+    titleLayout->addStretch();
     infoLayout->addSpacing(65); // Spazio prima del titolo
-    infoLayout->addWidget(titleLabel, 0, Qt::AlignLeft);
+    infoLayout->addLayout(titleLayout);
     infoLayout->addSpacing(60); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
@@ -707,8 +780,8 @@ void ItemDetailVisitor::visit(Movie& movie) {
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &movie, editList]() {
-        saveChanges(movie, editList);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &movie,titleLabel, editList]() {
+        saveChanges(movie,*titleLabel, editList);
         });
 
     buttonLayout->addWidget(deleteButton, 0, Qt::AlignLeft);
@@ -735,6 +808,14 @@ void ItemDetailVisitor::visit(Movie& movie) {
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
+
+    QObject::connect(editTitleButton, &QPushButton::clicked, [titleLabel, saveButton]() {
+        NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
+        if (newTitleDialog->exec() == QDialog::Accepted) {
+            saveButton->setEnabled(true);
+        }
+        //aggiungere delete?
+        });
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
@@ -769,14 +850,20 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     QList<QLineEdit*>* editList = new QList<QLineEdit*>;
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* topLayout = new QHBoxLayout();
-
+    QHBoxLayout* titleLayout = new QHBoxLayout();
     // *** IMMAGINE ***
     QLabel* imageLabel = new QLabel();
-    QPixmap pixmap(QString::fromStdString(videogame.getImage()));
+    QPixmap pixmap;
+    if (videogame.getImage().empty()) {
+        qDebug() << "image is empty";
+        pixmap = QPixmap("assets/noImage.jpg");
+    }
+    else {
+        pixmap = QPixmap(QString::fromStdString(videogame.getImage()));
+    }
     int imageHeight = widget->parentWidget()->height();
-    imageLabel->setPixmap(pixmap.scaled(widget->parentWidget()->width() / 3, imageHeight, Qt::KeepAspectRatio));
-    imageLabel->setScaledContents(true); // Permette di ridimensionare l'immagine
-    topLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
+    imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
+    topLayout->addWidget(imageLabel, 0, Qt::AlignTop | Qt::AlignLeft);
 
     // *** WIDGET CONTENITORE INFO ***
     QWidget* infoWidget = new QWidget();
@@ -789,8 +876,16 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     titleFont.setBold(true);
     titleLabel->setFont(titleFont);
     titleLabel->setAlignment(Qt::AlignCenter);
+    QIcon editTitleIcon(":/icons/edit");
+    QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton->setFixedSize(50, 50);
+    editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    editTitleButton->setFlat(true);
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(editTitleButton);
+    titleLayout->addStretch();
     infoLayout->addSpacing(spacing); // Spazio prima del titolo
-    infoLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    infoLayout->addLayout(titleLayout);
     infoLayout->addSpacing(spacing); // Spazio aumentato tra titolo e informazioni
 
     // *** INFO ***
@@ -883,8 +978,8 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &videogame, editList]() {
-        saveChanges(videogame, editList);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &videogame,titleLabel, editList]() {
+        saveChanges(videogame, *titleLabel, editList);
         });
 
     QPushButton* modifyButton = new QPushButton("Modify");
@@ -915,6 +1010,14 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     QPushButton* backButton = new QPushButton("Back");
     backButton->setFixedSize(150, 40);
     QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
+
+    QObject::connect(editTitleButton, &QPushButton::clicked, [titleLabel, saveButton]() {
+        NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
+        if (newTitleDialog->exec() == QDialog::Accepted) {
+            saveButton->setEnabled(true);
+        }
+        //aggiungere delete?
+        });
 
     buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
     buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
@@ -948,8 +1051,8 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const
     }
 }
 
-void ItemDetailVisitor::saveChanges(AbstractItem& item, QList<QLineEdit*>* editList) const{
-    SaveEditsVisitor editsVisitor(editList);
+void ItemDetailVisitor::saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList) const{
+    SaveEditsVisitor editsVisitor(title,editList);
     item.accept(editsVisitor);
 }
 
