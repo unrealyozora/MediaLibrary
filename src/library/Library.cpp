@@ -28,17 +28,23 @@ bool Library::is_empty() const {
 	return media.empty();
 }
 
+bool Library::has_filepath() const{
+	return !filePath.empty();
+}
+
 QList<std::shared_ptr<AbstractItem>> Library::getList() const {
 	return media;
 }
 
 void Library::addItem(std::shared_ptr<AbstractItem> item) {
 	media.append(item);
-	if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
-		toJson(filePath.c_str());
-	}
-	else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
-		toXml(filePath.c_str());
+	if (has_filepath()) {
+		if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
+			toJson(filePath.c_str());
+		}
+		else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
+			toXml(filePath.c_str());
+		}
 	}
 	emit updateList(media);
 }
@@ -59,12 +65,15 @@ void Library::updateItem(const AbstractItem& item){
 			emit updateList(media);
 		}
 	}
-	if (filePath.substr(filePath.length() - 4, filePath.length())=="json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
-		toJson(filePath.c_str());
+	if (has_filepath()) {
+		if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
+			toJson(filePath.c_str());
+		}
+		else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
+			toXml(filePath.c_str());
+		}
 	}
-	else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
-		toXml(filePath.c_str());
-	}
+	
 }
 
 void Library::fromJson(const QString& path) {

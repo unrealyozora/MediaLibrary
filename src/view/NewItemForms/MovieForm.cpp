@@ -28,6 +28,17 @@ void MovieForm::onAccepted(){
 	unsigned int _length = length->text().toUInt(); // Durata del film
 	std::string _screenwriter = movieScreenWriter->text().toStdString();
 	std::string _productionCompany = movieProdComp->text().toStdString();
+
+	qDebug() << "Title:" << QString::fromStdString(_title);
+	qDebug() << "Year:" << _year;
+	qDebug() << "Description:" << QString::fromStdString(_description);
+	qDebug() << "Genre:" << QString::fromStdString(_genre);
+	qDebug() << "Country:" << QString::fromStdString(_country);
+	qDebug() << "Image path:" << QString::fromStdString(_image);
+	qDebug() << "Director:" << QString::fromStdString(_director);
+	qDebug() << "Length:" << _length;
+	qDebug() << "Screenwriter:" << QString::fromStdString(_screenwriter);
+	qDebug() << "Production company:" << QString::fromStdString(_productionCompany);
 	ItemController::passMovie(_title, _year, _description, _genre, _country, _image, _director, _screenwriter, _length, _productionCompany);
 }
 
