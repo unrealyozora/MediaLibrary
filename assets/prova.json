@@ -9,7 +9,7 @@
         "production_comp": "Warner Bros",
         "screenwriter": "Christopher Nolan",
         "tipo": "Movie",
-        "title": "Prova cambio titolo film",
+        "title": "Inception",
         "year": 2010
     },
     {
@@ -20,7 +20,7 @@
         "image": "assets/kaisa.jpg",
         "multiplayer": false,
         "tipo": "Videogame",
-        "title": "The Witcher 3",
+        "title": "cazzi",
         "year": 2015
     },
     {
@@ -62,11 +62,11 @@
         "country": "IT",
         "description": "ciao ",
         "genre": "sedf",
-        "image": "",
+        "image": "/mnt/server1/1/2023/tceron/Documents/MediaLibrary25/MediaLibrary/assets/kaisa.jpg",
         "length": 90,
         "songs": 20,
         "tipo": "Album",
-        "title": "Pink Floyd Album",
+        "title": "AlbumCiao",
         "year": 2134
     },
     {

@@ -13,7 +13,7 @@
 #include <QValidator>
 #include <QMessageBox>
 #include <QComboBox>
-
+#include <QFileDialog>
 
 #include <QDebug>
 void ItemDetailVisitor::visit(Album& album) {
@@ -36,7 +36,7 @@ void ItemDetailVisitor::visit(Album& album) {
         pixmap=QPixmap("assets/noImage.jpg");
     }
     else {
-        qDebug() << album.getImage();
+        //qDebug() << album.getImage();
         pixmap=QPixmap(QString::fromStdString(album.getImage()));
     }
     int imageHeight = widget->parentWidget()->height();
@@ -44,6 +44,9 @@ void ItemDetailVisitor::visit(Album& album) {
     topLayout->addWidget(imageLabel, 0, Qt::AlignTop | Qt::AlignLeft);
     QPushButton* changeImageButton = new QPushButton("Change Image");
     topLayout->addWidget(changeImageButton);
+    QObject::connect(changeImageButton, &QPushButton::clicked, [this, &album](){
+        setNewImage(album);
+    });
     // *** WIDGET CONTENITORE INFO ***
     QWidget* infoWidget = new QWidget();
     QVBoxLayout* infoLayout = new QVBoxLayout(infoWidget);
@@ -978,8 +981,8 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     QPushButton* saveButton = new QPushButton("Save");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &videogame,titleLabel, editList]() {
-        saveChanges(videogame, *titleLabel, editList);
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &videogame,titleLabel, editList, multiplayerEdit]() {
+        saveChanges(videogame, *titleLabel, editList, multiplayerEdit);
         });
 
     QPushButton* modifyButton = new QPushButton("Modify");
@@ -1051,8 +1054,8 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const
     }
 }
 
-void ItemDetailVisitor::saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList) const{
-    SaveEditsVisitor editsVisitor(title,editList);
+void ItemDetailVisitor::saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList, QComboBox* multiplayerEdit) const{
+    SaveEditsVisitor editsVisitor(title,editList, multiplayerEdit);
     item.accept(editsVisitor);
 }
 
@@ -1082,5 +1085,11 @@ void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) cons
         );
         item->setText(item->text());
     }
+}
+
+void ItemDetailVisitor::setNewImage(AbstractItem& item) const{
+    QString path = QFileDialog::getOpenFileName(nullptr, "Select a file", "", "Library File (*.jpg *.png)");
+    item.setImage(path.toStdString());
+    Library::getInstance()->updateItem(item);
 }
 

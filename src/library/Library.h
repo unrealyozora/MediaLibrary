@@ -15,7 +15,7 @@ private:
 	std::string filePath;
 public:
 	static Library* getInstance();
-	unsigned int getSize() const;
+	int getSize() const;
 	bool is_empty() const;
 	bool has_filepath() const;
 	QList<std::shared_ptr<AbstractItem>> getList() const;

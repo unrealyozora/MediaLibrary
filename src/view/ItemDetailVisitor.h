@@ -1,6 +1,7 @@
 #ifndef ITEMDETAILVISITOR_H
 #define ITEMDETAILVISITOR_H
 #include <QLineEdit>
+#include <QComboBox>
 #include "../items/ItemVisitor.h"
 #include "../view/ItemDetailWidget.h"
 #include "../items/album.h"
@@ -24,11 +25,12 @@ public:
     void visit(Videogames& videogame) override;
 
     void setLineEditFlat(const QList<QLineEdit*>* editList) const;
-    void saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList) const;
+    void saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList, QComboBox* multiplayerEdit = nullptr) const;
     void setYearValidator(QLineEdit* yearEdit) const;
 public slots:
     void setLineEditWrite(const QList<QLineEdit*>* editList) const;
-    void deleteItem(const QString& title, const unsigned int year) const ;
+    void deleteItem(const QString& title, const unsigned int year) const;
+    void setNewImage(AbstractItem& item)const;
 };
 
 #endif

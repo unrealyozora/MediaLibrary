@@ -67,7 +67,6 @@ void SaveEditsVisitor::visit(Videogames& videogame) {
     videogame.setGenre(editList->at(2)->text().toStdString());
     videogame.setCountry(editList->at(3)->text().toStdString());
     videogame.setDeveloper(editList->at(4)->text().toStdString());
-    videogame.setMultiplayer(editList->at(5)->text() == "Yes");
-
+    videogame.setMultiplayer(multiplayerEdit->currentText()=="Yes");
     Library::getInstance()->updateItem(videogame);
 }

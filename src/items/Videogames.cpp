@@ -10,7 +10,7 @@ const std::string& Videogames::getDeveloper() const {
 void Videogames::setDeveloper(const std::string& dev) {
 	this->developer = dev;
 }
-unsigned int Videogames::getMultiplayer() const {
+bool Videogames::getMultiplayer() const {
 	return multiplayer;
 }
 void Videogames::setMultiplayer(bool mult) {

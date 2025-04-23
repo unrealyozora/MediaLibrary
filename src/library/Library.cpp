@@ -20,12 +20,12 @@ Library* Library::getInstance() {
 	
 }
 
-unsigned int Library::getSize() const {
+int Library::getSize() const {
 	return media.size();
 }
 
 bool Library::is_empty() const {
-	return media.empty();
+	return media.isEmpty();
 }
 
 bool Library::has_filepath() const{

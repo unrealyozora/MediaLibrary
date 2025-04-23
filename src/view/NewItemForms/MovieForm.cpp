@@ -1,6 +1,7 @@
 #include "MovieForm.h"
 #include "../../library/ItemController.h"
 #include <QDialogButtonBox>
+#include <QDebug>
 MovieForm::MovieForm(QWidget* parent):NewItemForm(parent){
 	formLayout->addRow("Director: ", author);
 	length = new QLineEdit(this);
