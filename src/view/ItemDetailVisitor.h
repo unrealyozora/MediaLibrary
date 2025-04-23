@@ -2,6 +2,10 @@
 #define ITEMDETAILVISITOR_H
 #include <QLineEdit>
 #include <QComboBox>
+#include <QList>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
 #include "../items/ItemVisitor.h"
 #include "../view/ItemDetailWidget.h"
 #include "../items/album.h"
@@ -13,11 +17,23 @@
 
 class ItemDetailVisitor : public ItemVisitor {
 private:
+    QVBoxLayout* mainLayout;
+    QHBoxLayout* topLayout;
+    QVBoxLayout* rightLayout;
     ItemDetailsWidget* widget;
     const unsigned int spacing = 20;
+    QList<QLineEdit*>* editList=nullptr;
+    QLabel* imageLabel;
+    QLineEdit* yearEdit;
+    QWidget* infoWidget;
+    QVBoxLayout* infoLayout;
+    QHBoxLayout* titleLayout;
+    QLabel* titleLabel;
 public:
     explicit ItemDetailVisitor(ItemDetailsWidget* _widget) : widget(_widget) {}
 
+    void initialSetup(AbstractItem& item);
+    void finalSetup(AbstractItem& item);
     void visit(Album& album) override;
     void visit(Books& book) override;
     void visit(Comic& comic) override;

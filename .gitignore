@@ -441,3 +441,8 @@ FodyWeavers.xsd
 /.VSCodeCounter/2025-03-23_22-31-40
 /src/view/NewItemForm_delete.cpp
 /src/view/NewItemForm_delete.h
+
+# Qt Projects file
+*.pro
+*.stash
+Makefile
