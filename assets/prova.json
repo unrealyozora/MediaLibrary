@@ -4,7 +4,7 @@
         "description": "A mind-bending thriller about dreams within dreams.",
         "director": "Christopher Nolan",
         "genre": "Sci-Fi",
-        "image": "assets/inception.jpg",
+        "image": "assets/kaisa.jpg",
         "length": 150,
         "production_comp": "Warner Bros",
         "screenwriter": "Christopher Nolan",
@@ -153,5 +153,16 @@
         "tipo": "Movie",
         "title": "",
         "year": 0
+    },
+    {
+        "country": "USA",
+        "description": "A game that never releases",
+        "developer": "Riot Gamess",
+        "genre": "Action",
+        "image": "C:/Users/tomma/Dev/MediaLibrary/assets/placeholder.jpg",
+        "multiplayer": false,
+        "tipo": "Videogame",
+        "title": "Hollow Knight Silksong",
+        "year": 2075
     }
 ]

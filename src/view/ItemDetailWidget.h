@@ -9,7 +9,7 @@ class ItemDetailVisitor;
 class ItemDetailsWidget :public QWidget {
 	Q_OBJECT
 private:
-	ItemDetailVisitor* visitor=nullptr;
+	ItemDetailVisitor* visitor;
 public:
 	explicit ItemDetailsWidget(QWidget* parent = nullptr);
 	void showDetails(AbstractItem* item);

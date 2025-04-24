@@ -18,8 +18,7 @@ void ItemDetailsWidget::showDetails(AbstractItem* item){
 			qDebug()<<"visitor delete";
 			delete visitor;
 		}
-		visitor = new ItemDetailVisitor(this); 
-		qDebug() << "this dopo creazione:" << &visitor;
+		visitor = new ItemDetailVisitor(this);
 		item->accept(*visitor);
 	}
 }

@@ -360,7 +360,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* multiplayerLabel = new QLabel("Multiplayer:");
-    QComboBox* multiplayerEdit = new QComboBox();
+    multiplayerEdit = new QComboBox();
     multiplayerEdit->setEnabled(false);
     multiplayerEdit->setPlaceholderText(videogame.getMultiplayer() ? "Yes" : "No");
     multiplayerEdit->addItem("Yes");
@@ -389,7 +389,7 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const
 }
 
 void ItemDetailVisitor::saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList, QComboBox* multiplayerEdit) const{
-    SaveEditsVisitor editsVisitor(title,editList, multiplayerEdit);
+    SaveEditsVisitor editsVisitor(title,editList, this->multiplayerEdit);
     item.accept(editsVisitor);
 }
 

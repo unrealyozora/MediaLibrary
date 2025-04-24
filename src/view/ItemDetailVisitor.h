@@ -30,6 +30,7 @@ private:
     QLineEdit* yearEdit;
     QLabel* titleLabel;
     QPushButton* editTitleButton;
+    QComboBox* multiplayerEdit = nullptr;
 public:
     explicit ItemDetailVisitor(ItemDetailsWidget* _widget) : widget(_widget) {}
 
@@ -42,7 +43,7 @@ public:
     void visit(Videogames& videogame) override;
 
     void setLineEditFlat(const QList<QLineEdit*>* editList) const;
-    void saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList, QComboBox* multiplayerEdit = nullptr) const;
+    void saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList, QComboBox* multiplayerEdit=nullptr) const;
     void setYearValidator(QLineEdit* yearEdit) const;
 public slots:
     void setLineEditWrite(const QList<QLineEdit*>* editList) const;
