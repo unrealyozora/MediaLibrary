@@ -33,6 +33,9 @@ public:
 	void fromXml(const QString& path);
 	void toXml(const QString& path) const;
 
+	//gestione aggiornamento dei file xml/json dopo operazioni di modifica/aggiunta/eliminazione
+	void updateFile() const;
+
 signals:
 	void updateList(const QList<std::shared_ptr<AbstractItem>>& newList);  // Notifica quando la lista cambia
 	void updateOnDelete(const QList<std::shared_ptr<AbstractItem>>& newList); //Simile alla precedente ma emessa quando un item viene eliminato (venogno fatte alcune operazioni in pi�)

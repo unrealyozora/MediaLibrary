@@ -38,14 +38,7 @@ QList<std::shared_ptr<AbstractItem>> Library::getList() const {
 
 void Library::addItem(std::shared_ptr<AbstractItem> item) {
 	media.append(item);
-	if (has_filepath()) {
-		if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
-			toJson(filePath.c_str());
-		}
-		else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
-			toXml(filePath.c_str());
-		}
-	}
+	updateFile();
 	emit updateList(media);
 }
 
@@ -56,6 +49,7 @@ void Library::removeItem(const std::string& title, unsigned int year) {
 			emit updateOnDelete(media);
 		}
 	}
+	updateFile();
 }
 
 void Library::updateItem(const AbstractItem& item){
@@ -65,15 +59,7 @@ void Library::updateItem(const AbstractItem& item){
 			emit updateList(media);
 		}
 	}
-	if (has_filepath()) {
-		if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
-			toJson(filePath.c_str());
-		}
-		else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
-			toXml(filePath.c_str());
-		}
-	}
-	
+	updateFile();
 }
 
 void Library::fromJson(const QString& path) {
@@ -191,5 +177,16 @@ void Library::toXml(const QString& path) const {
 		}
 	}
 	
+}
+
+void Library::updateFile() const{
+	if (has_filepath()) {
+		if (filePath.substr(filePath.length() - 4, filePath.length()) == "json" || filePath.substr(filePath.length() - 4, filePath.length()) == "JSON") {
+			toJson(filePath.c_str());
+		}
+		else if (filePath.substr(filePath.length() - 3, filePath.length()) == "xml" || filePath.substr(filePath.length() - 3, filePath.length()) == "XML") {
+			toXml(filePath.c_str());
+		}
+	}
 }
 

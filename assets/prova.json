@@ -13,17 +13,6 @@
         "year": 2010
     },
     {
-        "country": "Poland",
-        "description": "An open-world RPG set in a fantasy universe.",
-        "developer": "CD Projekt Red",
-        "genre": "RPG",
-        "image": "assets/kaisa.jpg",
-        "multiplayer": false,
-        "tipo": "Videogame",
-        "title": "cazzi",
-        "year": 2015
-    },
-    {
         "author": "Stan Lee",
         "chapters": 15,
         "country": "USA",
