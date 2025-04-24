@@ -4,7 +4,8 @@
 #include "../items/Comic.h"  
 #include "../items/movie.h"  
 #include "../items/Videogames.h"
-
+#include <QScreen>
+#include <QApplication>
 LibraryListModel::LibraryListModel(QObject* parent):QAbstractListModel(parent) {}
 
 void LibraryListModel::setItems(const QList <std::shared_ptr<AbstractItem>>& _items) {
@@ -27,11 +28,15 @@ QVariant LibraryListModel::data(const QModelIndex& index, int role) const {
 
     if (role == Qt::DecorationRole) {  // Usa DecorationRole per mostrare l'immagine
         QPixmap image(LibraryListModel::items.at(index.row())->getImage().c_str());
+        QScreen *screen = QApplication::primaryScreen();
+        QRect screenGeometry = screen->availableGeometry();
+        QSize availableSize = screenGeometry.size()/4;
             if (image.isNull()) {
-                return QPixmap("assets/noImage.jpg").scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                return QPixmap("assets/noImage.jpg").scaled(availableSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             }
             else{
-                return image.scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                QSize scaledSize = image.scaled(availableSize, Qt::KeepAspectRatio, Qt::SmoothTransformation).size();
+                return image.scaled(scaledSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             }
     }
     else if (role == Qt::DisplayRole) {

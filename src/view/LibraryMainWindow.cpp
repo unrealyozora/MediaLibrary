@@ -4,11 +4,6 @@
 #include "ThumbnailDelegate.h"
 #include "SideMenu.h"
 #include "ItemDetailWidget.h"
-#include "NewItemForms/AlbumForm.h"
-#include "NewItemForms/BookForm.h"
-#include "NewItemForms/ComicForm.h"
-#include "NewItemForms/MovieForm.h"
-#include "NewItemForms/VideogameForm.h"
 #include <QListView>
 #include <QLayout>
 #include <QMenuBar>
@@ -28,18 +23,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
    /*------------------------CREAZIONE WIDGET-------------------*/
-	QPushButton* newButton = new QPushButton("New item", this);
-	QMenu* buttonMenu = new QMenu(this);
-	QAction* newAlbum = new QAction("Add album", buttonMenu);
-	QAction* newBook = new QAction("Add book", buttonMenu);
-	QAction* newComic = new QAction("Add comic", buttonMenu);
-	QAction* newMovie = new QAction("Add movie", buttonMenu);
-	QAction* newVideogame = new QAction("Add videogame", buttonMenu);
-	buttonMenu->addAction(newAlbum);
-	buttonMenu->addAction(newBook);
-	buttonMenu->addAction(newComic);
-	buttonMenu->addAction(newMovie);
-	buttonMenu->addAction(newVideogame);
 	QGridLayout* buttonOverlay = new QGridLayout();
 	stackedWidget = new QStackedWidget(this);
     model = new LibraryListModel(this);
@@ -75,7 +58,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	stackedWidget->addWidget(listview);
 	stackedWidget->addWidget(detailWidget);
 	buttonOverlay->addWidget(stackedWidget, 0, 0);
-	buttonOverlay->addWidget(newButton,0,0, Qt::AlignBottom|Qt::AlignRight);
     MainLayout->addWidget(sideMenu);
 	MainLayout->addLayout(buttonOverlay);
     //MainLayout->addWidget(buttonOverlay);
@@ -92,41 +74,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
 	connect(listview, &QListView::clicked, this, &LibraryMainWindow::itemSelected);
 	connect(detailWidget, &ItemDetailsWidget::backToHome, this, &LibraryMainWindow::backHome);
-	connect(newButton, &QPushButton::clicked, [newButton, buttonMenu]() { //setta il menu rispetto alla posizione del bottone (da sistemare)
-		//buttonMenu->setFixedSize(200, 150);
-		QPoint menuPos = newButton->mapToGlobal(newButton->rect().bottomLeft());
-		menuPos.setX(menuPos.x() - 100);
-		menuPos.setY(menuPos.y() - 150);
-		buttonMenu->exec(menuPos);
-		});
-	connect(stackedWidget, &QStackedWidget::currentChanged, [newButton](int index) {
-		if (index == 0) {
-			newButton->show();
-		}
-		else {
-			newButton->hide();
-		}
-	});
-	connect(newAlbum, &QAction::triggered, []() {
-		AlbumForm albumForm;
-		albumForm.exec();
-		});
-	connect(newBook, &QAction::triggered, []() {
-		BookForm bookForm;
-		bookForm.exec();
-		});
-	connect(newComic, &QAction::triggered, []() {
-		ComicForm comicForm;
-		comicForm.exec();
-		});
-	connect(newMovie, &QAction::triggered, []() {
-		MovieForm movieForm;
-		movieForm.exec();
-		});
-	connect(newVideogame, &QAction::triggered, []() {
-		VideogameForm videogameForm;
-		videogameForm.exec();
-		});
 }
 
 
