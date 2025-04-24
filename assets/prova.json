@@ -4,7 +4,7 @@
         "description": "A mind-bending thriller about dreams within dreams.",
         "director": "Christopher Nolan",
         "genre": "Sci-Fi",
-        "image": "",
+        "image": "assets/kaisa.jpg",
         "length": 150,
         "production_comp": "Warner Bros",
         "screenwriter": "Christopher Nolan",
@@ -29,7 +29,7 @@
         "country": "USA",
         "description": "The origin story of one of the most beloved superheroes.",
         "genre": "Superhero",
-        "image": "assets/kaisa.jpg",
+        "image": "",
         "tipo": "Comic",
         "title": "Spider-Man",
         "year": 1962

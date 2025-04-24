@@ -1,7 +1,7 @@
 #include "ItemDetailWidget.h"
 #include "ItemDetailVisitor.h"
 #include <QVBoxLayout>
-
+#include <QDebug>
 ItemDetailsWidget::ItemDetailsWidget(QWidget* parent):QWidget(parent) {
 	//setLayout(layout);
 }
@@ -14,8 +14,13 @@ void ItemDetailsWidget::showDetails(AbstractItem* item){
             delete w;
         }
 		qDebug("showDetails entrato");//debug only
-		ItemDetailVisitor visitor(this);
-		item->accept(visitor);
+		if (visitor!=nullptr){
+			qDebug()<<"visitor delete";
+			delete visitor;
+		}
+		visitor = new ItemDetailVisitor(this); 
+		qDebug() << "this dopo creazione:" << &visitor;
+		item->accept(*visitor);
 	}
 }
 

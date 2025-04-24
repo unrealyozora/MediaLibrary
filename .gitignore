@@ -445,4 +445,9 @@ FodyWeavers.xsd
 # Qt Projects file
 *.pro
 *.stash
-Makefile
+Makefile*
+moc_**.cpp
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+

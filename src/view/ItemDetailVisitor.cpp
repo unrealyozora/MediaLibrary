@@ -13,9 +13,11 @@
 #include <QMessageBox>
 #include <QComboBox>
 #include <QFileDialog>
+#include <QDir>
 
 #include <QDebug>
 void ItemDetailVisitor::initialSetup(AbstractItem& item){
+    qDebug()<<"initial setup inizio" << pixmap;
     if (widget->layout() != nullptr) {
         QLayoutItem* item;
         while ((item = widget->layout()->takeAt(0)) != nullptr) {
@@ -26,27 +28,32 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     }
 
     editList = new QList<QLineEdit*>;
-    mainLayout = new QVBoxLayout();
-    topLayout = new QHBoxLayout();
-
+    mainLayout = new QHBoxLayout();
+    imageLayout = new QVBoxLayout();
     // *** IMMAGINE ***
     imageLabel = new QLabel();
-    QPixmap pixmap;
     if (item.getImage().empty()) {
-        pixmap=QPixmap("assets/noImage.jpg");
+        qDebug()<<"no image";
+        pixmap.load("assets/noImage.jpg");   
     }
     else {
         //qDebug() << album.getImage();
-        pixmap=QPixmap(QString::fromStdString(item.getImage()));
+        pixmap.load(QString::fromStdString(item.getImage()));
     }
     imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
-    topLayout->addWidget(imageLabel, 0, Qt::AlignTop | Qt::AlignLeft);
+    imageLabel->setAlignment(Qt::AlignCenter);
+    imageLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    
     QPushButton* changeImageButton = new QPushButton("Change Image");
-    topLayout->addWidget(changeImageButton);
+    changeImageButton->setFixedSize(300,30);
+    imageLayout->addWidget(imageLabel, 0, Qt::AlignCenter);
+    imageLayout->addWidget(changeImageButton, 0, Qt::AlignCenter);
+    imageLayout->addStretch(1);
     QObject::connect(changeImageButton, &QPushButton::clicked, [this, &item](){
-        setNewImage(item);
+        qDebug() << "this dentro connect:" << this;
+        qDebug()<<"connect "<< this->pixmap;
+        this->setNewImage(item);
     });
-
     infoWidget = new QWidget();
     infoLayout = new QVBoxLayout(infoWidget);
     infoLayout->setContentsMargins(20, 0, 40, 0); // Margini laterali
@@ -59,10 +66,11 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     titleLabel->setFont(titleFont);
     titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     QIcon editTitleIcon(":/icons/edit");
-    QPushButton* editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton = new QPushButton(editTitleIcon, "Edit");
     editTitleButton->setFixedSize(50, 50);
     editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     editTitleButton->setFlat(true);
+
     titleLayout->addWidget(titleLabel);
     titleLayout->addWidget(editTitleButton);
     titleLayout->addStretch();
@@ -113,6 +121,24 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     editList->append(descriptionEdit);
     editList->append(genreEdit);
     editList->append(countryEdit);
+    qDebug()<<"initial setup fine" << pixmap;
+}
+
+void ItemDetailVisitor::finalSetup(AbstractItem& item){
+    qDebug()<<"final setup inizio" << pixmap;
+    // *** SCROLL AREA ***
+    QScrollArea* scrollArea = new QScrollArea();
+    QWidget* scrollContent = new QWidget();
+    QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
+    scrollLayout->addWidget(infoWidget);
+    scrollContent->setLayout(scrollLayout);
+    scrollArea->setWidget(scrollContent);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    infoLayout->addStretch(); // Spinge tutto in alto
+    infoWidget->setLayout(infoLayout);
+    infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
     // *** WIDGET CONTENITORE PULSANTE ***
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
@@ -154,7 +180,7 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
         deleteButton->setFixedSize(150, 40);
         QObject::connect(deleteButton, &QPushButton::clicked, [this]() {
             deleteItem(titleLabel->text(), yearEdit->text().toUInt());
-            });
+            }); 
         buttonLayout->addWidget(deleteButton,0,Qt::AlignLeft);
         buttonLayout->addWidget(modifyButton, 0, Qt::AlignLeft);
         buttonLayout->addWidget(saveButton, 0, Qt::AlignLeft);
@@ -164,34 +190,17 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     
         buttonWidget->setLayout(buttonLayout);
         buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        rightLayout= new QVBoxLayout();
-        rightLayout->addWidget(buttonWidget, 0);
-        qDebug()<<"initialSetup";
-}
 
-void ItemDetailVisitor::finalSetup(AbstractItem& item){
-    // *** SCROLL AREA ***
-    QScrollArea* scrollArea = new QScrollArea();
-    QWidget* scrollContent = new QWidget();
-    QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
-    scrollLayout->addWidget(infoWidget);
-    scrollContent->setLayout(scrollLayout);
-    scrollArea->setWidget(scrollContent);
-    scrollArea->setWidgetResizable(true);
-    scrollArea->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    infoLayout->addStretch(); // Spinge tutto in alto
-    infoWidget->setLayout(infoLayout);
-    infoWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-
-    // *** CONTENITORE DESTRO ***
+     // *** CONTENITORE DESTRO ***
     rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(scrollArea, 1);
+    rightLayout->addWidget(scrollArea, 1);  // Aggiungi scrollArea con stretch 1
+    rightLayout->addWidget(buttonWidget, 0); // Aggiungi buttonWidget senza stretch
     rightLayout->setSpacing(0);
-
-    topLayout->addLayout(rightLayout);
-    mainLayout->addLayout(topLayout);
+    mainLayout->addLayout(imageLayout);
+    mainLayout->addLayout(rightLayout);
 
     widget->setLayout(mainLayout);
+    qDebug()<<"final setup fine" << pixmap;
 }
 
 void ItemDetailVisitor::visit(Album& album) {
@@ -290,6 +299,7 @@ void ItemDetailVisitor::visit(Comic& comic) {
 
 void ItemDetailVisitor::visit(Movie& movie) {
     initialSetup(movie);
+    qDebug()<<"visit movie inizio" << pixmap;
     QLabel* directorLabel = new QLabel("Director:");
     QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));
     
@@ -332,11 +342,13 @@ void ItemDetailVisitor::visit(Movie& movie) {
     editList->append(lengthEdit);
     editList->append(prodCompanyEdit);
     setLineEditFlat(editList);
+    qDebug()<<"visit movie fine" << pixmap;
     finalSetup(movie);
 }
 
 
 void ItemDetailVisitor::visit(Videogames& videogame) {
+    qDebug()<<"inizio" << pixmap;
     initialSetup(videogame);
     QLabel* developerLabel = new QLabel("Developer:");
     QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));
@@ -362,6 +374,7 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     editList->append(developerEdit);
     setLineEditFlat(editList);
     finalSetup(videogame);
+    qDebug()<<"fine" << pixmap;
 }
 
 void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const{
@@ -408,10 +421,17 @@ void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) cons
     }
 }
 
-void ItemDetailVisitor::setNewImage(AbstractItem& item) const{
-    QString path = QFileDialog::getOpenFileName(nullptr, "Select a file", "", "Library File (*.jpg *.png)");
-    item.setImage(path.toStdString());
+void ItemDetailVisitor::setNewImage(AbstractItem& item){
+    qDebug()<<"set pixmap inizio" << pixmap;
+    QString path = QFileDialog::getOpenFileName(nullptr, "Select an image", "", "Image file (*.jpg *.png *.jpeg *bmp)");
+    qDebug()<<path;
+    QDir currentDir = QDir::current();
+    QString relativePath=currentDir.relativeFilePath(path);
+    qDebug()<<relativePath;
+    item.setImage(relativePath.toStdString());
     Library::getInstance()->updateItem(item);
-    QPixmap newPixmap("assets/noImage.jpg");
+    pixmap.load(relativePath);
+    imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
+    qDebug()<<"set pixmap fine" << pixmap;
 }
 

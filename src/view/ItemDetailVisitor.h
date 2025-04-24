@@ -13,22 +13,23 @@
 #include "../items/Comic.h"
 #include "../items/movie.h"
 #include "../items/Videogames.h"
-#include "../items/ItemVisitor.h"
 
 class ItemDetailVisitor : public ItemVisitor {
 private:
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* topLayout;
+    QHBoxLayout* mainLayout;
+    QVBoxLayout* imageLayout;
+    QVBoxLayout* infoLayout;
+    QWidget* infoWidget;
+    QHBoxLayout* titleLayout;
     QVBoxLayout* rightLayout;
     ItemDetailsWidget* widget;
     const unsigned int spacing = 20;
     QList<QLineEdit*>* editList=nullptr;
     QLabel* imageLabel;
+    QPixmap pixmap;
     QLineEdit* yearEdit;
-    QWidget* infoWidget;
-    QVBoxLayout* infoLayout;
-    QHBoxLayout* titleLayout;
     QLabel* titleLabel;
+    QPushButton* editTitleButton;
 public:
     explicit ItemDetailVisitor(ItemDetailsWidget* _widget) : widget(_widget) {}
 
@@ -46,7 +47,7 @@ public:
 public slots:
     void setLineEditWrite(const QList<QLineEdit*>* editList) const;
     void deleteItem(const QString& title, const unsigned int year) const;
-    void setNewImage(AbstractItem& item)const;
+    void setNewImage(AbstractItem& item);
 };
 
 #endif
