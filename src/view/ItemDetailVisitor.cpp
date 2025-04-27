@@ -66,7 +66,7 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     titleLabel->setFont(titleFont);
     titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     QIcon editTitleIcon(":/icons/edit");
-    editTitleButton = new QPushButton(editTitleIcon, "Edit");
+    editTitleButton = new QPushButton(editTitleIcon, "Change title");
     editTitleButton->setFixedSize(50, 50);
     editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     editTitleButton->setFlat(true);
@@ -128,6 +128,10 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     qDebug()<<"final setup inizio" << pixmap;
     // *** SCROLL AREA ***
     QScrollArea* scrollArea = new QScrollArea();
+    QPalette p;
+    p.setColor(QPalette::Window, QColor(255, 255, 255));
+    p.setColor(QPalette::Base, QColor(255, 255, 255));
+    scrollArea->setPalette(p);
     QWidget* scrollContent = new QWidget();
     QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
     scrollLayout->addWidget(infoWidget);
@@ -148,10 +152,11 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     QObject::connect(saveButton, &QPushButton::clicked, [this, &item]() {
         saveChanges(item, *titleLabel, editList);
         });
-    QObject::connect(editTitleButton, &QPushButton::clicked, [this, saveButton]() {
+    QObject::connect(editTitleButton, &QPushButton::clicked, [this, saveButton, &item]() {
         NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
         if (newTitleDialog->exec() == QDialog::Accepted) {
-            saveButton->setEnabled(true);
+            //bypassiamo il pulsante save e salviamo direttamente il nuovo titolo
+            saveChanges(item, *titleLabel, editList, multiplayerEdit);
         }
         //aggiungere delete?
         });
@@ -160,6 +165,9 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
         QObject::connect(modifyButton, &QPushButton::clicked, [this,saveButton]() {
             setLineEditWrite(editList);
             saveButton->setEnabled(true);
+            if (multiplayerEdit) {
+                multiplayerEdit->setEnabled(true);
+            }
             });
         QPushButton* backButton = new QPushButton("Back");
         backButton->setFixedSize(150, 40);

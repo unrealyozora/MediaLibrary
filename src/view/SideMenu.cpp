@@ -16,6 +16,11 @@ SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* que
 	searchbar->setFixedHeight(30);
 	searchbar->setPlaceholderText("Search...");
 	layout->addWidget(searchbar);
+	QFrame* topLine = new QFrame();
+	topLine->setFrameShape(QFrame::HLine);
+	topLine->setFrameShadow(QFrame::Sunken);
+	layout->addSpacing(5);
+	layout->addWidget(topLine);
 	layout->addSpacing(5);
 	QList<QPushButton*> buttonList;
 	all = new QPushButton(QIcon(":icons/all"),"All");
@@ -52,11 +57,11 @@ SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* que
 	buttonMenu->addAction(newMovie);
 	buttonMenu->addAction(newVideogame);
 	QPushButton* newButton = new QPushButton("New item", this);
-	QFrame* line = new QFrame();
-    line->setFrameShape(QFrame::HLine);
-    line->setFrameShadow(QFrame::Sunken);
+	QFrame* bottomLine = new QFrame();
+    bottomLine->setFrameShape(QFrame::HLine);
+    bottomLine->setFrameShadow(QFrame::Sunken);
 	layout->addSpacing(5);
-    layout->addWidget(line);
+    layout->addWidget(bottomLine);
 	all->setChecked(true);
 	layout->addSpacing(5);
 	layout->addWidget(newButton);

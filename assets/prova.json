@@ -4,7 +4,7 @@
         "description": "A mind-bending thriller about dreams within dreams.",
         "director": "Christopher Nolan",
         "genre": "Sci-Fi",
-        "image": "assets/kaisa.jpg",
+        "image": "assets/inception.jpg",
         "length": 150,
         "production_comp": "Warner Bros",
         "screenwriter": "Christopher Nolan",
@@ -64,7 +64,7 @@
         "developer": "Edward McMillen",
         "genre": "Roguelike",
         "image": "",
-        "multiplayer": true,
+        "multiplayer": false,
         "tipo": "Videogame",
         "title": "The Binding of Isaac",
         "year": 2011
@@ -142,27 +142,27 @@
         "year": 0
     },
     {
-        "country": "",
-        "description": "",
-        "director": "",
-        "genre": "",
-        "image": "",
-        "length": 0,
-        "production_comp": "",
-        "screenwriter": "",
+        "country": "Italy",
+        "description": "A new Movie",
+        "director": "Marco",
+        "genre": "Western",
+        "image": "assets/placeholder.jpg",
+        "length": 120,
+        "production_comp": "Warner Bros",
+        "screenwriter": "Paolo",
         "tipo": "Movie",
-        "title": "",
-        "year": 0
+        "title": "A new Movie",
+        "year": 2025
     },
     {
         "country": "USA",
-        "description": "A game that never releases",
-        "developer": "Riot Gamess",
+        "description": "Un videogioco",
+        "developer": "Supergiant",
         "genre": "Action",
         "image": "C:/Users/tomma/Dev/MediaLibrary/assets/placeholder.jpg",
         "multiplayer": false,
         "tipo": "Videogame",
-        "title": "Hollow Knight Silksong",
-        "year": 2075
+        "title": "Nuovo titolo",
+        "year": 2024
     }
 ]

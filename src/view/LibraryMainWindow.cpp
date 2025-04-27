@@ -23,7 +23,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
    /*------------------------CREAZIONE WIDGET-------------------*/
-	QGridLayout* buttonOverlay = new QGridLayout();
 	stackedWidget = new QStackedWidget(this);
     model = new LibraryListModel(this);
 	categoryFilter = new LibraryCategoryFilter(this);
@@ -35,11 +34,6 @@ LibraryMainWindow::LibraryMainWindow(){
     QHBoxLayout* MainLayout = new QHBoxLayout();
 	ThumbnailDelegate* thumbnaildelegate = new ThumbnailDelegate(listview);
 	detailWidget = new ItemDetailsWidget(this);
-	/*QPalette pal = detailWidget->palette();
-	QColor myGray(141, 153, 174);
-	pal.setColor(QPalette::Window, myGray);
-	detailWidget->setAutoFillBackground(true);
-	detailWidget->setPalette(pal);*/
 	
 	
 
@@ -57,10 +51,11 @@ LibraryMainWindow::LibraryMainWindow(){
 	listview->setItemDelegate(thumbnaildelegate);
 	stackedWidget->addWidget(listview);
 	stackedWidget->addWidget(detailWidget);
-	buttonOverlay->addWidget(stackedWidget, 0, 0);
+
+	MainLayout->setContentsMargins(10, 10, 10, 0);
+
     MainLayout->addWidget(sideMenu);
-	MainLayout->addLayout(buttonOverlay);
-    //MainLayout->addWidget(buttonOverlay);
+	MainLayout->addWidget(stackedWidget);
     centralWidget->setLayout(MainLayout);
     this->setCentralWidget(centralWidget);
 
@@ -72,7 +67,7 @@ LibraryMainWindow::LibraryMainWindow(){
 		model->setItems(media);
 		});
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
-	connect(listview, &QListView::clicked, this, &LibraryMainWindow::itemSelected);
+	connect(listview, &QListView::doubleClicked, this, &LibraryMainWindow::itemSelected);
 	connect(detailWidget, &ItemDetailsWidget::backToHome, this, &LibraryMainWindow::backHome);
 }
 
