@@ -146,8 +146,7 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
     QPushButton* saveButton = new QPushButton("Save");
-    saveButton->setStyleSheet("QPushButton:disabled{background-color:rgb(230,230,230);
-        color:red;}");
+    saveButton->setStyleSheet("QPushButton:disabled { color: #000000; background-color:red}");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
     QObject::connect(saveButton, &QPushButton::clicked, [this, &item]() {
