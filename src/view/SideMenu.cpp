@@ -7,9 +7,11 @@
 #include "NewItemForms/VideogameForm.h"
 #include <QFrame>
 SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* queryProxy, QStackedWidget* stackedWidget, QWidget* parent):QWidget(parent), categoryProxy(categoryProxy), queryProxy(queryProxy), stackedWidget(stackedWidget){
+	QHBoxLayout* verticalLayout=new QHBoxLayout(this);
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
 	layout->setContentsMargins(0, 0, 0, 0);
+	verticalLayout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 	searchbar = new QLineEdit(this);
 	searchbar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -65,6 +67,11 @@ SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* que
 	all->setChecked(true);
 	layout->addSpacing(5);
 	layout->addWidget(newButton);
+	verticalLayout->addLayout(layout);
+	QFrame* verticalLine = new QFrame();
+    verticalLine->setFrameShape(QFrame::VLine);
+    verticalLine->setFrameShadow(QFrame::Sunken);
+	verticalLayout->addWidget(verticalLine);
 	connect(all, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterEnabled(false); stackedWidget->setCurrentIndex(0); });
 	connect(album, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Album"); stackedWidget->setCurrentIndex(0); });
 	connect(book, &QPushButton::clicked, this, [categoryProxy, stackedWidget]() {categoryProxy->setFilterCategory("Book"); stackedWidget->setCurrentIndex(0); });

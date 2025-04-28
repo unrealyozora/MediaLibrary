@@ -18,9 +18,9 @@
         "country": "USA",
         "description": "The origin story of one of the most beloved superheroes.",
         "genre": "Superhero",
-        "image": "",
+        "image": "assets/inception.jpg",
         "tipo": "Comic",
-        "title": "Spider-Man",
+        "title": "Fumetto",
         "year": 1962
     },
     {

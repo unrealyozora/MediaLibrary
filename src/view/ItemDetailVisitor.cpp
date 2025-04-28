@@ -67,7 +67,6 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     QIcon editTitleIcon(":/icons/edit");
     editTitleButton = new QPushButton(editTitleIcon, "Change title");
-    editTitleButton->setFixedSize(50, 50);
     editTitleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     editTitleButton->setFlat(true);
 
@@ -147,6 +146,8 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
     QPushButton* saveButton = new QPushButton("Save");
+    saveButton->setStyleSheet("QPushButton:disabled{background-color:rgb(230,230,230);
+        color:red;}");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
     QObject::connect(saveButton, &QPushButton::clicked, [this, &item]() {
@@ -390,7 +391,7 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const
         item->undo();
         item->setReadOnly(true);
         item->setStyleSheet(
-            "QLineEdit[readOnly=\"true\"] { border: none; }"
+            "QLineEdit[readOnly=\"true\"] { border: 1px solid #FFFFFF; }"
         );
         item->update();
     }
@@ -423,7 +424,7 @@ void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) cons
     for (auto item : *editList) {
         item->setReadOnly(false);
         item->setStyleSheet(
-            "QLineEdit[readOnly=\"false\"] { color: #000000; background-color: #FFFFFF; border: none; }"
+            "QLineEdit[readOnly=\"false\"] { color: #000000; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 white,stop: 1 #D4D4D4); border: 1px solid rgb(124, 124, 124);}"
         );
         item->setText(item->text());
     }

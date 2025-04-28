@@ -13,11 +13,12 @@ void ItemDetailsWidget::showDetails(AbstractItem* item){
         while (QWidget* w = findChild<QWidget*>()) {
             delete w;
         }
-		qDebug("showDetails entrato");//debug only
+		
 		if (visitor!=nullptr){
 			qDebug()<<"visitor delete";
 			delete visitor;
 		}
+		qDebug("showDetails entrato");//debug only
 		visitor = new ItemDetailVisitor(this);
 		item->accept(*visitor);
 	}
