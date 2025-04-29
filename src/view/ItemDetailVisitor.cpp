@@ -14,7 +14,7 @@
 #include <QComboBox>
 #include <QFileDialog>
 #include <QDir>
-
+#include "StyledButton.h"
 #include <QDebug>
 void ItemDetailVisitor::initialSetup(AbstractItem& item){
     qDebug()<<"initial setup inizio" << pixmap;
@@ -146,7 +146,7 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
     QPushButton* saveButton = new QPushButton("Save");
-    saveButton->setStyleSheet("QPushButton:disabled { color: #000000; background-color:red}");
+    saveButton->setStyleSheet("QPushButton:disabled { color:rgb(85, 85, 85); background-color: rgb(180, 180, 180)}");
     saveButton->setFixedSize(150, 40);
     saveButton->setEnabled(false);
     QObject::connect(saveButton, &QPushButton::clicked, [this, &item]() {
@@ -160,7 +160,8 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
         }
         //aggiungere delete?
         });
-        QPushButton* modifyButton = new QPushButton("Modify");
+        QPushButton* modifyButton = new StyledButton();
+        modifyButton->setText("Modify");
         modifyButton->setFixedSize(150, 40);
         QObject::connect(modifyButton, &QPushButton::clicked, [this,saveButton]() {
             setLineEditWrite(editList);

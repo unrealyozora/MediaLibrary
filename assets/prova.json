@@ -74,7 +74,7 @@
         "description": "CViaodf",
         "developer": "ag",
         "genre": "adfag",
-        "image": "",
+        "image": "assets/kaisa.jpg",
         "multiplayer": true,
         "tipo": "Videogame",
         "title": "Gta V",
@@ -138,7 +138,7 @@
         "production_comp": "",
         "screenwriter": "",
         "tipo": "Movie",
-        "title": "",
+        "title": "Titolo",
         "year": 0
     },
     {
