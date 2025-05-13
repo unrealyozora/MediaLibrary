@@ -1,6 +1,7 @@
 #include "ComicForm.h"
 #include "../../library/ItemController.h"
 #include <QDialogButtonBox>
+#include <QPushButton>
 ComicForm::ComicForm(QWidget* parent):NewItemForm(parent){
 	length = new QLineEdit();
 	QFormLayout* formLayout = new QFormLayout(this);
@@ -18,6 +19,7 @@ ComicForm::ComicForm(QWidget* parent):NewItemForm(parent){
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Chapters: ", length);
 	formLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
 void ComicForm::onAccepted(){

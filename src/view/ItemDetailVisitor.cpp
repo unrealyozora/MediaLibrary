@@ -145,9 +145,7 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     // *** WIDGET CONTENITORE PULSANTE ***
     QWidget* buttonWidget = new QWidget();
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
-    QPushButton* saveButton = new QPushButton("Save");
-    saveButton->setStyleSheet("QPushButton:disabled { color:rgb(85, 85, 85); background-color: rgb(180, 180, 180)}");
-    saveButton->setFixedSize(150, 40);
+    QPushButton* saveButton = new StyledButton("Save");
     saveButton->setEnabled(false);
     QObject::connect(saveButton, &QPushButton::clicked, [this, &item]() {
         saveChanges(item, *titleLabel, editList);
@@ -160,9 +158,7 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
         }
         //aggiungere delete?
         });
-        QPushButton* modifyButton = new StyledButton();
-        modifyButton->setText("Modify");
-        modifyButton->setFixedSize(150, 40);
+        QPushButton* modifyButton = new StyledButton("Modify");
         QObject::connect(modifyButton, &QPushButton::clicked, [this,saveButton]() {
             setLineEditWrite(editList);
             saveButton->setEnabled(true);
@@ -170,12 +166,10 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
                 multiplayerEdit->setEnabled(true);
             }
             });
-        QPushButton* backButton = new QPushButton("Back");
-        backButton->setFixedSize(150, 40);
+        QPushButton* backButton = new StyledButton("Back");
         QObject::connect(backButton, &QPushButton::clicked, widget, &ItemDetailsWidget::backToHome);
     
-        QPushButton* cancelButton = new QPushButton("Cancel");
-        cancelButton->setFixedSize(150, 40);
+        QPushButton* cancelButton = new StyledButton("Cancel");
         QObject::connect(cancelButton, &QPushButton::clicked, [this,saveButton]() {
             for (QLineEdit* edit : *editList) {
                 if (qobject_cast<LengthEdit*>(edit)) {
@@ -185,8 +179,7 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
             setLineEditFlat(editList);  // Rimetti i campi in sola lettura
             saveButton->setEnabled(false);
             });
-        QPushButton* deleteButton = new QPushButton("Delete");
-        deleteButton->setFixedSize(150, 40);
+        QPushButton* deleteButton = new StyledButton("Delete");
         QObject::connect(deleteButton, &QPushButton::clicked, [this]() {
             deleteItem(titleLabel->text(), yearEdit->text().toUInt());
             }); 
@@ -431,12 +424,16 @@ void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) cons
 }
 
 void ItemDetailVisitor::setNewImage(AbstractItem& item){
+    QString oldImage=item.getImage().c_str();
     qDebug()<<"set pixmap inizio" << pixmap;
     QString path = QFileDialog::getOpenFileName(nullptr, "Select an image", "", "Image file (*.jpg *.png *.jpeg *bmp)");
     qDebug()<<path;
     QDir currentDir = QDir::current();
     QString relativePath=currentDir.relativeFilePath(path);
     qDebug()<<relativePath;
+    if (relativePath.isEmpty()){
+        return;
+    }
     item.setImage(relativePath.toStdString());
     Library::getInstance()->updateItem(item);
     pixmap.load(relativePath);

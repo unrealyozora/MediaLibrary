@@ -2,6 +2,7 @@
 #include "../../library/ItemController.h"
 #include <QDialogButtonBox>
 #include <QDebug>
+#include <QPushButton>
 AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
 	formLayout->addRow("Author: ", author);
 	formLayout->addRow("Length: ", length);
@@ -12,6 +13,9 @@ AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	auto validate = [this](){validateInputs();};
+	connect(albumsongs, &QLineEdit::textChanged, this, validate);
 }
 
 void AlbumForm::onAccepted(){
@@ -28,4 +32,15 @@ void AlbumForm::onAccepted(){
 
 	qDebug()<<albumsongs->text();
 	ItemController::passAlbum(_title, _year, _description, _genre, _country, _image, _author, _songs, _length);
+}
+
+bool AlbumForm::validateInputs(){
+	qDebug()<<"album validating";
+	bool primaryFields=NewItemForm::validateInputs();
+	bool validFields=!albumsongs->text().isEmpty();
+	if (primaryFields && validFields){
+		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+		return true;
+	}
+	return false;
 }

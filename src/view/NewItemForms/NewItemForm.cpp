@@ -1,6 +1,7 @@
 #include "NewItemForm.h"
 #include <QPushButton>
 #include <QFileDialog>
+#include <QDebug>
 NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
     setWindowTitle("Add new item");
 	title = new QLineEdit();
@@ -17,6 +18,8 @@ NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
 	//imageWidget->setLayout(imageLayout);
 	author = new QLineEdit();
 	length = new QLineEdit();
+	buttonBox = new QDialogButtonBox(
+		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(imageButton, &QPushButton::clicked, this, [this]() {
 		QString path = QFileDialog::getOpenFileName(this, "Select a file", "", "Library File (*.jpg *.png)");
 		image->setText(path);
@@ -27,4 +30,25 @@ NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
 	formLayout->addRow("Genre: ", genre);
 	formLayout->addRow("Country: ", country);
 	formLayout->addRow("Image:", imageLayout);
+
+	auto validate = [this](){validateInputs();};
+	connect(title, &QLineEdit::textChanged, this, validate);
+	connect(year, &QLineEdit::textChanged, this, validate);
+	connect(description, &QLineEdit::textChanged, this, validate);
+	connect(genre, &QLineEdit::textChanged, this, validate);
+	connect(country, &QLineEdit::textChanged, this, validate);
+	connect(image, &QLineEdit::textChanged, this, validate);
+	connect(author, &QLineEdit::textChanged, this, validate);
+	connect(length, &QLineEdit::textChanged, this, validate);
+}
+
+bool NewItemForm::validateInputs(){
+	bool validFields=!title->text().isEmpty() &&
+	!year->text().isEmpty() &&
+	!description->text().isEmpty() &&
+	!genre->text().isEmpty() &&
+	!country->text().isEmpty() &&
+	!author->text().isEmpty() && 
+	!length->text().isEmpty();
+	return validFields;
 }

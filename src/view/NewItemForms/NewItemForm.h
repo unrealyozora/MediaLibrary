@@ -5,6 +5,7 @@
 #include <QTabWidget>
 #include <QHBoxLayout>
 #include <QFormLayout>
+#include <QDialogButtonBox>
 class NewItemForm : public QDialog {
 Q_OBJECT
 protected:
@@ -18,8 +19,10 @@ protected:
 	QLineEdit* length = nullptr;
 	QHBoxLayout* imageLayout = nullptr;
 	QFormLayout* formLayout = new QFormLayout(this);
+	QDialogButtonBox* buttonBox=nullptr;
 public:
 	explicit NewItemForm(QWidget* parent = nullptr);
 	virtual void onAccepted() = 0;
+	virtual bool validateInputs();
 };
 #endif // VIEW_NEWITEM_FORM_H

@@ -1,6 +1,7 @@
 #include "BookForm.h"
 #include "../../library/ItemController.h"
 #include <QDialogButtonBox>
+#include <QPushButton>
 BookForm::BookForm(QWidget* parent):NewItemForm(parent){
 	formLayout->addRow("Author: ", author);
 	length = new QLineEdit(this);
@@ -12,6 +13,7 @@ BookForm::BookForm(QWidget* parent):NewItemForm(parent){
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Publishing House: ", bookPublHouse);
 	formLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
 void BookForm::onAccepted(){

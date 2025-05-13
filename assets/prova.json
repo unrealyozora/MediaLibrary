@@ -20,7 +20,7 @@
         "genre": "Superhero",
         "image": "assets/inception.jpg",
         "tipo": "Comic",
-        "title": "Fumetto",
+        "title": "Titolo",
         "year": 1962
     },
     {
@@ -114,18 +114,6 @@
         "songs": 0,
         "tipo": "Album",
         "title": "asdf",
-        "year": 0
-    },
-    {
-        "author": "",
-        "country": "",
-        "description": "",
-        "genre": "",
-        "image": "",
-        "length": 0,
-        "songs": 0,
-        "tipo": "Album",
-        "title": "",
         "year": 0
     },
     {

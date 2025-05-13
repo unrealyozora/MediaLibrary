@@ -2,6 +2,7 @@
 #include "../../library/ItemController.h"
 #include <QDialogButtonBox>
 #include <QDebug>
+#include <QPushButton>
 MovieForm::MovieForm(QWidget* parent):NewItemForm(parent){
 	formLayout->addRow("Director: ", author);
 	length = new QLineEdit(this);
@@ -15,6 +16,7 @@ MovieForm::MovieForm(QWidget* parent):NewItemForm(parent){
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Production Company: ", movieProdComp);
 	formLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
 void MovieForm::onAccepted(){
