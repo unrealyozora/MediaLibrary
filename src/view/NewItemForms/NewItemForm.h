@@ -24,5 +24,6 @@ public:
 	explicit NewItemForm(QWidget* parent = nullptr);
 	virtual void onAccepted() = 0;
 	virtual bool validateInputs();
+	virtual void enableButton();
 };
 #endif // VIEW_NEWITEM_FORM_H

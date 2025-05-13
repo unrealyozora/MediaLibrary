@@ -7,5 +7,7 @@ class ComicForm :public NewItemForm {
 public:
 	explicit ComicForm(QWidget* parent = nullptr);
 	void onAccepted() override;
+	virtual bool validateInputs() override;
+	virtual void enableButton() override;
 };
 #endif

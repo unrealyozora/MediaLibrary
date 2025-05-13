@@ -31,7 +31,7 @@ NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
 	formLayout->addRow("Country: ", country);
 	formLayout->addRow("Image:", imageLayout);
 
-	auto validate = [this](){validateInputs();};
+	auto validate = [this](){enableButton();};
 	connect(title, &QLineEdit::textChanged, this, validate);
 	connect(year, &QLineEdit::textChanged, this, validate);
 	connect(description, &QLineEdit::textChanged, this, validate);
@@ -48,7 +48,12 @@ bool NewItemForm::validateInputs(){
 	!description->text().isEmpty() &&
 	!genre->text().isEmpty() &&
 	!country->text().isEmpty() &&
-	!author->text().isEmpty() && 
-	!length->text().isEmpty();
+	!author->text().isEmpty();
+	qDebug()<<validFields;
 	return validFields;
+}
+
+void NewItemForm::enableButton(){
+	qDebug()<<"1button enabled";
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }

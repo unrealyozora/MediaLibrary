@@ -27,3 +27,15 @@ void VideogameForm::onAccepted(){
 	bool _multiplayer = (multiplayer->currentText() == "Yes");
 	ItemController::passVideogame(_title, _year, _description, _genre, _country, _image, _developer, _multiplayer);
 }
+
+bool VideogameForm::validateInputs(){
+	bool primaryFields=NewItemForm::validateInputs();
+	bool validFields=true; //da cambiare
+	return primaryFields&&validFields;
+}
+
+void VideogameForm::enableButton(){
+	if (validateInputs()){
+		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+	}
+}

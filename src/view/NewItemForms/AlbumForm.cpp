@@ -8,13 +8,13 @@ AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
 	formLayout->addRow("Length: ", length);
 	albumsongs = new QLineEdit(this);
 	formLayout->addRow("Songs: ", albumsongs);
-	QDialogButtonBox* buttonBox = new QDialogButtonBox(
+	buttonBox = new QDialogButtonBox(
 		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addWidget(buttonBox);
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-	auto validate = [this](){validateInputs();};
+	auto validate = [this](){enableButton();};
 	connect(albumsongs, &QLineEdit::textChanged, this, validate);
 }
 
@@ -35,12 +35,14 @@ void AlbumForm::onAccepted(){
 }
 
 bool AlbumForm::validateInputs(){
-	qDebug()<<"album validating";
 	bool primaryFields=NewItemForm::validateInputs();
-	bool validFields=!albumsongs->text().isEmpty();
-	if (primaryFields && validFields){
+	bool validFields=!albumsongs->text().isEmpty()&&!length->text().isEmpty();
+	return primaryFields&&validFields;
+}
+
+void AlbumForm::enableButton(){
+	if (validateInputs()){
+		qDebug()<<"ok button enabled";
 		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-		return true;
 	}
-	return false;
 }

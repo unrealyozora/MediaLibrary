@@ -3,7 +3,6 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 ComicForm::ComicForm(QWidget* parent):NewItemForm(parent){
-	length = new QLineEdit();
 	QFormLayout* formLayout = new QFormLayout(this);
 	formLayout->addRow("Title: ", title);
 	formLayout->addRow("Year: ", year);
@@ -33,5 +32,17 @@ void ComicForm::onAccepted(){
 	std::string _author = author->text().toStdString();
 	unsigned int _chapters = length->text().toUInt(); // "length" qui rappresenta i capitoli (da cambiare forse)!
 	ItemController::passComic(_title, _year, _description, _genre, _country, _image, _author, _chapters);
+}
+
+bool ComicForm::validateInputs(){
+	bool primaryFields=NewItemForm::validateInputs();
+	bool validFields=!length->text().isEmpty();
+	return primaryFields&&validFields;
+}
+
+void ComicForm::enableButton(){
+	if (validateInputs()){
+		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+	}
 }
 

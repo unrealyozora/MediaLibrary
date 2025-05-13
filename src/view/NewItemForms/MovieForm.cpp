@@ -45,4 +45,16 @@ void MovieForm::onAccepted(){
 	ItemController::passMovie(_title, _year, _description, _genre, _country, _image, _director, _screenwriter, _length, _productionCompany);
 }
 
+bool MovieForm::validateInputs(){
+	bool primaryFields=NewItemForm::validateInputs();
+	bool validFields=!movieProdComp->text().isEmpty()&&!movieScreenWriter->text().isEmpty()&&!length->text().isEmpty();
+	return primaryFields&&validFields;
+}
+
+void MovieForm::enableButton(){
+	if (validateInputs()){
+		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+	}
+}
+
 

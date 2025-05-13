@@ -10,5 +10,6 @@ public:
 	explicit AlbumForm(QWidget* parent = nullptr);
 	void onAccepted() override;
 	virtual bool validateInputs() override;
+	virtual void enableButton() override;
 };
 #endif
