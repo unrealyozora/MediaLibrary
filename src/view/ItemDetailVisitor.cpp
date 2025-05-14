@@ -128,8 +128,8 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     // *** SCROLL AREA ***
     QScrollArea* scrollArea = new QScrollArea();
     QPalette p;
-    p.setColor(QPalette::Window, QColor(255, 255, 255));
-    p.setColor(QPalette::Base, QColor(255, 255, 255));
+    p.setColor(QPalette::Window, QColor(240, 240, 240));
+    p.setColor(QPalette::Base, QColor(240, 240, 240));
     scrollArea->setPalette(p);
     QWidget* scrollContent = new QWidget();
     QVBoxLayout* scrollLayout = new QVBoxLayout(scrollContent);
@@ -147,8 +147,13 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
     QPushButton* saveButton = new StyledButton("Save");
     saveButton->setEnabled(false);
-    QObject::connect(saveButton, &QPushButton::clicked, [this, &item]() {
+    QObject::connect(saveButton, &QPushButton::clicked, [this, &item, saveButton]() {
         saveChanges(item, *titleLabel, editList);
+        if (multiplayerEdit){
+            multiplayerEdit->setEnabled(false);
+        }
+        setLineEditFlat(editList);  // Rimetti i campi in sola lettura
+        saveButton->setEnabled(false);
         });
     QObject::connect(editTitleButton, &QPushButton::clicked, [this, saveButton, &item]() {
         NewTitleDialog* newTitleDialog = new NewTitleDialog(titleLabel);
@@ -175,6 +180,9 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
                 if (qobject_cast<LengthEdit*>(edit)) {
                     qobject_cast<LengthEdit*>(edit)->undo();  // Ripristina il valore originale con "Minuti"
                 }
+            }
+            if (multiplayerEdit){
+                multiplayerEdit->setEnabled(false);
             }
             setLineEditFlat(editList);  // Rimetti i campi in sola lettura
             saveButton->setEnabled(false);
@@ -226,7 +234,7 @@ void ItemDetailVisitor::visit(Album& album) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* lengthLabel = new QLabel("Length:");
-    QLineEdit* lengthEdit = new LengthEdit(nullptr, album.getLength()); //nullptr va cambiato
+    QLineEdit* lengthEdit = new LengthEdit("Minuti", nullptr, album.getLength()); //nullptr va cambiato
 
     lengthEdit->setReadOnly(true);
     infoLayout->addWidget(lengthLabel);
@@ -321,7 +329,7 @@ void ItemDetailVisitor::visit(Movie& movie) {
     infoLayout->addSpacing(spacing); // Spazio tra coppie di label e line edit
 
     QLabel* lengthLabel = new QLabel("Length:");
-    QLineEdit* lengthEdit = new LengthEdit(widget,movie.getLength());
+    QLineEdit* lengthEdit = new LengthEdit("Minuti",widget,movie.getLength());
     
     lengthEdit->setReadOnly(true);
     infoLayout->addWidget(lengthLabel);
@@ -384,7 +392,7 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const
         item->undo();
         item->setReadOnly(true);
         item->setStyleSheet(
-            "QLineEdit[readOnly=\"true\"] { border: 1px solid #FFFFFF; }"
+            "QLineEdit[readOnly=\"true\"] { border: 1px solid rgb(240,240,240); }"
         );
         item->update();
     }

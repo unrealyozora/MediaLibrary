@@ -16,9 +16,8 @@ protected:
 	QLineEdit* country = nullptr;
 	QLineEdit* image = nullptr;
 	QLineEdit* author = nullptr;
-	QLineEdit* length = nullptr;
 	QHBoxLayout* imageLayout = nullptr;
-	QFormLayout* formLayout = new QFormLayout(this);
+	QFormLayout* formLayout = nullptr;
 	QDialogButtonBox* buttonBox=nullptr;
 public:
 	explicit NewItemForm(QWidget* parent = nullptr);

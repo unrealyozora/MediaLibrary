@@ -4,6 +4,7 @@
 class BookForm : public NewItemForm {
 	Q_OBJECT
 private:
+	QLineEdit* length = nullptr;
 	QLineEdit* bookPublHouse = nullptr;
 public:
 	explicit BookForm(QWidget* parent = nullptr);

@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     StyleSetup::SetStyle(app); //applica un tema chiaro unico, indipendente dalla piattaforma sulla quale viene eseguito il programma
     qRegisterMetaType<AbstractItem*>("AbstractItem*");
     //creazione MainWindow
-    QString path="assets/prova.json";
+    QString path="assets/final.json";
     
     LibraryMainWindow* window = new LibraryMainWindow();
 

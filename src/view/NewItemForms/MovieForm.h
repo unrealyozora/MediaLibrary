@@ -4,6 +4,7 @@
 class MovieForm :public NewItemForm {
 	Q_OBJECT
 private:
+	QLineEdit* length = nullptr;
 	QLineEdit* movieScreenWriter;
 	QLineEdit* movieProdComp;
 public:

@@ -1,24 +1,21 @@
 #include "ComicForm.h"
 #include "../../library/ItemController.h"
+#include "../LengthEdit.h"
 #include <QDialogButtonBox>
 #include <QPushButton>
 ComicForm::ComicForm(QWidget* parent):NewItemForm(parent){
-	QFormLayout* formLayout = new QFormLayout(this);
-	formLayout->addRow("Title: ", title);
-	formLayout->addRow("Year: ", year);
-	formLayout->addRow("Description: ", description);
-	formLayout->addRow("Genre: ", genre);
-	formLayout->addRow("Country: ", country);
-	formLayout->addRow("Image:", imageLayout);
+	setWindowTitle("Add new Comic");
 	formLayout->addRow("Author: ", author);
-	length = new QLineEdit(this);
-	QDialogButtonBox* buttonBox = new QDialogButtonBox(
+	length = new LengthEdit("Chapters",this,1);
+	buttonBox = new QDialogButtonBox(
 		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Chapters: ", length);
 	formLayout->addWidget(buttonBox);
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	auto validate = [this](){enableButton();};
+	connect(length, &QLineEdit::textChanged, this, validate);
 }
 
 void ComicForm::onAccepted(){

@@ -4,10 +4,13 @@
 #include <QPushButton>
 #include <QPushButton>
 VideogameForm::VideogameForm(QWidget* parent):NewItemForm(parent){
+	setWindowTitle("Add new Videogame");
 	formLayout->addRow("Developer: ", author);
 	multiplayer = new QComboBox(this);
 	multiplayer->addItem("Yes");
 	multiplayer->addItem("No");
+	buttonBox = new QDialogButtonBox(
+		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Multiplayer: ", multiplayer);

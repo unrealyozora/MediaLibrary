@@ -4,6 +4,8 @@
 
 class ComicForm :public NewItemForm {
 	Q_OBJECT
+private:
+	QLineEdit* length = nullptr;
 public:
 	explicit ComicForm(QWidget* parent = nullptr);
 	void onAccepted() override;

@@ -1,9 +1,12 @@
 #include "AlbumForm.h"
 #include "../../library/ItemController.h"
+#include "../LengthEdit.h"
 #include <QDialogButtonBox>
 #include <QDebug>
 #include <QPushButton>
 AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
+	setWindowTitle("Add new Album");
+	length= new LengthEdit("Minuti",this, 1);
 	formLayout->addRow("Author: ", author);
 	formLayout->addRow("Length: ", length);
 	albumsongs = new QLineEdit(this);
@@ -16,6 +19,7 @@ AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 	auto validate = [this](){enableButton();};
 	connect(albumsongs, &QLineEdit::textChanged, this, validate);
+	connect(length, &QLineEdit::textChanged, this, validate);
 }
 
 void AlbumForm::onAccepted(){

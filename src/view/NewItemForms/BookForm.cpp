@@ -1,19 +1,25 @@
 #include "BookForm.h"
 #include "../../library/ItemController.h"
+#include "../LengthEdit.h"
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QDebug>
 BookForm::BookForm(QWidget* parent):NewItemForm(parent){
+	setWindowTitle("Add new Book");
 	formLayout->addRow("Author: ", author);
-	length = new QLineEdit(this);
+	length = new LengthEdit("Pages",this,1);
 	formLayout->addRow("Pages: ", length);
 	bookPublHouse = new QLineEdit(this);
-	QDialogButtonBox* buttonBox = new QDialogButtonBox(
+	buttonBox = new QDialogButtonBox(
 		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Publishing House: ", bookPublHouse);
 	formLayout->addWidget(buttonBox);
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	auto validate = [this](){enableButton();};
+	connect(bookPublHouse, &QLineEdit::textChanged, this, validate);
+	connect(length, &QLineEdit::textChanged, this, validate);
 }
 
 void BookForm::onAccepted(){

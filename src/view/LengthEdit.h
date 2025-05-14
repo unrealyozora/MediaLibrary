@@ -10,12 +10,13 @@ private slots:
 public slots:
 	void undo();
 private:
-	int savedMinutes;
-	int lastValidMinutes;
+	int savedValue;
+	int lastValidValue;
+	QString _text;
 public:
-	LengthEdit(QWidget* parent = nullptr, unsigned int initialminutes=0);
-	void setMinutes(unsigned int minutes);
-	int minutes() const;
+	LengthEdit(const QString& text, QWidget* parent = nullptr, unsigned int initialminutes=0);
+	void setValue(unsigned int minutes);
+	unsigned int value() const;
 protected:
 	void focusInEvent(QFocusEvent* event) override;
 	void focusOutEvent(QFocusEvent* event) override;

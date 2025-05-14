@@ -1,22 +1,28 @@
 #include "MovieForm.h"
 #include "../../library/ItemController.h"
+#include "../LengthEdit.h"
 #include <QDialogButtonBox>
 #include <QDebug>
 #include <QPushButton>
 MovieForm::MovieForm(QWidget* parent):NewItemForm(parent){
+	setWindowTitle("Add new Movie");
 	formLayout->addRow("Director: ", author);
-	length = new QLineEdit(this);
+	length = new LengthEdit("Minuti",this,1);
 	formLayout->addRow("Length: ", length);
 	movieScreenWriter = new QLineEdit(this);
 	formLayout->addRow("Screenwriter: ", movieScreenWriter);
 	movieProdComp = new QLineEdit(this);
-	QDialogButtonBox* buttonBox = new QDialogButtonBox(
+	buttonBox = new QDialogButtonBox(
 		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewItemForm::onAccepted);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	formLayout->addRow("Production Company: ", movieProdComp);
 	formLayout->addWidget(buttonBox);
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	auto validate = [this](){enableButton();};
+	connect(length, &QLineEdit::textChanged, this, validate);
+	connect(movieScreenWriter, &QLineEdit::textChanged, this, validate);
+	connect(movieProdComp, &QLineEdit::textChanged, this, validate);
 }
 
 void MovieForm::onAccepted(){

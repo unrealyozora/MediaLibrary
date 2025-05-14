@@ -5,6 +5,7 @@
 class AlbumForm : public NewItemForm {
 	Q_OBJECT
 private:
+	QLineEdit* length = nullptr;
 	QLineEdit* albumsongs = nullptr;
 public:
 	explicit AlbumForm(QWidget* parent = nullptr);

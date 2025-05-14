@@ -41,7 +41,6 @@ LibraryMainWindow::LibraryMainWindow(){
 	queryFilter->setSourceModel(categoryFilter);
 	queryFilter->setFilterCaseSensitivity(Qt::CaseInsensitive);
 	
-	
     listview->setModel(queryFilter);
 	listview->setViewMode(QListView::IconMode);  // Mostra solo icone
 	listview->setIconSize(QSize(20, 20));      // Dimensioni delle immagini
@@ -67,7 +66,7 @@ LibraryMainWindow::LibraryMainWindow(){
 		model->setItems(media);
 		});
 	connect(Library::getInstance(), &Library::updateList, model, &LibraryListModel::setItems); // Aggiornamento modello
-	connect(listview, &QListView::doubleClicked, this, &LibraryMainWindow::itemSelected);
+	connect(listview, &QListView::clicked, this, &LibraryMainWindow::itemSelected);
 	connect(detailWidget, &ItemDetailsWidget::backToHome, this, &LibraryMainWindow::backHome);
 }
 

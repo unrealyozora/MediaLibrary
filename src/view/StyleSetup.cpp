@@ -8,7 +8,7 @@ namespace StyleSetup {
         QPalette lightPalette;
         lightPalette.setColor(QPalette::Window, QColor(212, 212, 212));
         lightPalette.setColor(QPalette::WindowText, Qt::black);
-        lightPalette.setColor(QPalette::Base, QColor(255, 255, 255));
+        lightPalette.setColor(QPalette::Base, QColor(240, 240, 240));
         lightPalette.setColor(QPalette::AlternateBase, QColor(230, 230, 230));
         lightPalette.setColor(QPalette::ToolTipBase, Qt::white);
         lightPalette.setColor(QPalette::ToolTipText, Qt::black);
