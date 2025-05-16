@@ -128,7 +128,7 @@ void Library::fromXml(const QString& path) {
 	while (!xmlReader.atEnd() && !xmlReader.hasError()) {
 		QXmlStreamReader::TokenType token = xmlReader.readNext();
 
-		if (token == QXmlStreamReader::StartElement && xmlReader.name() == "item") {
+		if (token == QXmlStreamReader::StartElement && xmlReader.name() == QStringLiteral("item")) {
 			QXmlStreamAttributes attributes = xmlReader.attributes();
 			if (attributes.hasAttribute("tipo")) {
 				QString category = attributes.value("tipo").toString();
