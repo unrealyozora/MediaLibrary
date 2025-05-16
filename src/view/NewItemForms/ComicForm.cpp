@@ -31,7 +31,7 @@ void ComicForm::onAccepted(){
 	ItemController::passComic(_title, _year, _description, _genre, _country, _image, _author, _chapters);
 }
 
-bool ComicForm::validateInputs(){
+bool ComicForm::validateInputs() const{
 	bool primaryFields=NewItemForm::validateInputs();
 	bool validFields=!length->text().isEmpty();
 	return primaryFields&&validFields;

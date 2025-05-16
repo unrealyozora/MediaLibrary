@@ -36,7 +36,7 @@ void BookForm::onAccepted(){
 	ItemController::passBook(_title, _year, _description, _genre, _country, _image, _author, _pages, _publHouse);
 }
 
-bool BookForm::validateInputs(){
+bool BookForm::validateInputs() const{
 	bool primaryFields=NewItemForm::validateInputs();
 	bool validFields=!bookPublHouse->text().isEmpty()&&!length->text().isEmpty();
 	return primaryFields&&validFields;

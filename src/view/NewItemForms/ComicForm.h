@@ -9,7 +9,7 @@ private:
 public:
 	explicit ComicForm(QWidget* parent = nullptr);
 	void onAccepted() override;
-	virtual bool validateInputs() override;
+	virtual bool validateInputs() const override;
 	virtual void enableButton() override;
 };
 #endif

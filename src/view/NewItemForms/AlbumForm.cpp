@@ -38,7 +38,7 @@ void AlbumForm::onAccepted(){
 	ItemController::passAlbum(_title, _year, _description, _genre, _country, _image, _author, _songs, _length);
 }
 
-bool AlbumForm::validateInputs(){
+bool AlbumForm::validateInputs() const{
 	bool primaryFields=NewItemForm::validateInputs();
 	bool validFields=!albumsongs->text().isEmpty()&&!length->text().isEmpty();
 	return primaryFields&&validFields;

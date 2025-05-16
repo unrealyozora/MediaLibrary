@@ -31,7 +31,7 @@ void VideogameForm::onAccepted(){
 	ItemController::passVideogame(_title, _year, _description, _genre, _country, _image, _developer, _multiplayer);
 }
 
-bool VideogameForm::validateInputs(){
+bool VideogameForm::validateInputs() const{
 	bool primaryFields=NewItemForm::validateInputs();
 	bool validFields=true; //da cambiare
 	return primaryFields&&validFields;

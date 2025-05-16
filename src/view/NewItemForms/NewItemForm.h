@@ -22,7 +22,8 @@ protected:
 public:
 	explicit NewItemForm(QWidget* parent = nullptr);
 	virtual void onAccepted() = 0;
-	virtual bool validateInputs();
+	virtual bool validateInputs() const;
 	virtual void enableButton();
+	void setYearValidator(QLineEdit* yearEdit);
 };
 #endif // VIEW_NEWITEM_FORM_H

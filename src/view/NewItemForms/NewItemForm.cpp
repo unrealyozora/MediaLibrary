@@ -2,11 +2,13 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QDebug>
+#include <QIntValidator>
 NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
 	formLayout = new QFormLayout(this);
     setWindowTitle("Add new item");
 	title = new QLineEdit();
 	year = new QLineEdit();
+	setYearValidator(year);
 	description = new QLineEdit();
 	genre = new QLineEdit();
 	country = new QLineEdit();
@@ -38,7 +40,7 @@ NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
 	connect(author, &QLineEdit::textChanged, this, validate);
 }
 
-bool NewItemForm::validateInputs(){
+bool NewItemForm::validateInputs() const{
 	bool validFields=!title->text().isEmpty() &&
 	!year->text().isEmpty() &&
 	!description->text().isEmpty() &&
@@ -53,3 +55,9 @@ void NewItemForm::enableButton(){
 	qDebug()<<"1button enabled";
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
+
+void NewItemForm::setYearValidator(QLineEdit* yearEdit){
+	yearEdit->setValidator(new QIntValidator(0, 2100));
+}
+
+
