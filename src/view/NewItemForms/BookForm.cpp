@@ -32,7 +32,7 @@ void BookForm::onAccepted(){
 	std::string _image = image->text().toStdString();
 	std::string _author = author->text().toStdString();
 	std::string _publHouse = bookPublHouse->text().toStdString();
-	unsigned int _pages = length->text().toUInt();
+	unsigned int _pages = dynamic_cast<LengthEdit*>(length)->value();
 	ItemController::passBook(_title, _year, _description, _genre, _country, _image, _author, _pages, _publHouse);
 }
 

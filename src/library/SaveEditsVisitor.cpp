@@ -31,6 +31,8 @@ void SaveEditsVisitor::visit(Books& book){
     book.setAuthor(editList->at(4)->text().toStdString());
     book.setPages(editList->at(5)->text().toUInt());
     book.setPub(editList->at(6)->text().toStdString());
+
+    Library::getInstance()->updateItem(book);
 }
 
 void SaveEditsVisitor::visit(Comic& comic) {

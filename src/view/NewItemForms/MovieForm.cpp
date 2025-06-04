@@ -34,7 +34,7 @@ void MovieForm::onAccepted(){
 	std::string _country = country->text().toStdString();
 	std::string _image = image->text().toStdString();
 	std::string _director = author->text().toStdString(); // "author" rappresenta il regista
-	unsigned int _length = length->text().toUInt(); // Durata del film
+	unsigned int _length = dynamic_cast<LengthEdit*>(length)->value(); // Durata del film
 	std::string _screenwriter = movieScreenWriter->text().toStdString();
 	std::string _productionCompany = movieProdComp->text().toStdString();
 

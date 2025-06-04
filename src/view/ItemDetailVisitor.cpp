@@ -180,6 +180,9 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
                 if (qobject_cast<LengthEdit*>(edit)) {
                     qobject_cast<LengthEdit*>(edit)->undo();  // Ripristina il valore originale con "Minuti"
                 }
+                else {
+                    edit->undo();
+                }
             }
             if (multiplayerEdit){
                 multiplayerEdit->setEnabled(false);
@@ -389,7 +392,6 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
 
 void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const{
     for (auto item : *editList){
-        item->undo();
         item->setReadOnly(true);
         item->setStyleSheet(
             "QLineEdit[readOnly=\"true\"] { border: 1px solid rgb(240,240,240); }"
@@ -399,6 +401,12 @@ void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const
 }
 
 void ItemDetailVisitor::saveChanges(AbstractItem& item,QLabel& title, QList<QLineEdit*>* editList, QComboBox* multiplayerEdit) const{
+    for (QLineEdit* x : *editList) {
+        if (qobject_cast<LengthEdit*>(x)) {
+            qobject_cast<LengthEdit*>(x)->setValue(x->text().split(" ")[0].toUInt()); //se la QLineEdit è una LengthEdit, andiamo a modificare manualmente il nuovo valore, in modo che funzioni
+                                                                                      //se chiamiamo undo()
+        }
+    }
     SaveEditsVisitor editsVisitor(title,editList, this->multiplayerEdit);
     item.accept(editsVisitor);
 }
@@ -448,4 +456,3 @@ void ItemDetailVisitor::setNewImage(AbstractItem& item){
     imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
     qDebug()<<"set pixmap fine" << pixmap;
 }
-

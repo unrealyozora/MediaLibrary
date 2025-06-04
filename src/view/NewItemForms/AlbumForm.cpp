@@ -32,7 +32,7 @@ void AlbumForm::onAccepted(){
 	std::string _image = image->text().toStdString();
 	std::string _author = author->text().toStdString();
 	unsigned int _songs = albumsongs->text().toUInt();
-	unsigned int _length = length->text().toUInt();
+	unsigned int _length = dynamic_cast<LengthEdit*>(length)->value();
 
 	qDebug()<<albumsongs->text();
 	ItemController::passAlbum(_title, _year, _description, _genre, _country, _image, _author, _songs, _length);
