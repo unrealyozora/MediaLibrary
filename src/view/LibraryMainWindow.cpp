@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QDebug>
+#include <QShortcut>
 LibraryMainWindow::LibraryMainWindow(){
     /*-------------------CREAZIONE MENU BAR-------------------*/
     QMenuBar* menuBar = new QMenuBar();
@@ -22,6 +23,11 @@ LibraryMainWindow::LibraryMainWindow(){
 	fileMenu->addAction(saveAction);
 	fileMenu->addAction(exitAction);
     setMenuBar(menuBar);
+
+	openAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
+	saveAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+	exitAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_E));
+
    /*------------------------CREAZIONE WIDGET-------------------*/
 	stackedWidget = new QStackedWidget(this);
     model = new LibraryListModel(this);

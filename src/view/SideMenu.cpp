@@ -53,6 +53,17 @@ SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* que
 	QAction* newComic = new QAction("Add comic", buttonMenu);
 	QAction* newMovie = new QAction("Add movie", buttonMenu);
 	QAction* newVideogame = new QAction("Add videogame", buttonMenu);
+	this->addAction(newAlbum);
+	this->addAction(newBook);
+	this->addAction(newComic);
+	this->addAction(newMovie);
+	this->addAction(newVideogame);
+	newAlbum->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
+	newBook->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_B));
+	newComic->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
+	newMovie->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_M));
+	newVideogame->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_V));
+
 	buttonMenu->addAction(newAlbum);
 	buttonMenu->addAction(newBook);
 	buttonMenu->addAction(newComic);
