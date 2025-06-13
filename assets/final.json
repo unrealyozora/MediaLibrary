@@ -13,19 +13,6 @@
         "year": 2101
     },
     {
-        "country": "South Korea",
-        "description": "Greed and class discrimination threaten the relationship between two families.",
-        "director": "Bong Joon-ho",
-        "genre": "Thriller",
-        "image": "assets/parasite.jpg",
-        "length": 132,
-        "production_comp": "CJ Entertainment",
-        "screenwriter": "Bong Joon-ho",
-        "tipo": "Movie",
-        "title": "Parasite",
-        "year": 2019
-    },
-    {
         "author": "Aldous Huxley",
         "country": "UK",
         "description": "A futuristic society driven by technology and engineered happiness.",
@@ -175,5 +162,5 @@
         "tipo": "Videogame",
         "title": "The Legend of Zelda: Breath of the Wild",
         "year": 2017
-    },
+    }
 ]
