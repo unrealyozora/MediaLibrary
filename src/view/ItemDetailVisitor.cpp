@@ -15,9 +15,7 @@
 #include <QFileDialog>
 #include <QDir>
 #include "StyledButton.h"
-#include <QDebug>
 void ItemDetailVisitor::initialSetup(AbstractItem& item){
-    qDebug()<<"initial setup inizio" << pixmap;
     if (widget->layout() != nullptr) {
         QLayoutItem* item;
         while ((item = widget->layout()->takeAt(0)) != nullptr) {
@@ -33,11 +31,9 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     // *** IMMAGINE ***
     imageLabel = new QLabel();
     if (item.getImage().empty()) {
-        qDebug()<<"no image";
         pixmap.load("assets/noImage.jpg");   
     }
     else {
-        //qDebug() << album.getImage();
         pixmap.load(QString::fromStdString(item.getImage()));
     }
     imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
@@ -50,8 +46,6 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     imageLayout->addWidget(changeImageButton, 0, Qt::AlignCenter);
     imageLayout->addStretch(1);
     QObject::connect(changeImageButton, &QPushButton::clicked, [this, &item](){
-        qDebug() << "this dentro connect:" << this;
-        qDebug()<<"connect "<< this->pixmap;
         this->setNewImage(item);
     });
     infoWidget = new QWidget();
@@ -120,11 +114,9 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     editList->append(descriptionEdit);
     editList->append(genreEdit);
     editList->append(countryEdit);
-    qDebug()<<"initial setup fine" << pixmap;
 }
 
 void ItemDetailVisitor::finalSetup(AbstractItem& item){
-    qDebug()<<"final setup inizio" << pixmap;
     // *** SCROLL AREA ***
     QScrollArea* scrollArea = new QScrollArea();
     QPalette p;
@@ -213,7 +205,6 @@ void ItemDetailVisitor::finalSetup(AbstractItem& item){
     mainLayout->addLayout(rightLayout);
 
     widget->setLayout(mainLayout);
-    qDebug()<<"final setup fine" << pixmap;
 }
 
 void ItemDetailVisitor::visit(Album& album) {
@@ -312,7 +303,6 @@ void ItemDetailVisitor::visit(Comic& comic) {
 
 void ItemDetailVisitor::visit(Movie& movie) {
     initialSetup(movie);
-    qDebug()<<"visit movie inizio" << pixmap;
     QLabel* directorLabel = new QLabel("Director:");
     QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));
     
@@ -355,13 +345,11 @@ void ItemDetailVisitor::visit(Movie& movie) {
     editList->append(lengthEdit);
     editList->append(prodCompanyEdit);
     setLineEditFlat(editList);
-    qDebug()<<"visit movie fine" << pixmap;
     finalSetup(movie);
 }
 
 
 void ItemDetailVisitor::visit(Videogames& videogame) {
-    qDebug()<<"inizio" << pixmap;
     initialSetup(videogame);
     QLabel* developerLabel = new QLabel("Developer:");
     QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));
@@ -387,7 +375,6 @@ void ItemDetailVisitor::visit(Videogames& videogame) {
     editList->append(developerEdit);
     setLineEditFlat(editList);
     finalSetup(videogame);
-    qDebug()<<"fine" << pixmap;
 }
 
 void ItemDetailVisitor::setLineEditFlat(const QList<QLineEdit*>* editList) const{
@@ -441,12 +428,9 @@ void ItemDetailVisitor::setLineEditWrite(const QList<QLineEdit*>* editList) cons
 
 void ItemDetailVisitor::setNewImage(AbstractItem& item){
     QString oldImage=item.getImage().c_str();
-    qDebug()<<"set pixmap inizio" << pixmap;
     QString path = QFileDialog::getOpenFileName(nullptr, "Select an image", "", "Image file (*.jpg *.png *.jpeg *bmp)");
-    qDebug()<<path;
     QDir currentDir = QDir::current();
     QString relativePath=currentDir.relativeFilePath(path);
-    qDebug()<<relativePath;
     if (relativePath.isEmpty()){
         return;
     }
@@ -454,5 +438,4 @@ void ItemDetailVisitor::setNewImage(AbstractItem& item){
     Library::getInstance()->updateItem(item);
     pixmap.load(relativePath);
     imageLabel->setPixmap(pixmap.scaled(400, 400, Qt::KeepAspectRatio));
-    qDebug()<<"set pixmap fine" << pixmap;
 }

@@ -2,7 +2,6 @@
 #include "../../library/ItemController.h"
 #include "../LengthEdit.h"
 #include <QDialogButtonBox>
-#include <QDebug>
 #include <QPushButton>
 AlbumForm::AlbumForm(QWidget* parent):NewItemForm(parent){
 	setWindowTitle("Add new Album");
@@ -34,7 +33,6 @@ void AlbumForm::onAccepted(){
 	unsigned int _songs = albumsongs->text().toUInt();
 	unsigned int _length = dynamic_cast<LengthEdit*>(length)->value();
 
-	qDebug()<<albumsongs->text();
 	ItemController::passAlbum(_title, _year, _description, _genre, _country, _image, _author, _songs, _length);
 }
 
@@ -46,7 +44,6 @@ bool AlbumForm::validateInputs() const{
 
 void AlbumForm::enableButton(){
 	if (validateInputs()){
-		qDebug()<<"ok button enabled";
 		buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 	}
 }

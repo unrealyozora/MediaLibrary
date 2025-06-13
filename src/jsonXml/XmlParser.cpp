@@ -5,8 +5,6 @@
 #include "../items/movie.h"
 #include "../items/Videogames.h"
 
-#include <iostream> // debug only
-
 std::shared_ptr<AbstractItem> XmlParser::parseAlbum(QXmlStreamReader& xmlReader) {
     QString title, description, genre, country, image, author;
     unsigned int year = 0, songs = 0, length = 0;

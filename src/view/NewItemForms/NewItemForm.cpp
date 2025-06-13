@@ -1,7 +1,6 @@
 #include "NewItemForm.h"
 #include <QPushButton>
 #include <QFileDialog>
-#include <QDebug>
 #include <QIntValidator>
 NewItemForm::NewItemForm(QWidget* parent):QDialog(parent){
 	formLayout = new QFormLayout(this);
@@ -47,12 +46,10 @@ bool NewItemForm::validateInputs() const{
 	!genre->text().isEmpty() &&
 	!country->text().isEmpty() &&
 	!author->text().isEmpty();
-	qDebug()<<validFields;
 	return validFields;
 }
 
 void NewItemForm::enableButton(){
-	qDebug()<<"1button enabled";
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 

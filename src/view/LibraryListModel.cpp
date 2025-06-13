@@ -6,7 +6,6 @@
 #include "../items/Videogames.h"
 #include <QScreen>
 #include <QApplication>
-#include <QDebug>
 LibraryListModel::LibraryListModel(QObject* parent):QAbstractListModel(parent) {}
 
 void LibraryListModel::setItems(const QList <std::shared_ptr<AbstractItem>>& _items) {

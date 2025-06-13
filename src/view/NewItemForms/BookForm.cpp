@@ -3,7 +3,6 @@
 #include "../LengthEdit.h"
 #include <QDialogButtonBox>
 #include <QPushButton>
-#include <QDebug>
 BookForm::BookForm(QWidget* parent):NewItemForm(parent){
 	setWindowTitle("Add new Book");
 	formLayout->addRow("Author: ", author);

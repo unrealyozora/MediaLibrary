@@ -28,7 +28,6 @@ void ComicForm::onAccepted(){
 	std::string _image = image->text().toStdString();
 	std::string _author = author->text().toStdString();
 	unsigned int _chapters = dynamic_cast<LengthEdit*>(length)->value(); // length è una LengthEdit, eredita sicuramente da QLineEdit per definizione
-	qDebug() << _chapters;
 	ItemController::passComic(_title, _year, _description, _genre, _country, _image, _author, _chapters);
 }
 

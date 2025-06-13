@@ -1,5 +1,4 @@
 #include "LengthEdit.h"
-#include <QDebug>
 LengthEdit::LengthEdit(const QString& text, QWidget* parent, unsigned int initialValue)
 	: QLineEdit(parent), savedValue(initialValue), lastValidValue(initialValue), _text(text)  {
 
@@ -19,7 +18,6 @@ void LengthEdit::setValue(unsigned int value) {
 unsigned int LengthEdit::value() const {
 	bool ok;
 	unsigned int value = text().split(" ").first().toUInt(&ok);
-	qDebug()<<value;
 	return ok ? value : savedValue;  // Se il parsing fallisce, restituisce il valore salvato
 }
 

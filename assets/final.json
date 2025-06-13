@@ -176,40 +176,4 @@
         "title": "The Legend of Zelda: Breath of the Wild",
         "year": 2017
     },
-    {
-        "author": "asdf",
-        "chapters": 19,
-        "country": "asdf",
-        "description": "asdf",
-        "genre": "asdf",
-        "image": "asdf",
-        "tipo": "Comic",
-        "title": "ciao",
-        "year": 2019
-    },
-    {
-        "author": "asdf",
-        "country": "asdf",
-        "description": "asdfasd",
-        "genre": "asdf",
-        "image": "asdf",
-        "length": 45,
-        "songs": 0,
-        "tipo": "Album",
-        "title": "asdfa",
-        "year": 2019
-    },
-    {
-        "country": "ins",
-        "description": "Ciao mondo",
-        "director": "nolan",
-        "genre": "Genere",
-        "image": "",
-        "length": 60,
-        "production_comp": "warner",
-        "screenwriter": "nolan",
-        "tipo": "Movie",
-        "title": "asdfasdf",
-        "year": 2014
-    }
 ]

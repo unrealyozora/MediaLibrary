@@ -1,5 +1,4 @@
 #include "SaveEditsVisitor.h"
-#include <QDebug>
 #include "../items/album.h"
 #include "../items/Books.h"
 #include "../items/Comic.h"
@@ -14,8 +13,6 @@ void SaveEditsVisitor::visit(Album& album){
     album.setCountry(editList->at(3)->text().toStdString());
     album.setAuthor(editList->at(4)->text().toStdString());
     album.setSongs(editList->at(5)->text().toUInt());
-    qDebug() << editList->at(6)->text();
-    qDebug() << editList->at(6)->text().toUInt();
     QStringList lengthString = editList->at(6)->text().split(" ");
     album.setLength(lengthString[0].toUInt());
 
@@ -69,7 +66,6 @@ void SaveEditsVisitor::visit(Videogames& videogame) {
     videogame.setGenre(editList->at(2)->text().toStdString());
     videogame.setCountry(editList->at(3)->text().toStdString());
     videogame.setDeveloper(editList->at(4)->text().toStdString());
-    qDebug() << multiplayerEdit->currentText();
     videogame.setMultiplayer(multiplayerEdit->currentText()=="Yes");
     Library::getInstance()->updateItem(videogame);
 }

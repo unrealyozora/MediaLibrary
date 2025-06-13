@@ -1,5 +1,4 @@
 #include "StyledButton.h"
-#include <QDebug>
 StyledButton::StyledButton(const QString &text, QWidget *parent):QPushButton(parent){
     setText(text);
     setStyleSheet("QPushButton { background-color:rgb(121, 121, 121); }"

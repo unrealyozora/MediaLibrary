@@ -9,7 +9,6 @@
 #include <QMenuBar>
 #include <QApplication>
 #include <QMessageBox>
-#include <QDebug>
 #include <QShortcut>
 LibraryMainWindow::LibraryMainWindow(){
     /*-------------------CREAZIONE MENU BAR-------------------*/
@@ -111,9 +110,6 @@ void LibraryMainWindow::OpenFile() {
 				invalidFilemsg.exec();
 			}
 			
-		}
-		else {
-			qDebug() << "Nessun file selezionato."; //debug only
 		}
 }
 
