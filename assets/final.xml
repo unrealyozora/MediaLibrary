@@ -6,7 +6,7 @@
         <description>A mind-bending thriller about dreams within dreams.</description>
         <genre>Sci-Fi</genre>
         <country>USA</country>
-        <image>assets/placeholder.jpg</image>
+        <image>assets/inception.jpg</image>
         <director>Christopher Nolan</director>
         <screenwriter>Christopher Nolan</screenwriter>
         <length>148</length>
@@ -18,7 +18,7 @@
         <description>An iconic progressive rock album by Pink Floyd.</description>
         <genre>Rock</genre>
         <country>UK</country>
-        <image>assets/placeholder.jpg</image>
+        <image>assets/the_dark_side_of_the_moon.jpg</image>
         <author>Pink Floyd</author>
         <songs>10</songs>
         <length>43</length>
@@ -29,7 +29,7 @@
         <description>An open-world RPG set in a fantasy universe.</description>
         <genre>RPG</genre>
         <country>Poland</country>
-        <image>assets/placeholder.jpg</image>
+        <image>assets/the_witcher.jpg</image>
         <developer>CD Projekt Red</developer>
         <multiplayer>false</multiplayer>
     </item>
@@ -39,7 +39,7 @@
         <description>The origin story of one of the most beloved superheroes.</description>
         <genre>Superhero</genre>
         <country>USA</country>
-        <image>assets/placeholder.jpg</image>
+        <image>assets/spiderman.jpg</image>
         <author>Stan Lee</author>
         <chapters>15</chapters>
     </item>
@@ -49,7 +49,7 @@
         <description>A dystopian novel about totalitarian surveillance.</description>
         <genre>Dystopian</genre>
         <country>UK</country>
-        <image>assets/placeholder.jpg</image>
+        <image>assets/1984.jpg</image>
         <author>George Orwell</author>
         <pages>328</pages>
         <publ>SeckerWarburg</publ>
