@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+    <item tipo="Movie">
+        <title>Inception</title>
+        <year>2010</year>
+        <description>A mind-bending thriller about dreams within dreams.</description>
+        <genre>Sci-Fi</genre>
+        <country>USA</country>
+        <image>assets/placeholder.jpg</image>
+        <director>Christopher Nolan</director>
+        <screenwriter>Christopher Nolan</screenwriter>
+        <length>148</length>
+        <production_comp>Warner Bros</production_comp>
+    </item>
+    <item tipo="Album">
+        <title>The Dark Side of the Moon</title>
+        <year>2015</year>
+        <description>An iconic progressive rock album by Pink Floyd.</description>
+        <genre>Rock</genre>
+        <country>UK</country>
+        <image>assets/placeholder.jpg</image>
+        <author>Pink Floyd</author>
+        <songs>10</songs>
+        <length>43</length>
+    </item>
+    <item tipo="Videogame">
+        <title>The Witcher 3</title>
+        <year>2015</year>
+        <description>An open-world RPG set in a fantasy universe.</description>
+        <genre>RPG</genre>
+        <country>Poland</country>
+        <image>assets/placeholder.jpg</image>
+        <developer>CD Projekt Red</developer>
+        <multiplayer>false</multiplayer>
+    </item>
+    <item tipo="Comic">
+        <title>Spider-Man</title>
+        <year>1962</year>
+        <description>The origin story of one of the most beloved superheroes.</description>
+        <genre>Superhero</genre>
+        <country>USA</country>
+        <image>assets/placeholder.jpg</image>
+        <author>Stan Lee</author>
+        <chapters>15</chapters>
+    </item>
+    <item tipo="Books">
+        <title>1984</title>
+        <year>1949</year>
+        <description>A dystopian novel about totalitarian surveillance.</description>
+        <genre>Dystopian</genre>
+        <country>UK</country>
+        <image>assets/placeholder.jpg</image>
+        <author>George Orwell</author>
+        <pages>328</pages>
+        <publ>SeckerWarburg</publ>
+    </item>
+        <item tipo="Movie">
+        <title>Arrival</title>
+        <year>2016</year>
+        <description>A linguist is recruited to communicate with aliens who have landed on Earth.</description>
+        <genre>Sci-Fi</genre>
+        <country>USA</country>
+        <image>assets/arrival.jpg</image>
+        <director>Denis Villeneuve</director>
+        <screenwriter>Eric Heisserer</screenwriter>
+        <length>116</length>
+        <production_comp>Paramount Pictures</production_comp>
+    </item>
+    <item tipo="Movie">
+        <title>Parasite</title>
+        <year>2019</year>
+        <description>A poor family's scheme to infiltrate a wealthy household spirals out of control.</description>
+        <genre>Thriller</genre>
+        <country>South Korea</country>
+        <image>assets/parasite.jpg</image>
+        <director>Bong Joon-ho</director>
+        <screenwriter>Bong Joon-ho</screenwriter>
+        <length>132</length>
+        <production_comp>Barunson E and A</production_comp>
+    </item>
+    <item tipo="Album">
+        <title>OK Computer</title>
+        <year>1997</year>
+        <description>A landmark album blending rock with electronic elements and existential themes.</description>
+        <genre>Alternative Rock</genre>
+        <country>UK</country>
+        <image>assets/ok_computer.jpg</image>
+        <author>Radiohead</author>
+        <songs>12</songs>
+        <length>53</length>
+    </item>
+    <item tipo="Album">
+        <title>Lemonade</title>
+        <year>2016</year>
+        <description>A genre-blending concept album exploring themes of identity and infidelity.</description>
+        <genre>Pop/R and B</genre>
+        <country>USA</country>
+        <image>assets/lemonade.jpg</image>
+        <author>Beyoncé</author>
+        <songs>12</songs>
+        <length>45</length>
+    </item>
+    <item tipo="Books">
+        <title>The Name of the Wind</title>
+        <year>2007</year>
+        <description>The story of a gifted young man who grows to be the most powerful wizard the world has ever seen.</description>
+        <genre>Fantasy</genre>
+        <country>USA</country>
+        <image>assets/name_of_the_wind.jpg</image>
+        <author>Patrick Rothfuss</author>
+        <pages>662</pages>
+        <publ>DAW Books</publ>
+    </item>
+    <item tipo="Books">
+        <title>The Handmaid's Tale</title>
+        <year>1985</year>
+        <description>A dystopian novel exploring a totalitarian regime that controls women’s reproductive rights.</description>
+        <genre>Dystopian</genre>
+        <country>Canada</country>
+        <image>assets/handmaids_tale.jpg</image>
+        <author>Margaret Atwood</author>
+        <pages>311</pages>
+        <publ>McClelland and Stewart</publ>
+    </item>
+    <item tipo="Videogame">
+        <title>Hades</title>
+        <year>2020</year>
+        <description>A rogue-like dungeon crawler where you battle your way out of the Underworld.</description>
+        <genre>Action</genre>
+        <country>USA</country>
+        <image>assets/hades.jpg</image>
+        <developer>Supergiant Games</developer>
+        <multiplayer>false</multiplayer>
+    </item>
+    <item tipo="Videogame">
+        <title>It Takes Two</title>
+        <year>2021</year>
+        <description>A unique co-op adventure game about a couple working through their differences.</description>
+        <genre>Adventure</genre>
+        <country>Sweden</country>
+        <image>assets/it_takes_two.jpg</image>
+        <developer>Hazelight Studios</developer>
+        <multiplayer>true</multiplayer>
+    </item>
+    <item tipo="Comic">
+        <title>Sandman</title>
+        <year>1989</year>
+        <description>An epic tale of dreams, mythology, and humanity's stories.</description>
+        <genre>Fantasy</genre>
+        <country>USA</country>
+        <image>assets/sandman.jpg</image>
+        <author>Neil Gaiman</author>
+        <chapters>75</chapters>
+    </item>
+    <item tipo="Comic">
+        <title>Y: The Last Man</title>
+        <year>2002</year>
+        <description>A post-apocalyptic story where one man survives a mysterious plague that kills all males.</description>
+        <genre>Science Fiction</genre>
+        <country>USA</country>
+        <image>assets/y_the_last_man.jpg</image>
+        <author>Brian K. Vaughan</author>
+        <chapters>60</chapters>
+    </item>
+</items>
