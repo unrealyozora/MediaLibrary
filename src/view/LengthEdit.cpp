@@ -46,7 +46,7 @@ void LengthEdit::textChanged(const QString& text) {
 	unsigned int value = text.split(" ").first().toInt(&ok);
 
 	// Aggiorna l'ultimo valore valido solo se l'input è corretto
-	if (ok && value >= 0 && value <= 3000) {
+	if (ok && value <= 3000) {
 		lastValidValue = value;
 	}
 }
