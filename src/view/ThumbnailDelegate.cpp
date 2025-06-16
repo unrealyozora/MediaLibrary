@@ -63,5 +63,7 @@ void ThumbnailDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
 }
 
 QSize ThumbnailDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
-    return FIXED_ITEM_SIZE;
+	Q_UNUSED(option);
+	Q_UNUSED(index);
+	return FIXED_ITEM_SIZE;
 }
