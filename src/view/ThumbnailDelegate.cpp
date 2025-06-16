@@ -8,7 +8,7 @@ const unsigned int BANNER_ALPHA = 200;
 const unsigned int BANNER_TEXT_COLOR = 0x0ffffff;
 const unsigned int HIGHLIGHT_ALPHA = 100;
 
-// Dimensione fissa per ogni elemento (puoi personalizzarla)
+// Dimensione fissa per ogni elemento
 const QSize FIXED_ITEM_SIZE(200, 240);
 
 ThumbnailDelegate::ThumbnailDelegate(QObject* parent) : QStyledItemDelegate(parent) {}
@@ -29,10 +29,10 @@ void ThumbnailDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
     painter->setPen(Qt::gray);
     painter->drawRect(itemRect.adjusted(0, 0, -1, -1));  // -1 per non sforare
 
-    // Estrai pixmap
+    // Estrazione pixmap
     QPixmap pixmap = index.model()->data(index, Qt::DecorationRole).value<QPixmap>();
 
-    // Calcola posizione centrata
+    // Calcolo posizione centrata
     QSize availableSize(itemRect.width() - 10, itemRect.height() - BANNER_HEIGHT - 10); // margine di 5px
     QPixmap scaled = pixmap.scaled(availableSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
@@ -53,7 +53,7 @@ void ThumbnailDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
     QString filename = index.model()->data(index, Qt::DisplayRole).toString();
     painter->setPen(BANNER_TEXT_COLOR);
 
-	//Gestiamo i titoli troppo lunghi per essere contenuti nel banner
+	//Gestione dei titoli troppo lunghi per essere contenuti nel banner
     QFontMetrics fm(painter->font());
 	QString elided = fm.elidedText(filename, Qt::ElideRight, bannerRect.width() - 10); // 10px margine
 	painter->drawText(bannerRect, Qt::AlignCenter, elided);
@@ -63,7 +63,7 @@ void ThumbnailDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
 }
 
 QSize ThumbnailDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
-	Q_UNUSED(option);
+	Q_UNUSED(option);	//Da usare per mantenere l'override evitando i warning
 	Q_UNUSED(index);
 	return FIXED_ITEM_SIZE;
 }
