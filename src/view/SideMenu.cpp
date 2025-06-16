@@ -8,7 +8,7 @@
 #include <QFrame>
 SideMenu::SideMenu(LibraryCategoryFilter* categoryProxy, LibraryQueryFilter* queryProxy, QStackedWidget* stackedWidget, QWidget* parent):QWidget(parent), categoryProxy(categoryProxy), queryProxy(queryProxy), stackedWidget(stackedWidget){
 	QHBoxLayout* verticalLayout=new QHBoxLayout(this);
-	QVBoxLayout* layout = new QVBoxLayout(this);
+	QVBoxLayout* layout = new QVBoxLayout();
 	layout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
 	layout->setContentsMargins(0, 0, 0, 0);
 	verticalLayout->setContentsMargins(0, 0, 0, 0);
