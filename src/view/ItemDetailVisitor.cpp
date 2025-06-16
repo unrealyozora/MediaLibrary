@@ -394,7 +394,7 @@ void ItemDetailVisitor::saveChanges(AbstractItem& item,QLabel& title, QList<QLin
                                                                                       //se chiamiamo undo()
         }
     }
-    SaveEditsVisitor editsVisitor(title,editList, this->multiplayerEdit);
+    SaveEditsVisitor editsVisitor(title,editList, multiplayerEdit);
     item.accept(editsVisitor);
 }
 
