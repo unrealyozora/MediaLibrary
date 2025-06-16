@@ -3,14 +3,14 @@
         "country": "USA",
         "description": "A team of explorers travel through a wormhole in space.",
         "director": "Christopher Nolan",
-        "genre": "Ciao",
+        "genre": "Sci-Fi",
         "image": "assets/interstellar.jpg",
-        "length": 90,
+        "length": 169,
         "production_comp": "Paramount Pictures",
-        "screenwriter": "Tarantino",
+        "screenwriter": "Christopher Nolan",
         "tipo": "Movie",
-        "title": "Movie",
-        "year": 2101
+        "title": "Interstellar",
+        "year": 2014
     },
     {
         "author": "Aldous Huxley",
