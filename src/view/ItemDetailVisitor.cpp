@@ -114,6 +114,13 @@ void ItemDetailVisitor::initialSetup(AbstractItem& item){
     editList->append(descriptionEdit);
     editList->append(genreEdit);
     editList->append(countryEdit);
+
+    QLabel* viewsLabel = new QLabel("Views:");
+    QLineEdit* viewsEdit = new QLineEdit(QString::number(item.getViewCount()));
+    viewsEdit->setReadOnly(true);
+    infoLayout->addWidget(viewsLabel);
+    infoLayout->addWidget(viewsEdit);
+    infoLayout->addSpacing(spacing);
 }
 
 void ItemDetailVisitor::finalSetup(AbstractItem& item){

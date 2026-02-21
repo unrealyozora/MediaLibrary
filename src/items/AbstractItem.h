@@ -12,6 +12,7 @@ private:
 	std::string genre;
 	std::string country;
 	std::string image;
+	unsigned int viewCount;
 public:
 	AbstractItem(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image);
 	virtual ~AbstractItem();
@@ -27,6 +28,9 @@ public:
 	void setCountry(const std::string& c);
 	const std::string& getImage() const;
 	void setImage(const std::string& i);
+	unsigned int getViewCount() const;
+	void setViewCount(unsigned int vc);
+	void incrementViewCount();
 
 	virtual void accept(ItemVisitor& iv) = 0;
 };

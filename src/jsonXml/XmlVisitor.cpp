@@ -13,6 +13,7 @@ void XmlVisitor::visit(Album& album) {
     xmlWriter.writeTextElement("author", QString::fromStdString(album.getAuthor()));
     xmlWriter.writeTextElement("songs", QString::number(album.getSongs()));
     xmlWriter.writeTextElement("length", QString::number(album.getLength()));
+    xmlWriter.writeTextElement("view_count", QString::number(album.getViewCount()));
     xmlWriter.writeEndElement();
 }
 
@@ -28,6 +29,7 @@ void XmlVisitor::visit(Books& book) {
     xmlWriter.writeTextElement("author", QString::fromStdString(book.getAuthor()));
     xmlWriter.writeTextElement("pages", QString::number(book.getPages()));
     xmlWriter.writeTextElement("publ", QString::fromStdString(book.getPub()));
+    xmlWriter.writeTextElement("view_count", QString::number(book.getViewCount()));
     xmlWriter.writeEndElement();
 }
 
@@ -42,6 +44,7 @@ void XmlVisitor::visit(Comic& comic) {
     xmlWriter.writeTextElement("image", QString::fromStdString(comic.getImage()));
     xmlWriter.writeTextElement("author", QString::fromStdString(comic.getAuthor()));
     xmlWriter.writeTextElement("chapters", QString::number(comic.getChapters()));
+    xmlWriter.writeTextElement("view_count", QString::number(comic.getViewCount()));
     xmlWriter.writeEndElement();
 }
 
@@ -58,6 +61,7 @@ void XmlVisitor::visit(Movie& movie) {
     xmlWriter.writeTextElement("screenwriter", QString::fromStdString(movie.getScreenwriter()));
     xmlWriter.writeTextElement("length", QString::number(movie.getLength()));
     xmlWriter.writeTextElement("production_comp", QString::fromStdString(movie.getProd()));
+    xmlWriter.writeTextElement("view_count", QString::number(movie.getViewCount()));
     xmlWriter.writeEndElement();
 }
 
@@ -72,5 +76,6 @@ void XmlVisitor::visit(Videogames& videogame) {
     xmlWriter.writeTextElement("image", QString::fromStdString(videogame.getImage()));
     xmlWriter.writeTextElement("developer", QString::fromStdString(videogame.getDeveloper()));
     xmlWriter.writeTextElement("multiplayer", videogame.getMultiplayer() ? "true" : "false");
+    xmlWriter.writeTextElement("view_count", QString::number(videogame.getViewCount()));
     xmlWriter.writeEndElement();
 }

@@ -1,7 +1,7 @@
 #include "AbstractItem.h"
 
 AbstractItem::AbstractItem(const std::string& _title, unsigned int _year, const std::string& _description, const std::string& _genre, const std::string& _country, const std::string& _image) :
-	title(_title), year(_year), description(_description), genre(_genre), country(_country), image(_image) {}
+	title(_title), year(_year), description(_description), genre(_genre), country(_country), image(_image), viewCount(0) {}
 AbstractItem::~AbstractItem() = default;
 
 const std::string& AbstractItem::getTitle() const {
@@ -41,6 +41,18 @@ const std::string& AbstractItem::getImage() const {
 
 void AbstractItem::setImage(const std::string& i) {
 	this->image = i;
+}
+
+unsigned int AbstractItem::getViewCount() const {
+	return viewCount;
+}
+
+void AbstractItem::setViewCount(unsigned int vc) {
+	this->viewCount = vc;
+}
+
+void AbstractItem::incrementViewCount() {
+	++viewCount;
 }
 
 
