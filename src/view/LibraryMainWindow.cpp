@@ -191,6 +191,8 @@ void LibraryMainWindow::SaveFile(){
 void LibraryMainWindow::itemSelected(const QModelIndex& index) {
 	AbstractItem* selectedItem = index.data(Qt::UserRole).value<AbstractItem*>();
 	if (selectedItem) {
+		selectedItem->incrementViewCount();
+		Library::getInstance()->updateFile();
 		detailWidget->showDetails(selectedItem);
 		stackedWidget->setCurrentIndex(1);
 	}
